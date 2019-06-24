@@ -1,5 +1,0 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
-SET(LIBRARY_OUTPUT_PATH "/Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/usr/lib")
-AUX_SOURCE_DIRECTORY(/Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/src/hellolib/src HELLOlib_src)
-INCLUDE_DIRECTORIES("/Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/src/hellolib/include")
-ADD_LIBRARY(hello SHARED ${HELLOlib_src})
