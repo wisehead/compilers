@@ -6,5 +6,5 @@ CXX_FLAGS =
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake/usr/include/hello 
+CXX_INCLUDES = -I/Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake1/usr/include/hello 
 

@@ -6,11 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake/code/lib/hello.cc
+/Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake1/code/lib/hello.cc
 hello.h
-/Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake/code/lib/hello.h
+/Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake1/code/lib/hello.h
 
-/Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake/code/lib/hello.h
+/Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake1/code/lib/hello.h
 stdio.h
 -
 

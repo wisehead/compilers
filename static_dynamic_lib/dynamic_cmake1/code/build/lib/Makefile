@@ -48,10 +48,10 @@ RM = /usr/local/Cellar/cmake/3.11.1/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake/code
+CMAKE_SOURCE_DIR = /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake1/code
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake/code/build
+CMAKE_BINARY_DIR = /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake1/code/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -126,14 +126,14 @@ list_install_components/fast: list_install_components
 
 # The main all target
 all: cmake_check_build_system
-	cd /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake/code/build && $(CMAKE_COMMAND) -E cmake_progress_start /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake/code/build/CMakeFiles /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake/code/build/lib/CMakeFiles/progress.marks
-	cd /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake/code/build && $(MAKE) -f CMakeFiles/Makefile2 lib/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake/code/build/CMakeFiles 0
+	cd /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake1/code/build && $(CMAKE_COMMAND) -E cmake_progress_start /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake1/code/build/CMakeFiles /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake1/code/build/lib/CMakeFiles/progress.marks
+	cd /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake1/code/build && $(MAKE) -f CMakeFiles/Makefile2 lib/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake1/code/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake/code/build && $(MAKE) -f CMakeFiles/Makefile2 lib/clean
+	cd /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake1/code/build && $(MAKE) -f CMakeFiles/Makefile2 lib/clean
 .PHONY : clean
 
 # The main clean target
@@ -143,22 +143,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake/code/build && $(MAKE) -f CMakeFiles/Makefile2 lib/preinstall
+	cd /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake1/code/build && $(MAKE) -f CMakeFiles/Makefile2 lib/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake/code/build && $(MAKE) -f CMakeFiles/Makefile2 lib/preinstall
+	cd /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake1/code/build && $(MAKE) -f CMakeFiles/Makefile2 lib/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake/code/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake1/code/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 lib/CMakeFiles/hello.dir/rule:
-	cd /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake/code/build && $(MAKE) -f CMakeFiles/Makefile2 lib/CMakeFiles/hello.dir/rule
+	cd /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake1/code/build && $(MAKE) -f CMakeFiles/Makefile2 lib/CMakeFiles/hello.dir/rule
 .PHONY : lib/CMakeFiles/hello.dir/rule
 
 # Convenience name for target.
@@ -168,22 +168,22 @@ hello: lib/CMakeFiles/hello.dir/rule
 
 # fast build rule for target.
 hello/fast:
-	cd /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake/code/build && $(MAKE) -f lib/CMakeFiles/hello.dir/build.make lib/CMakeFiles/hello.dir/build
+	cd /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake1/code/build && $(MAKE) -f lib/CMakeFiles/hello.dir/build.make lib/CMakeFiles/hello.dir/build
 .PHONY : hello/fast
 
 # target to build an object file
 hello.o:
-	cd /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake/code/build && $(MAKE) -f lib/CMakeFiles/hello.dir/build.make lib/CMakeFiles/hello.dir/hello.o
+	cd /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake1/code/build && $(MAKE) -f lib/CMakeFiles/hello.dir/build.make lib/CMakeFiles/hello.dir/hello.o
 .PHONY : hello.o
 
 # target to preprocess a source file
 hello.i:
-	cd /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake/code/build && $(MAKE) -f lib/CMakeFiles/hello.dir/build.make lib/CMakeFiles/hello.dir/hello.i
+	cd /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake1/code/build && $(MAKE) -f lib/CMakeFiles/hello.dir/build.make lib/CMakeFiles/hello.dir/hello.i
 .PHONY : hello.i
 
 # target to generate assembly for a file
 hello.s:
-	cd /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake/code/build && $(MAKE) -f lib/CMakeFiles/hello.dir/build.make lib/CMakeFiles/hello.dir/hello.s
+	cd /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake1/code/build && $(MAKE) -f lib/CMakeFiles/hello.dir/build.make lib/CMakeFiles/hello.dir/hello.s
 .PHONY : hello.s
 
 # Help Target
@@ -213,6 +213,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake/code/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake1/code/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake/code/lib/hello.cc" "/Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake/code/build/lib/CMakeFiles/hello.dir/hello.o"
+  "/Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake1/code/lib/hello.cc" "/Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake1/code/build/lib/CMakeFiles/hello.dir/hello.o"
   )
 set(CMAKE_CXX_COMPILER_ID "Clang")
 

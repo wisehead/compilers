@@ -1,3 +1,2 @@
-/Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake/usr/lib/libhello.dylib
-/Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake/usr/lib/libhello.dylib
-/Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake/usr/include/hello/hello.h
+/Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake1/usr/lib/libhello.dylib
+/Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake1/usr/include/hello/hello.h

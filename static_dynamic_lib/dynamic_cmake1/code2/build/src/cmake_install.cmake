@@ -1,4 +1,4 @@
-# Install script for directory: /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake/code2/src
+# Install script for directory: /Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake1/code2/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
