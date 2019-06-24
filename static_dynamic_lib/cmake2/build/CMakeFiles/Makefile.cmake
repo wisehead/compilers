@@ -15,6 +15,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/feature_tests.cxx"
   "../src/CMakeLists.txt"
   "../src/hellolib/CMakeLists.txt"
+  "../src/mycmake/CMakeLists.txt"
   "/usr/local/Cellar/cmake/3.11.1/share/cmake/Modules/CMakeCCompiler.cmake.in"
   "/usr/local/Cellar/cmake/3.11.1/share/cmake/Modules/CMakeCCompilerABI.c"
   "/usr/local/Cellar/cmake/3.11.1/share/cmake/Modules/CMakeCInformation.cmake"
@@ -119,10 +120,12 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   "src/CMakeFiles/CMakeDirectoryInformation.cmake"
   "src/hellolib/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "src/mycmake/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "src/hellolib/CMakeFiles/hello_static.dir/DependInfo.cmake"
   "src/hellolib/CMakeFiles/hello.dir/DependInfo.cmake"
+  "src/mycmake/CMakeFiles/mycmake.dir/DependInfo.cmake"
   )

@@ -1,4 +1,4 @@
-# Install script for directory: /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/src
+# Install script for directory: /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/src/mycmake
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -30,12 +30,5 @@ endif()
 # Is this installation the result of a crosscompile?
 if(NOT DEFINED CMAKE_CROSSCOMPILING)
   set(CMAKE_CROSSCOMPILING "FALSE")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for each subdirectory.
-  include("/Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build/src/hellolib/cmake_install.cmake")
-  include("/Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build/src/mycmake/cmake_install.cmake")
-
 endif()
 

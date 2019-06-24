@@ -1,0 +1,9 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+SET(EXECUTABLE_OUTPUT_PATH "/Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/usr/bin")
+AUX_SOURCE_DIRECTORY(/Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/src/mycmake/src mycmake_src)
+INCLUDE_DIRECTORIES("/Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/src/hellolib/include")
+LINK_DIRECTORIES("/Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/usr/lib")
+ADD_EXECUTABLE(mycmake ${mycmake_src})
+TARGET_LINK_LIBRARIES(mycmake libhello.a)
+#TARGET_LINK_LIBRARIES(mycmake libhello.so)
+

@@ -6,3 +6,6 @@
 /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build/src/hellolib/CMakeFiles/edit_cache.dir
 /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build/src/hellolib/CMakeFiles/hello_static.dir
 /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build/src/hellolib/CMakeFiles/hello.dir
+/Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build/src/mycmake/CMakeFiles/rebuild_cache.dir
+/Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build/src/mycmake/CMakeFiles/edit_cache.dir
+/Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build/src/mycmake/CMakeFiles/mycmake.dir

@@ -80,14 +80,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build/CMakeFiles /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build/CMakeFiles/progress.marks
-	$(MAKE) -f CMakeFiles/Makefile2 all
+	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(CMAKE_COMMAND) -E cmake_progress_start /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build/CMakeFiles /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build/src/mycmake/CMakeFiles/progress.marks
+	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f CMakeFiles/Makefile2 src/mycmake/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) -f CMakeFiles/Makefile2 clean
+	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f CMakeFiles/Makefile2 src/mycmake/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,57 +97,60 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) -f CMakeFiles/Makefile2 preinstall
+	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f CMakeFiles/Makefile2 src/mycmake/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) -f CMakeFiles/Makefile2 preinstall
+	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f CMakeFiles/Makefile2 src/mycmake/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-#=============================================================================
-# Target rules for targets named hello_static
+# Convenience name for target.
+src/mycmake/CMakeFiles/mycmake.dir/rule:
+	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f CMakeFiles/Makefile2 src/mycmake/CMakeFiles/mycmake.dir/rule
+.PHONY : src/mycmake/CMakeFiles/mycmake.dir/rule
 
-# Build rule for target.
-hello_static: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 hello_static
-.PHONY : hello_static
+# Convenience name for target.
+mycmake: src/mycmake/CMakeFiles/mycmake.dir/rule
 
-# fast build rule for target.
-hello_static/fast:
-	$(MAKE) -f src/hellolib/CMakeFiles/hello_static.dir/build.make src/hellolib/CMakeFiles/hello_static.dir/build
-.PHONY : hello_static/fast
-
-#=============================================================================
-# Target rules for targets named hello
-
-# Build rule for target.
-hello: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 hello
-.PHONY : hello
-
-# fast build rule for target.
-hello/fast:
-	$(MAKE) -f src/hellolib/CMakeFiles/hello.dir/build.make src/hellolib/CMakeFiles/hello.dir/build
-.PHONY : hello/fast
-
-#=============================================================================
-# Target rules for targets named mycmake
-
-# Build rule for target.
-mycmake: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 mycmake
 .PHONY : mycmake
 
 # fast build rule for target.
 mycmake/fast:
-	$(MAKE) -f src/mycmake/CMakeFiles/mycmake.dir/build.make src/mycmake/CMakeFiles/mycmake.dir/build
+	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f src/mycmake/CMakeFiles/mycmake.dir/build.make src/mycmake/CMakeFiles/mycmake.dir/build
 .PHONY : mycmake/fast
+
+src/mycmake.o: src/mycmake.cpp.o
+
+.PHONY : src/mycmake.o
+
+# target to build an object file
+src/mycmake.cpp.o:
+	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f src/mycmake/CMakeFiles/mycmake.dir/build.make src/mycmake/CMakeFiles/mycmake.dir/src/mycmake.cpp.o
+.PHONY : src/mycmake.cpp.o
+
+src/mycmake.i: src/mycmake.cpp.i
+
+.PHONY : src/mycmake.i
+
+# target to preprocess a source file
+src/mycmake.cpp.i:
+	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f src/mycmake/CMakeFiles/mycmake.dir/build.make src/mycmake/CMakeFiles/mycmake.dir/src/mycmake.cpp.i
+.PHONY : src/mycmake.cpp.i
+
+src/mycmake.s: src/mycmake.cpp.s
+
+.PHONY : src/mycmake.s
+
+# target to generate assembly for a file
+src/mycmake.cpp.s:
+	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f src/mycmake/CMakeFiles/mycmake.dir/build.make src/mycmake/CMakeFiles/mycmake.dir/src/mycmake.cpp.s
+.PHONY : src/mycmake.cpp.s
 
 # Help Target
 help:
@@ -157,9 +160,10 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... hello_static"
-	@echo "... hello"
 	@echo "... mycmake"
+	@echo "... src/mycmake.o"
+	@echo "... src/mycmake.i"
+	@echo "... src/mycmake.s"
 .PHONY : help
 
 
@@ -171,6 +175,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

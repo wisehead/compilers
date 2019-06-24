@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../src/hellolib/include/hello.h
+iostream
+-
+
+/Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/src/mycmake/src/mycmake.cpp
+iostream
+-
+hello.h
+/Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/src/mycmake/src/hello.h
+

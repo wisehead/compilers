@@ -1,0 +1,1 @@
+/Library/Developer/CommandLineTools/usr/bin/c++   -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/mycmake.dir/src/mycmake.cpp.o  -o ../../../usr/bin/mycmake  -L/Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/usr/lib -Wl,-rpath,/Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/usr/lib -lhello 
