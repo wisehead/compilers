@@ -1,0 +1,2 @@
+/Library/Developer/CommandLineTools/usr/bin/ar qc ../../../usr/lib/libhello.a  CMakeFiles/hello_static.dir/src/hello.cpp.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib ../../../usr/lib/libhello.a

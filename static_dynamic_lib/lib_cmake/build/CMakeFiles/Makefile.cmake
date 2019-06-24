@@ -123,6 +123,5 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "src/hellolib/CMakeFiles/hello_static.dir/DependInfo.cmake"
   "src/hellolib/CMakeFiles/hello.dir/DependInfo.cmake"
   )

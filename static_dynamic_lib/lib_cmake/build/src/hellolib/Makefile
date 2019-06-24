@@ -111,21 +111,6 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-src/hellolib/CMakeFiles/hello_static.dir/rule:
-	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f CMakeFiles/Makefile2 src/hellolib/CMakeFiles/hello_static.dir/rule
-.PHONY : src/hellolib/CMakeFiles/hello_static.dir/rule
-
-# Convenience name for target.
-hello_static: src/hellolib/CMakeFiles/hello_static.dir/rule
-
-.PHONY : hello_static
-
-# fast build rule for target.
-hello_static/fast:
-	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f src/hellolib/CMakeFiles/hello_static.dir/build.make src/hellolib/CMakeFiles/hello_static.dir/build
-.PHONY : hello_static/fast
-
-# Convenience name for target.
 src/hellolib/CMakeFiles/hello.dir/rule:
 	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f CMakeFiles/Makefile2 src/hellolib/CMakeFiles/hello.dir/rule
 .PHONY : src/hellolib/CMakeFiles/hello.dir/rule
@@ -146,7 +131,6 @@ src/hello.o: src/hello.cpp.o
 
 # target to build an object file
 src/hello.cpp.o:
-	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f src/hellolib/CMakeFiles/hello_static.dir/build.make src/hellolib/CMakeFiles/hello_static.dir/src/hello.cpp.o
 	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f src/hellolib/CMakeFiles/hello.dir/build.make src/hellolib/CMakeFiles/hello.dir/src/hello.cpp.o
 .PHONY : src/hello.cpp.o
 
@@ -156,7 +140,6 @@ src/hello.i: src/hello.cpp.i
 
 # target to preprocess a source file
 src/hello.cpp.i:
-	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f src/hellolib/CMakeFiles/hello_static.dir/build.make src/hellolib/CMakeFiles/hello_static.dir/src/hello.cpp.i
 	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f src/hellolib/CMakeFiles/hello.dir/build.make src/hellolib/CMakeFiles/hello.dir/src/hello.cpp.i
 .PHONY : src/hello.cpp.i
 
@@ -166,7 +149,6 @@ src/hello.s: src/hello.cpp.s
 
 # target to generate assembly for a file
 src/hello.cpp.s:
-	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f src/hellolib/CMakeFiles/hello_static.dir/build.make src/hellolib/CMakeFiles/hello_static.dir/src/hello.cpp.s
 	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f src/hellolib/CMakeFiles/hello.dir/build.make src/hellolib/CMakeFiles/hello.dir/src/hello.cpp.s
 .PHONY : src/hello.cpp.s
 
@@ -178,7 +160,6 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... hello_static"
 	@echo "... hello"
 	@echo "... src/hello.o"
 	@echo "... src/hello.i"

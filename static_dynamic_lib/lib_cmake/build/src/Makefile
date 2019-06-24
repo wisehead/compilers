@@ -80,14 +80,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(CMAKE_COMMAND) -E cmake_progress_start /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build/CMakeFiles /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build/src/hellolib/CMakeFiles/progress.marks
-	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f CMakeFiles/Makefile2 src/hellolib/all
+	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(CMAKE_COMMAND) -E cmake_progress_start /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build/CMakeFiles /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build/src/CMakeFiles/progress.marks
+	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f CMakeFiles/Makefile2 src/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f CMakeFiles/Makefile2 src/hellolib/clean
+	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f CMakeFiles/Makefile2 src/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,78 +97,18 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f CMakeFiles/Makefile2 src/hellolib/preinstall
+	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f CMakeFiles/Makefile2 src/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f CMakeFiles/Makefile2 src/hellolib/preinstall
+	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f CMakeFiles/Makefile2 src/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
 	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
-
-# Convenience name for target.
-src/hellolib/CMakeFiles/hello_static.dir/rule:
-	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f CMakeFiles/Makefile2 src/hellolib/CMakeFiles/hello_static.dir/rule
-.PHONY : src/hellolib/CMakeFiles/hello_static.dir/rule
-
-# Convenience name for target.
-hello_static: src/hellolib/CMakeFiles/hello_static.dir/rule
-
-.PHONY : hello_static
-
-# fast build rule for target.
-hello_static/fast:
-	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f src/hellolib/CMakeFiles/hello_static.dir/build.make src/hellolib/CMakeFiles/hello_static.dir/build
-.PHONY : hello_static/fast
-
-# Convenience name for target.
-src/hellolib/CMakeFiles/hello.dir/rule:
-	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f CMakeFiles/Makefile2 src/hellolib/CMakeFiles/hello.dir/rule
-.PHONY : src/hellolib/CMakeFiles/hello.dir/rule
-
-# Convenience name for target.
-hello: src/hellolib/CMakeFiles/hello.dir/rule
-
-.PHONY : hello
-
-# fast build rule for target.
-hello/fast:
-	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f src/hellolib/CMakeFiles/hello.dir/build.make src/hellolib/CMakeFiles/hello.dir/build
-.PHONY : hello/fast
-
-src/hello.o: src/hello.cpp.o
-
-.PHONY : src/hello.o
-
-# target to build an object file
-src/hello.cpp.o:
-	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f src/hellolib/CMakeFiles/hello_static.dir/build.make src/hellolib/CMakeFiles/hello_static.dir/src/hello.cpp.o
-	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f src/hellolib/CMakeFiles/hello.dir/build.make src/hellolib/CMakeFiles/hello.dir/src/hello.cpp.o
-.PHONY : src/hello.cpp.o
-
-src/hello.i: src/hello.cpp.i
-
-.PHONY : src/hello.i
-
-# target to preprocess a source file
-src/hello.cpp.i:
-	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f src/hellolib/CMakeFiles/hello_static.dir/build.make src/hellolib/CMakeFiles/hello_static.dir/src/hello.cpp.i
-	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f src/hellolib/CMakeFiles/hello.dir/build.make src/hellolib/CMakeFiles/hello.dir/src/hello.cpp.i
-.PHONY : src/hello.cpp.i
-
-src/hello.s: src/hello.cpp.s
-
-.PHONY : src/hello.s
-
-# target to generate assembly for a file
-src/hello.cpp.s:
-	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f src/hellolib/CMakeFiles/hello_static.dir/build.make src/hellolib/CMakeFiles/hello_static.dir/src/hello.cpp.s
-	cd /Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/build && $(MAKE) -f src/hellolib/CMakeFiles/hello.dir/build.make src/hellolib/CMakeFiles/hello.dir/src/hello.cpp.s
-.PHONY : src/hello.cpp.s
 
 # Help Target
 help:
@@ -178,11 +118,6 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... hello_static"
-	@echo "... hello"
-	@echo "... src/hello.o"
-	@echo "... src/hello.i"
-	@echo "... src/hello.s"
 .PHONY : help
 
 

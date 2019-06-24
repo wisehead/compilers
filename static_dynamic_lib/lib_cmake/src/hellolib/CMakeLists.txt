@@ -3,5 +3,3 @@ SET(LIBRARY_OUTPUT_PATH "/Users/chenhui13/github/compilers/static_dynamic_lib/cm
 AUX_SOURCE_DIRECTORY(/Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/src/hellolib/src HELLOlib_src)
 INCLUDE_DIRECTORIES("/Users/chenhui13/github/compilers/static_dynamic_lib/cmake2/src/hellolib/include")
 ADD_LIBRARY(hello SHARED ${HELLOlib_src})
-ADD_LIBRARY(hello_static STATIC ${HELLOlib_src})
-SET_TARGET_PROPERTIES(hello_static PROPERTIES OUTPUT_NAME "hello")

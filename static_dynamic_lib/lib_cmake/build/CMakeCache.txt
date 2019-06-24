@@ -201,9 +201,6 @@ HELLOLIB_SOURCE_DIR:STATIC=/Users/chenhui13/github/compilers/static_dynamic_lib/
 //Dependencies for target
 hello_LIB_DEPENDS:STATIC=
 
-//Dependencies for target
-hello_static_LIB_DEPENDS:STATIC=
-
 
 ########################
 # INTERNAL cache entries
