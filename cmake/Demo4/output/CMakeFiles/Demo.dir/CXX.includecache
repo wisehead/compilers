@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/baidu/cmake/Demo4/main.cc
+stdio.h
+-
+stdlib.h
+-
+config.h
+/Users/baidu/cmake/Demo4/config.h
+math/MathFunctions.h
+/Users/baidu/cmake/Demo4/math/MathFunctions.h
+math.h
+-
+
+/Users/baidu/cmake/Demo4/math/MathFunctions.h
+
+config.h
+

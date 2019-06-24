@@ -1,0 +1,6 @@
+/Users/baidu/cmake/Demo4/output/CMakeFiles/edit_cache.dir
+/Users/baidu/cmake/Demo4/output/CMakeFiles/rebuild_cache.dir
+/Users/baidu/cmake/Demo4/output/CMakeFiles/Demo.dir
+/Users/baidu/cmake/Demo4/output/math/CMakeFiles/edit_cache.dir
+/Users/baidu/cmake/Demo4/output/math/CMakeFiles/rebuild_cache.dir
+/Users/baidu/cmake/Demo4/output/math/CMakeFiles/MathFunctions.dir

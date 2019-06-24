@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/baidu/cmake/Demo1/main.cc
+stdio.h
+-
+stdlib.h
+-
+

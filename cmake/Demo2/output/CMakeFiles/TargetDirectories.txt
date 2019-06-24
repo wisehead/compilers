@@ -1,0 +1,3 @@
+/Users/baidu/cmake/Demo2/output/CMakeFiles/edit_cache.dir
+/Users/baidu/cmake/Demo2/output/CMakeFiles/rebuild_cache.dir
+/Users/baidu/cmake/Demo2/output/CMakeFiles/Demo.dir
