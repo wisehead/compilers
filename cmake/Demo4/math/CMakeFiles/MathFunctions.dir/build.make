@@ -43,57 +43,57 @@ RM = /usr/local/Cellar/cmake/3.11.1/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/chenhui13/github/compilers/cmake/Demo4
+CMAKE_SOURCE_DIR = /Users/chenhui13/github/compilers/cmake/Demo4/math
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/chenhui13/github/compilers/cmake/Demo4
+CMAKE_BINARY_DIR = /Users/chenhui13/github/compilers/cmake/Demo4/math
 
 # Include any dependencies generated for this target.
-include math/CMakeFiles/MathFunctions.dir/depend.make
+include CMakeFiles/MathFunctions.dir/depend.make
 
 # Include the progress variables for this target.
-include math/CMakeFiles/MathFunctions.dir/progress.make
+include CMakeFiles/MathFunctions.dir/progress.make
 
 # Include the compile flags for this target's objects.
-include math/CMakeFiles/MathFunctions.dir/flags.make
+include CMakeFiles/MathFunctions.dir/flags.make
 
-math/CMakeFiles/MathFunctions.dir/MathFunctions.cc.o: math/CMakeFiles/MathFunctions.dir/flags.make
-math/CMakeFiles/MathFunctions.dir/MathFunctions.cc.o: math/MathFunctions.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/chenhui13/github/compilers/cmake/Demo4/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object math/CMakeFiles/MathFunctions.dir/MathFunctions.cc.o"
-	cd /Users/chenhui13/github/compilers/cmake/Demo4/math && /Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/MathFunctions.dir/MathFunctions.cc.o -c /Users/chenhui13/github/compilers/cmake/Demo4/math/MathFunctions.cc
+CMakeFiles/MathFunctions.dir/MathFunctions.o: CMakeFiles/MathFunctions.dir/flags.make
+CMakeFiles/MathFunctions.dir/MathFunctions.o: MathFunctions.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/chenhui13/github/compilers/cmake/Demo4/math/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/MathFunctions.dir/MathFunctions.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/MathFunctions.dir/MathFunctions.o -c /Users/chenhui13/github/compilers/cmake/Demo4/math/MathFunctions.cc
 
-math/CMakeFiles/MathFunctions.dir/MathFunctions.cc.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/MathFunctions.dir/MathFunctions.cc.i"
-	cd /Users/chenhui13/github/compilers/cmake/Demo4/math && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/chenhui13/github/compilers/cmake/Demo4/math/MathFunctions.cc > CMakeFiles/MathFunctions.dir/MathFunctions.cc.i
+CMakeFiles/MathFunctions.dir/MathFunctions.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/MathFunctions.dir/MathFunctions.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/chenhui13/github/compilers/cmake/Demo4/math/MathFunctions.cc > CMakeFiles/MathFunctions.dir/MathFunctions.i
 
-math/CMakeFiles/MathFunctions.dir/MathFunctions.cc.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/MathFunctions.dir/MathFunctions.cc.s"
-	cd /Users/chenhui13/github/compilers/cmake/Demo4/math && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/chenhui13/github/compilers/cmake/Demo4/math/MathFunctions.cc -o CMakeFiles/MathFunctions.dir/MathFunctions.cc.s
+CMakeFiles/MathFunctions.dir/MathFunctions.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/MathFunctions.dir/MathFunctions.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/chenhui13/github/compilers/cmake/Demo4/math/MathFunctions.cc -o CMakeFiles/MathFunctions.dir/MathFunctions.s
 
 # Object files for target MathFunctions
 MathFunctions_OBJECTS = \
-"CMakeFiles/MathFunctions.dir/MathFunctions.cc.o"
+"CMakeFiles/MathFunctions.dir/MathFunctions.o"
 
 # External object files for target MathFunctions
 MathFunctions_EXTERNAL_OBJECTS =
 
-math/libMathFunctions.a: math/CMakeFiles/MathFunctions.dir/MathFunctions.cc.o
-math/libMathFunctions.a: math/CMakeFiles/MathFunctions.dir/build.make
-math/libMathFunctions.a: math/CMakeFiles/MathFunctions.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/chenhui13/github/compilers/cmake/Demo4/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libMathFunctions.a"
-	cd /Users/chenhui13/github/compilers/cmake/Demo4/math && $(CMAKE_COMMAND) -P CMakeFiles/MathFunctions.dir/cmake_clean_target.cmake
-	cd /Users/chenhui13/github/compilers/cmake/Demo4/math && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/MathFunctions.dir/link.txt --verbose=$(VERBOSE)
+libMathFunctions.a: CMakeFiles/MathFunctions.dir/MathFunctions.o
+libMathFunctions.a: CMakeFiles/MathFunctions.dir/build.make
+libMathFunctions.a: CMakeFiles/MathFunctions.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/chenhui13/github/compilers/cmake/Demo4/math/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libMathFunctions.a"
+	$(CMAKE_COMMAND) -P CMakeFiles/MathFunctions.dir/cmake_clean_target.cmake
+	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/MathFunctions.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-math/CMakeFiles/MathFunctions.dir/build: math/libMathFunctions.a
+CMakeFiles/MathFunctions.dir/build: libMathFunctions.a
 
-.PHONY : math/CMakeFiles/MathFunctions.dir/build
+.PHONY : CMakeFiles/MathFunctions.dir/build
 
-math/CMakeFiles/MathFunctions.dir/clean:
-	cd /Users/chenhui13/github/compilers/cmake/Demo4/math && $(CMAKE_COMMAND) -P CMakeFiles/MathFunctions.dir/cmake_clean.cmake
-.PHONY : math/CMakeFiles/MathFunctions.dir/clean
+CMakeFiles/MathFunctions.dir/clean:
+	$(CMAKE_COMMAND) -P CMakeFiles/MathFunctions.dir/cmake_clean.cmake
+.PHONY : CMakeFiles/MathFunctions.dir/clean
 
-math/CMakeFiles/MathFunctions.dir/depend:
-	cd /Users/chenhui13/github/compilers/cmake/Demo4 && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/chenhui13/github/compilers/cmake/Demo4 /Users/chenhui13/github/compilers/cmake/Demo4/math /Users/chenhui13/github/compilers/cmake/Demo4 /Users/chenhui13/github/compilers/cmake/Demo4/math /Users/chenhui13/github/compilers/cmake/Demo4/math/CMakeFiles/MathFunctions.dir/DependInfo.cmake --color=$(COLOR)
-.PHONY : math/CMakeFiles/MathFunctions.dir/depend
+CMakeFiles/MathFunctions.dir/depend:
+	cd /Users/chenhui13/github/compilers/cmake/Demo4/math && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/chenhui13/github/compilers/cmake/Demo4/math /Users/chenhui13/github/compilers/cmake/Demo4/math /Users/chenhui13/github/compilers/cmake/Demo4/math /Users/chenhui13/github/compilers/cmake/Demo4/math /Users/chenhui13/github/compilers/cmake/Demo4/math/CMakeFiles/MathFunctions.dir/DependInfo.cmake --color=$(COLOR)
+.PHONY : CMakeFiles/MathFunctions.dir/depend
 

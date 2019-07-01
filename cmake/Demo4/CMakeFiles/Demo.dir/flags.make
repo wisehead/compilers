@@ -6,5 +6,5 @@ CXX_FLAGS =
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/Users/chenhui13/github/compilers/cmake/Demo4/math 
+CXX_INCLUDES = 
 

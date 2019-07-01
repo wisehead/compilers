@@ -12,7 +12,6 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.11.1/CMakeSystem.cmake"
   "CMakeLists.txt"
   "config.h.in"
-  "math/CMakeLists.txt"
   "/usr/local/Cellar/cmake/3.11.1/share/cmake/Modules/CMakeCInformation.cmake"
   "/usr/local/Cellar/cmake/3.11.1/share/cmake/Modules/CMakeCXXInformation.cmake"
   "/usr/local/Cellar/cmake/3.11.1/share/cmake/Modules/CMakeCommonLanguageInclude.cmake"
@@ -46,11 +45,9 @@ set(CMAKE_MAKEFILE_OUTPUTS
 set(CMAKE_MAKEFILE_PRODUCTS
   "config.h"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
-  "math/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/Demo.dir/DependInfo.cmake"
-  "math/CMakeFiles/MathFunctions.dir/DependInfo.cmake"
   )

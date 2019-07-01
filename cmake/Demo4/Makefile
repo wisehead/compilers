@@ -123,19 +123,6 @@ Demo/fast:
 	$(MAKE) -f CMakeFiles/Demo.dir/build.make CMakeFiles/Demo.dir/build
 .PHONY : Demo/fast
 
-#=============================================================================
-# Target rules for targets named MathFunctions
-
-# Build rule for target.
-MathFunctions: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 MathFunctions
-.PHONY : MathFunctions
-
-# fast build rule for target.
-MathFunctions/fast:
-	$(MAKE) -f math/CMakeFiles/MathFunctions.dir/build.make math/CMakeFiles/MathFunctions.dir/build
-.PHONY : MathFunctions/fast
-
 main.o: main.cc.o
 
 .PHONY : main.o
@@ -172,7 +159,6 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... Demo"
-	@echo "... MathFunctions"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

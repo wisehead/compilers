@@ -48,10 +48,10 @@ RM = /usr/local/Cellar/cmake/3.11.1/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/chenhui13/github/compilers/cmake/Demo4
+CMAKE_SOURCE_DIR = /Users/chenhui13/github/compilers/cmake/Demo4/math
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/chenhui13/github/compilers/cmake/Demo4
+CMAKE_BINARY_DIR = /Users/chenhui13/github/compilers/cmake/Demo4/math
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,14 +80,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /Users/chenhui13/github/compilers/cmake/Demo4 && $(CMAKE_COMMAND) -E cmake_progress_start /Users/chenhui13/github/compilers/cmake/Demo4/CMakeFiles /Users/chenhui13/github/compilers/cmake/Demo4/math/CMakeFiles/progress.marks
-	cd /Users/chenhui13/github/compilers/cmake/Demo4 && $(MAKE) -f CMakeFiles/Makefile2 math/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/chenhui13/github/compilers/cmake/Demo4/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/chenhui13/github/compilers/cmake/Demo4/math/CMakeFiles /Users/chenhui13/github/compilers/cmake/Demo4/math/CMakeFiles/progress.marks
+	$(MAKE) -f CMakeFiles/Makefile2 all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/chenhui13/github/compilers/cmake/Demo4/math/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/chenhui13/github/compilers/cmake/Demo4 && $(MAKE) -f CMakeFiles/Makefile2 math/clean
+	$(MAKE) -f CMakeFiles/Makefile2 clean
 .PHONY : clean
 
 # The main clean target
@@ -97,60 +97,46 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/chenhui13/github/compilers/cmake/Demo4 && $(MAKE) -f CMakeFiles/Makefile2 math/preinstall
+	$(MAKE) -f CMakeFiles/Makefile2 preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/chenhui13/github/compilers/cmake/Demo4 && $(MAKE) -f CMakeFiles/Makefile2 math/preinstall
+	$(MAKE) -f CMakeFiles/Makefile2 preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/chenhui13/github/compilers/cmake/Demo4 && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-# Convenience name for target.
-math/CMakeFiles/MathFunctions.dir/rule:
-	cd /Users/chenhui13/github/compilers/cmake/Demo4 && $(MAKE) -f CMakeFiles/Makefile2 math/CMakeFiles/MathFunctions.dir/rule
-.PHONY : math/CMakeFiles/MathFunctions.dir/rule
+#=============================================================================
+# Target rules for targets named MathFunctions
 
-# Convenience name for target.
-MathFunctions: math/CMakeFiles/MathFunctions.dir/rule
-
+# Build rule for target.
+MathFunctions: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 MathFunctions
 .PHONY : MathFunctions
 
 # fast build rule for target.
 MathFunctions/fast:
-	cd /Users/chenhui13/github/compilers/cmake/Demo4 && $(MAKE) -f math/CMakeFiles/MathFunctions.dir/build.make math/CMakeFiles/MathFunctions.dir/build
+	$(MAKE) -f CMakeFiles/MathFunctions.dir/build.make CMakeFiles/MathFunctions.dir/build
 .PHONY : MathFunctions/fast
 
-MathFunctions.o: MathFunctions.cc.o
-
+# target to build an object file
+MathFunctions.o:
+	$(MAKE) -f CMakeFiles/MathFunctions.dir/build.make CMakeFiles/MathFunctions.dir/MathFunctions.o
 .PHONY : MathFunctions.o
 
-# target to build an object file
-MathFunctions.cc.o:
-	cd /Users/chenhui13/github/compilers/cmake/Demo4 && $(MAKE) -f math/CMakeFiles/MathFunctions.dir/build.make math/CMakeFiles/MathFunctions.dir/MathFunctions.cc.o
-.PHONY : MathFunctions.cc.o
-
-MathFunctions.i: MathFunctions.cc.i
-
+# target to preprocess a source file
+MathFunctions.i:
+	$(MAKE) -f CMakeFiles/MathFunctions.dir/build.make CMakeFiles/MathFunctions.dir/MathFunctions.i
 .PHONY : MathFunctions.i
 
-# target to preprocess a source file
-MathFunctions.cc.i:
-	cd /Users/chenhui13/github/compilers/cmake/Demo4 && $(MAKE) -f math/CMakeFiles/MathFunctions.dir/build.make math/CMakeFiles/MathFunctions.dir/MathFunctions.cc.i
-.PHONY : MathFunctions.cc.i
-
-MathFunctions.s: MathFunctions.cc.s
-
-.PHONY : MathFunctions.s
-
 # target to generate assembly for a file
-MathFunctions.cc.s:
-	cd /Users/chenhui13/github/compilers/cmake/Demo4 && $(MAKE) -f math/CMakeFiles/MathFunctions.dir/build.make math/CMakeFiles/MathFunctions.dir/MathFunctions.cc.s
-.PHONY : MathFunctions.cc.s
+MathFunctions.s:
+	$(MAKE) -f CMakeFiles/MathFunctions.dir/build.make CMakeFiles/MathFunctions.dir/MathFunctions.s
+.PHONY : MathFunctions.s
 
 # Help Target
 help:
@@ -175,6 +161,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/chenhui13/github/compilers/cmake/Demo4 && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

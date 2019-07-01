@@ -1,6 +1,3 @@
 /Users/chenhui13/github/compilers/cmake/Demo4/CMakeFiles/rebuild_cache.dir
 /Users/chenhui13/github/compilers/cmake/Demo4/CMakeFiles/edit_cache.dir
 /Users/chenhui13/github/compilers/cmake/Demo4/CMakeFiles/Demo.dir
-/Users/chenhui13/github/compilers/cmake/Demo4/math/CMakeFiles/rebuild_cache.dir
-/Users/chenhui13/github/compilers/cmake/Demo4/math/CMakeFiles/edit_cache.dir
-/Users/chenhui13/github/compilers/cmake/Demo4/math/CMakeFiles/MathFunctions.dir
