@@ -1,29 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
-
 /**
- * power - Calculate the power of number.
- * @param base: Base value.
- * @param exponent: Exponent value.
- *
- * @return base raised to the power exponent.
- */
+* power - Calculate the power of number.
+* @param base: Base value.
+* @param exponent: Exponent value.
+*
+* @return base raised to the power exponent.
+*/
 double power(double base, int exponent)
 {
-    int result = base;
-    int i;
-
-    if (exponent == 0) {
-        return 1;
-    }
-    
+    int result = base; 
+    int i;  
     for(i = 1; i < exponent; ++i){
-        result = result * base;
+        result = result * base; 
     }
-
-    return result;
+    return result; 
 }
-
 int main(int argc, char *argv[])
 {
     if (argc < 3){
