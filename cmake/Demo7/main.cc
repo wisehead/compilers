@@ -10,6 +10,11 @@
 int main(int argc, char *argv[])
 {
     if (argc < 3){
+        // print version info
+        printf("%s Version %d.%d\n",
+            argv[0],
+            Demo_VERSION_MAJOR,
+            Demo_VERSION_MINOR);
         printf("Usage: %s base exponent \n", argv[0]);
         return 1;
     }

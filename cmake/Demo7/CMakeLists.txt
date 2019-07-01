@@ -2,7 +2,9 @@
 cmake_minimum_required (VERSION 2.8)
 
 # 项目信息
-project (Demo6)
+project (Demo7)
+set (Demo_VERSION_MAJOR 1)
+set (Demo_VERSION_MINOR 0)
 
 set (CMAKE_INCLUDE_CURRENT_DIR ON)
 
