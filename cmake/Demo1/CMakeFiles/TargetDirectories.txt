@@ -1,0 +1,3 @@
+/Users/chenhui13/github/compilers/cmake/Demo1/CMakeFiles/rebuild_cache.dir
+/Users/chenhui13/github/compilers/cmake/Demo1/CMakeFiles/edit_cache.dir
+/Users/chenhui13/github/compilers/cmake/Demo1/CMakeFiles/Demo.dir
