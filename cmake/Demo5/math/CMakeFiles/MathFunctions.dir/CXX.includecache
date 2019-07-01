@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/chenhui13/github/compilers/cmake/Demo5/math/MathFunctions.cc
+stdio.h
+-
+stdlib.h
+-
+MathFunctions.h
+/Users/chenhui13/github/compilers/cmake/Demo5/math/MathFunctions.h
+
+/Users/chenhui13/github/compilers/cmake/Demo5/math/MathFunctions.h
+
