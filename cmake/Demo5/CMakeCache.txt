@@ -131,7 +131,7 @@ CMAKE_OSX_DEPLOYMENT_TARGET:STRING=
 CMAKE_OSX_SYSROOT:STRING=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=Demo4
+CMAKE_PROJECT_NAME:STATIC=Demo5
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/Library/Developer/CommandLineTools/usr/bin/ranlib
@@ -197,6 +197,12 @@ Demo4_BINARY_DIR:STATIC=/Users/chenhui13/github/compilers/cmake/Demo5
 
 //Value Computed by CMake
 Demo4_SOURCE_DIR:STATIC=/Users/chenhui13/github/compilers/cmake/Demo5
+
+//Value Computed by CMake
+Demo5_BINARY_DIR:STATIC=/Users/chenhui13/github/compilers/cmake/Demo5
+
+//Value Computed by CMake
+Demo5_SOURCE_DIR:STATIC=/Users/chenhui13/github/compilers/cmake/Demo5
 
 //Dependencies for target
 MathFunctions_LIB_DEPENDS:STATIC=
