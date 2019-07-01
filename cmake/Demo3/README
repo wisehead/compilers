@@ -1,0 +1,4 @@
+多个目录，多个源文件
+本小节对应的源代码所在目录：Demo3。
+
+现在进一步将 MathFunctions.h 和 MathFunctions.cc 文件移动到 math 目录下。
