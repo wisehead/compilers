@@ -1,4 +1,4 @@
-#include "MathFunctions.h"
+#include "math/MathFunctions.h"
 #include <stdio.h>
 #include <stdlib.h>
 
