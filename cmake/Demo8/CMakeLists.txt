@@ -2,7 +2,7 @@
 cmake_minimum_required (VERSION 2.8)
 
 # 项目信息
-project (Demo7)
+project (Demo8)
 set (Demo_VERSION_MAJOR 1)
 set (Demo_VERSION_MINOR 0)
 
@@ -60,3 +60,11 @@ endmacro (do_test)
 do_test (5 2 "is 25")
 do_test (10 5 "is 100000")
 do_test (2 10 "is 1024")
+
+# 构建一个 CPack 安装包
+include (InstallRequiredSystemLibraries)
+set (CPACK_RESOURCE_FILE_LICENSE
+  "${CMAKE_CURRENT_SOURCE_DIR}/License.txt")
+set (CPACK_PACKAGE_VERSION_MAJOR "${Demo_VERSION_MAJOR}")
+set (CPACK_PACKAGE_VERSION_MINOR "${Demo_VERSION_MINOR}")
+include (CPack)
