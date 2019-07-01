@@ -1,0 +1,8 @@
+/Users/chenhui13/github/compilers/cmake/Demo6/CMakeFiles/install/strip.dir
+/Users/chenhui13/github/compilers/cmake/Demo6/CMakeFiles/install.dir
+/Users/chenhui13/github/compilers/cmake/Demo6/CMakeFiles/Demo.dir
+/Users/chenhui13/github/compilers/cmake/Demo6/CMakeFiles/list_install_components.dir
+/Users/chenhui13/github/compilers/cmake/Demo6/CMakeFiles/rebuild_cache.dir
+/Users/chenhui13/github/compilers/cmake/Demo6/CMakeFiles/edit_cache.dir
+/Users/chenhui13/github/compilers/cmake/Demo6/CMakeFiles/install/local.dir
+/Users/chenhui13/github/compilers/cmake/Demo6/CMakeFiles/test.dir

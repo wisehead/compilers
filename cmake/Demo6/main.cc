@@ -6,7 +6,6 @@
   #include <math.h>
 #else
   #include "math/MathFunctions.h"
-#else
 #endif
 int main(int argc, char *argv[])
 {
