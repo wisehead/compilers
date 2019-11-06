@@ -1,5 +1,0 @@
-/Users/chenhui13/github/compilers/cmake_practice/t2/release/CMakeFiles/rebuild_cache.dir
-/Users/chenhui13/github/compilers/cmake_practice/t2/release/CMakeFiles/edit_cache.dir
-/Users/chenhui13/github/compilers/cmake_practice/t2/release/bin/CMakeFiles/rebuild_cache.dir
-/Users/chenhui13/github/compilers/cmake_practice/t2/release/bin/CMakeFiles/edit_cache.dir
-/Users/chenhui13/github/compilers/cmake_practice/t2/release/bin/CMakeFiles/hello.dir
