@@ -1,0 +1,14 @@
+/Users/chenhui13/github/compilers/cmake_in_action/t3_libs/release/CMakeFiles/install/local.dir
+/Users/chenhui13/github/compilers/cmake_in_action/t3_libs/release/CMakeFiles/install/strip.dir
+/Users/chenhui13/github/compilers/cmake_in_action/t3_libs/release/CMakeFiles/install.dir
+/Users/chenhui13/github/compilers/cmake_in_action/t3_libs/release/CMakeFiles/list_install_components.dir
+/Users/chenhui13/github/compilers/cmake_in_action/t3_libs/release/CMakeFiles/rebuild_cache.dir
+/Users/chenhui13/github/compilers/cmake_in_action/t3_libs/release/CMakeFiles/edit_cache.dir
+/Users/chenhui13/github/compilers/cmake_in_action/t3_libs/release/lib/CMakeFiles/install/local.dir
+/Users/chenhui13/github/compilers/cmake_in_action/t3_libs/release/lib/CMakeFiles/install/strip.dir
+/Users/chenhui13/github/compilers/cmake_in_action/t3_libs/release/lib/CMakeFiles/install.dir
+/Users/chenhui13/github/compilers/cmake_in_action/t3_libs/release/lib/CMakeFiles/rebuild_cache.dir
+/Users/chenhui13/github/compilers/cmake_in_action/t3_libs/release/lib/CMakeFiles/edit_cache.dir
+/Users/chenhui13/github/compilers/cmake_in_action/t3_libs/release/lib/CMakeFiles/hello_static.dir
+/Users/chenhui13/github/compilers/cmake_in_action/t3_libs/release/lib/CMakeFiles/list_install_components.dir
+/Users/chenhui13/github/compilers/cmake_in_action/t3_libs/release/lib/CMakeFiles/hello.dir

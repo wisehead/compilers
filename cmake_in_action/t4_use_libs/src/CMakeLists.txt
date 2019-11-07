@@ -1,0 +1,4 @@
+INCLUDE_DIRECTORIES(/Users/chenhui13/github/compilers/cmake_in_action/install_path/include/hello)
+LINK_DIRECTORIES("/Users/chenhui13/github/compilers/cmake_in_action/install_path/lib")
+ADD_EXECUTABLE(main main.c)
+TARGET_LINK_LIBRARIES(main hello)

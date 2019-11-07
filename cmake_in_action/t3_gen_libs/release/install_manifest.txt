@@ -1,0 +1,5 @@
+/Users/chenhui13/github/compilers/cmake_in_action/install_path/lib/libhello.1.2.dylib
+/Users/chenhui13/github/compilers/cmake_in_action/install_path/lib/libhello.1.dylib
+/Users/chenhui13/github/compilers/cmake_in_action/install_path/lib/libhello.dylib
+/Users/chenhui13/github/compilers/cmake_in_action/install_path/lib/libhello.a
+/Users/chenhui13/github/compilers/cmake_in_action/install_path/include/hello/hello.h
