@@ -1,0 +1,5 @@
+/Users/chenhui13/github/compilers/cmake_in_action/t4_use_libs/release/CMakeFiles/rebuild_cache.dir
+/Users/chenhui13/github/compilers/cmake_in_action/t4_use_libs/release/CMakeFiles/edit_cache.dir
+/Users/chenhui13/github/compilers/cmake_in_action/t4_use_libs/release/src/CMakeFiles/rebuild_cache.dir
+/Users/chenhui13/github/compilers/cmake_in_action/t4_use_libs/release/src/CMakeFiles/edit_cache.dir
+/Users/chenhui13/github/compilers/cmake_in_action/t4_use_libs/release/src/CMakeFiles/main.dir

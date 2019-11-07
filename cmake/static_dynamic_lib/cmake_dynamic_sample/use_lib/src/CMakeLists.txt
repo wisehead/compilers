@@ -1,0 +1,6 @@
+#INCLUDE_DIRECTORIES(/Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake1/usr/include/hello)
+INCLUDE_DIRECTORIES(/Users/chenhui13/github/compilers/cmake/static_dynamic_lib/cmake_dynamic_sample/usr/include/hello)
+#LINK_DIRECTORIES(/Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake1/usr/lib)
+LINK_DIRECTORIES(/Users/chenhui13/github/compilers/cmake/static_dynamic_lib/cmake_dynamic_sample/usr/lib)
+ADD_EXECUTABLE(main main.cc)
+TARGET_LINK_LIBRARIES(main libhello.dylib)

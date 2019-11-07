@@ -1,0 +1,1 @@
+/Library/Developer/CommandLineTools/usr/bin/cc  -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/main.dir/main.o  -o main  -L/Users/chenhui13/github/compilers/cmake_in_action/install_path/lib -Wl,-rpath,/Users/chenhui13/github/compilers/cmake_in_action/install_path/lib -lhello 

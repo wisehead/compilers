@@ -1,5 +1,0 @@
-/Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake1/code2/build/CMakeFiles/rebuild_cache.dir
-/Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake1/code2/build/CMakeFiles/edit_cache.dir
-/Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake1/code2/build/src/CMakeFiles/rebuild_cache.dir
-/Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake1/code2/build/src/CMakeFiles/edit_cache.dir
-/Users/chenhui13/github/compilers/static_dynamic_lib/dynamic_cmake1/code2/build/src/CMakeFiles/main.dir
