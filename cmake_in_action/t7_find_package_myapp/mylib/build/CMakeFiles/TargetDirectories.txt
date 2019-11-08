@@ -1,0 +1,7 @@
+/Users/chenhui13/github/compilers/cmake_in_action/t7_find_package_myapp/mylib/build/CMakeFiles/install/local.dir
+/Users/chenhui13/github/compilers/cmake_in_action/t7_find_package_myapp/mylib/build/CMakeFiles/install/strip.dir
+/Users/chenhui13/github/compilers/cmake_in_action/t7_find_package_myapp/mylib/build/CMakeFiles/install.dir
+/Users/chenhui13/github/compilers/cmake_in_action/t7_find_package_myapp/mylib/build/CMakeFiles/list_install_components.dir
+/Users/chenhui13/github/compilers/cmake_in_action/t7_find_package_myapp/mylib/build/CMakeFiles/mylib.dir
+/Users/chenhui13/github/compilers/cmake_in_action/t7_find_package_myapp/mylib/build/CMakeFiles/rebuild_cache.dir
+/Users/chenhui13/github/compilers/cmake_in_action/t7_find_package_myapp/mylib/build/CMakeFiles/edit_cache.dir

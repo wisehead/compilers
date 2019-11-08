@@ -1,0 +1,1 @@
+/Library/Developer/CommandLineTools/usr/bin/cc  -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/myapp.dir/myapp.c.o  -o myapp /Users/chenhui13/github/compilers/cmake_in_action/t7_find_package_myapp/mylib/install/lib/libmylib.a 

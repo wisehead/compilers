@@ -1,0 +1,2 @@
+/Library/Developer/CommandLineTools/usr/bin/ar qc libmylib.a  CMakeFiles/mylib.dir/mylib.c.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libmylib.a

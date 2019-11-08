@@ -1,0 +1,4 @@
+/Users/chenhui13/github/compilers/cmake_in_action/t7_find_package_myapp/mylib/install/lib/libmylib.a
+/Users/chenhui13/github/compilers/cmake_in_action/t7_find_package_myapp/mylib/install/include/mylib.h
+/Users/chenhui13/github/compilers/cmake_in_action/t7_find_package_myapp/mylib/install/lib/cmake/mylib/mylib-config.cmake
+/Users/chenhui13/github/compilers/cmake_in_action/t7_find_package_myapp/mylib/install/lib/cmake/mylib/mylib-config-noconfig.cmake

@@ -1,0 +1,6 @@
+project(myapp)
+cmake_minimum_required(VERSION 2.8)
+SET(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "/Users/chenhui13/github/compilers/cmake_in_action/t7_find_package_myapp/mylib/install")
+find_package(mylib REQUIRED)
+add_executable(${PROJECT_NAME} myapp.c)
+target_link_libraries(${PROJECT_NAME} mylib::mylib)

@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/mylib.h
+stdio.h
+-
+
+/Users/chenhui13/github/compilers/cmake_in_action/t7_find_package_myapp/mylib/mylib.c
+stdio.h
+-
+mylib.h
+/Users/chenhui13/github/compilers/cmake_in_action/t7_find_package_myapp/mylib/mylib.h
+

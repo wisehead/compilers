@@ -1,0 +1,3 @@
+/Users/chenhui13/github/compilers/cmake_in_action/t7_find_package_myapp/myapp/build/CMakeFiles/rebuild_cache.dir
+/Users/chenhui13/github/compilers/cmake_in_action/t7_find_package_myapp/myapp/build/CMakeFiles/edit_cache.dir
+/Users/chenhui13/github/compilers/cmake_in_action/t7_find_package_myapp/myapp/build/CMakeFiles/myapp.dir
