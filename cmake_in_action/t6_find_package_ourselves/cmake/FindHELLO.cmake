@@ -1,5 +1,5 @@
-FIND_PATH(HELLO_INCLUDE_DIR hello.h  /Users/chenhui13/github/compilers/cmake_in_action/install_path/include/hello)
-FIND_LIBRARY(HELLO_LIBRARY NAMES libhello.a /Users/chenhui13/github/compilers/cmake_in_action/install_path/lib)
+FIND_PATH(HELLO_INCLUDE_DIR hello.h  /Users/chenhui13/github/compilers/cmake_in_action/install_lib/include)
+FIND_LIBRARY(HELLO_LIBRARY NAMES libhello.a /Users/chenhui13/github/compilers/cmake_in_action/install_lib/lib)
 IF (HELLO_INCLUDE_DIR AND HELLO_LIBRARY)
    SET(HELLO_FOUND TRUE)
 ENDIF (HELLO_INCLUDE_DIR AND HELLO_LIBRARY)

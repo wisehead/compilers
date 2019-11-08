@@ -1,3 +1,4 @@
+cmake_minimum_required(VERSION 3.11)
 FIND_PACKAGE(HELLO)
 IF(HELLO_FOUND)
     ADD_EXECUTABLE(hello main.c)
