@@ -1,0 +1,26 @@
+1.CMAKE_POLICY
+
+标志哪些功能是否有效？？
+
+2.OPTION是什么用法？
+	OPTION(WITH_DEBUG "Use dbug/safemutex" OFF) 
+	
+	option
+	Provides an option that the user can optionally select.
+	
+	option(<option_variable> "help string describing option"
+	       [initial value])
+	Provide an option for the user to select as ON or OFF. If no initial value is provided, OFF is used. If the option is already set as a normal variable then the command does nothing (see policy CMP0077).
+	
+	If you have options that depend on the values of other options, see the module help for CMakeDependentOption.
+
+3.SET
+SET 指令的语法是:
+SET(VAR [VALUE] [CACHE TYPE DOCSTRING [FORCE]]) 现阶段，你只需要了解 SET 指令可以用来显式的定义变量即可。 比如我们用到的是SET(SRC_LIST main.c)，如果有多个源文件，也可以定义成: SET(SRC_LIST main.c t1.c t2.c)。
+
+4.mark_as_advanced: 
+Mark cmake cached variables as advanced.
+
+  mark_as_advanced([CLEAR|FORCE] VAR VAR2 VAR...)
+标记已命名的缓冲变量为 advanced.  advanced 变量 不会在cmake 图形界面中显示 除非 advanced 选项开启. 如果第一个参数是 CLEAR  advanced 变量变为unadvanced. 如果 FORCE 是第一个参数, 变量变为 advanced. 如果 FORCE 和 CLEAR 都未选定, 新变量标记为 advanced, 但是如果变量已是 advanced/non-advanced 状态, 就不会发生变化.
+
