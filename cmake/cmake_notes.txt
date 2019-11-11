@@ -33,7 +33,16 @@ CHECK_CXX_SOURCE_COMPILES
 MY_CHECK_C_COMPILER_FLAG
 MY_CHECK_CXX_COMPILER_FLAG
 
+# Add bundled or system zlib.
+MYSQL_CHECK_ZLIB_WITH_COMPRESS()                                                                                                                                                                                                           # Add bundled yassl/taocrypt or system openssl.
+MYSQL_CHECK_SSL()
+# Add system/bundled editline.
+MYSQL_CHECK_EDITLINE()
+# Add libevent
+MYSQL_CHECK_LIBEVENT()
 
+
+CONFIGURE_PLUGINS()
 
 
 
