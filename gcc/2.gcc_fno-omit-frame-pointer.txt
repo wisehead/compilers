@@ -1,0 +1,57 @@
+关于-fno-omit-frame-pointer与-fomit-frame-pointer
+
+
+在GDB core的时候，经常去查看EBP，ESP寄存器，来查找一些有用的调用信息，但是感觉这个EBP，ESP中值的变化，并不是像书中描述的那种函数调用的标准流程。
+
+在用perf做性能分析，打印函数的调用路径时，打印调用路径也有问题。
+后来才清楚，原来是-fno-omit-frame-pointer这个优化导致的问题。
+下面以一个实例来说明：
+#include <stdio.h>
+
+int add(int a, int b)
+{
+  return a + b;
+}
+
+int main(void)
+{
+  int sum = 0;
+  sum = add(1, 2);
+  printf("%d\n", sum);
+  return 0;
+}
+gcc -o a.s -S a.c -fno-omit-frame-pointer
+vim a.s
+add函数汇编:
+.LFB0:
+  .cfi_startproc
+  pushq %rbp             #保存栈基址
+  .cfi_def_cfa_offset 16
+  .cfi_offset 6, -16
+  movq %rsp, %rbp       #将栈顶做为新的栈基址
+  .cfi_def_cfa_register 6
+  movl %edi, -4(%rbp)  
+  movl %esi, -8(%rbp)
+  movl -8(%rbp), %eax   #取参数1
+  movl -4(%rbp), %edx   #取参数2
+  leal (%rdx,%rax), %eax  #相加
+  leave
+  .cfi_def_cfa 7, 8
+  ret #返回
+gcc -o a.s -S a.c -fomit-frame-pointer
+vim a.s
+add函数汇编
+add:
+.LFB0:
+  .cfi_startproc
+  movl %edi, -4(%rsp)    #取参数1
+  movl %esi, -8(%rsp)    #取参数2
+  movl -8(%rsp), %eax
+  movl -4(%rsp), %edx
+  leal (%rdx,%rax), %eax #相加
+  ret
+从汇编结果可以看出，第二种少了几条切换栈基址的指令，会有性能提升，但会带来一个问题，由于没有存储rbp,那么从add函数并不能追溯整个函数的调用栈。
+比如，当perf采样到add函数内的时候，它只能打印当前的指令是在哪个函数内，但不能打印整个调用函数栈。
+参考文章：
+1）http://www.cnblogs.com/islandscape/p/3444122.html
+2）http://kernel.taobao.org/index.php/Documents/Perf_FAQ
