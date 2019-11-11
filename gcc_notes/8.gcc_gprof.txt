@@ -1,0 +1,270 @@
+gprof使用介绍 (gcc -pg) [转]
+原文出处： http://blog.csdn.net/unbutun/article/details/6609498
+
+ 
+
+linux服务端编程，性能总是不可避免要思考的问题。
+
+而单机（严格的说是单核）单线程程序（严格的说是逻辑）又是所有复杂应用的基础。所以，这块的性能是整个应用的基础。
+
+当遇到应用相应很慢的时候我们往往会疑问：这么强劲的CPU到底在干什么，反应这么慢。
+
+满足你！linux下常用的性能工具就是跟gcc一起的gprof。来个例子程序：
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+#include <stdio.h>
+#include <stdlib.h>
+void f1()
+{
+    int i; int* p;
+ 
+    for (i = 0; i < 10; i++)
+    {
+        p = malloc(sizeof(int));
+        *p = 10;
+        free(p);
+    }
+}
+ 
+void f2()
+{
+    int i; int* p;
+ 
+    for (i = 0; i < 20; i++)
+    {
+        p = malloc(sizeof(int));
+        *p = 10;
+        free(p);
+    }
+}
+ 
+void f3()
+{
+    int i; int* p;
+ 
+    for (i = 0; i < 30; i++)
+    {
+        p = malloc(sizeof(int));
+        *p = 10;
+        free(p);
+    }
+}
+ 
+int main(int argc, char** argv)
+{
+    int i;
+ 
+    for (i = 0; i < 1000000; i++)
+    {
+        f1();
+        f2();
+        f3();
+    }
+ 
+    return 0;
+}
+　　
+
+要启用gprof很简单，gcc编译的时候带上-pg参数即可；
+
+编译好了之后运行可执行文件，会产生gmon.out文件。
+
+ 
+
+这就是gprof的日志，里面记录了程序运行cpu的使用信息。打开看看？杯具，二进制文件，我们人类看不懂。。。我们要运行下面的命令生成报表：
+
+gprof a.out gmon.txt > report.txt
+
+这个过程执行如下图：
+
+
+
+ 
+
+gcc -g -pg xxx.c
+
+g++ -g -pg xxx.cpp
+
+./a.out
+
+gprof a.out gmon.out > report.txt
+
+ 
+
+Gprof 产生的信息解释：
+
+  %time
+
+Cumulative
+
+seconds
+
+Self 
+
+Seconds
+
+Calls
+
+Self
+
+TS/call
+
+Total
+
+TS/call
+
+name
+
+该函数消耗时间占程序所有时间百分比
+
+程序的累积执行时间
+
+（只是包括gprof能够监控到的函数）
+
+该函数本身执行时间
+
+（所有被调用次数的合共时间）
+
+函数被调用次数
+
+函数平均执行时间
+
+（不包括被调用时间）
+
+（函数的单次执行时间）
+
+函数平均执行时间
+
+（包括被调用时间）
+
+ 
+
+（函数的单次执行时间）
+
+函数名
+
+ 
+
+Call Graph 的字段含义：
+
+Index
+
+%time
+
+Self
+
+Children
+
+Called
+
+Name
+
+索引值
+
+函数消耗时间占所有时间百分比
+
+函数本身执行时间
+
+执行子函数所用时间
+
+被调用次数
+
+函数名
+
+ 
+
+注意：
+
+程序的累积执行时间只是包括gprof能够监控到的函数。工作在内核态的函数和没有加-pg编译的第三方库函数是无法被gprof能够监控到的，（如sleep（）等）
+
+Gprof 的具体参数可以 通过 man gprof 查询。
+
+ 
+
+打开report.txt，我们可以看到两张表。
+
+第一张：
+
+
+
+这就是每个函数占用cpu的时间以及百分比了。我们可以很明显的看到f1()、f2()和f3()所用的时间关系。很准确。
+
+第二张：函数调用表，描述了函数调用的相互关系
+
+
+
+仔细看吧。
+
+下面介绍个更给力的工具来生成报表（其实是图）——gprof2dot：http://code.google.com/p/jrfonseca/wiki/Gprof2Dot。
+
+首先下载gprof2dot.py，http://code.google.com/p/jrfonseca/wiki/Gprof2Dot有这个工具。
+
+然后下载graphviz工具
+
+　　apt-get install python graphviz
+
+安装完成这些工具之后，执行如下的命令：
+
+
+
+（1）gprof2dot.py命令将报report.txt转化为xxx.dot文件（graphviz http://www.graphviz.org/图像文件格式）。
+
+（2）dot命令将这个文件xxx.dot再转为png格式。
+
+好吧现在用图像软件打开吧：
+
+
+
+ 
+
+ 
