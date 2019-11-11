@@ -1,0 +1,19 @@
+fabi-version
+Instructs the compiler to select a specific ABI implementation.
+
+Arguments
+n
+
+Is the ABI implementation. Possible values are:
+0 Requests the latest ABI implementation.
+1 Requests the ABI implementation used in gcc 3.2 and gcc 3.3.
+2 Requests the ABI implementation used in gcc 3.4 and higher.
+
+Description
+This option tells the compiler to select a specific ABI implementation. This option is compatible with gcc option -fabi-version. If you have multiple versions of gcc installed, the compiler may change the value of n depending on which gcc is detected in your path.
+
+NOTE
+gcc 3.2 and 3.3 are not fully ABI-compliant, but gcc 3.4 is highly ABI-compliant.
+
+CAUTION
+Do not mix different values for -fabi-version in one link.
