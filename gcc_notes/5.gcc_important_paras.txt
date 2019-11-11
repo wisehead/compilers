@@ -1,0 +1,241 @@
+GCC的几个重要选项解释
+
+详细可见：[GNU Compiler Collection (GCC)]
+
+https://gcc.gnu.org/onlinedocs/gcc/
+
+https://gcc.gnu.org/onlinedocs/gcc/Option-Summary.html
+
+-c  编译或者汇编代码，但是不链接
+
+-S  在编译之后停止，但不汇编
+
+-E  预处理后停止，但不编译
+
+-o  指定输出文件的名称
+
+-v  显示编译的每个阶段使用的命令
+
+-std  指定要用的语言标准
+
+-g  产生调试信息
+
+-pg  产生额外信息，被gprof用来做profilling
+
+-O  优化可执行代码
+
+-W  设置编译器的警报级别
+
+-pedantic以ANSI/ISO C标准列出的所有警告，不符合该语言标准的地方将产生相应的警告信息
+
+-I  指定文件包含的目录
+
+-L  指定库目录（编译时的库搜索目录）
+
+-D  预定义在源代码中出现的宏
+
+-U  取消所有定义的宏
+
+-f  指定用来控制编译器行为的选项
+
+-m  指定与硬件相关的选项
+
+GCC相关信息查看
+
+-help                   显示此帮助说明
+
+-target-help            显示目标机器特定的命令行选项
+
+-help={target|optimizers|warnings|params|[^]{joined|separate|undocumented}}[,...]
+
+                           显示特定类型的命令行选项
+
+ (使用‘-v --help’显示子进程的命令行参数)
+
+-version                显示编译器版本信息
+
+-dumpspecs               显示所有内建 spec 字符串
+
+-dumpversion             显示编译器的版本号
+
+-dumpmachine             显示编译器的目标处理器
+
+-print-search-dirs       显示编译器的搜索路径
+
+-print-libgcc-file-name  显示编译器伴随库的名称
+
+-print-file-name=&lt;库&gt;    显示 &lt;库&gt; 的完整路径
+
+-print-prog-name=&lt;程序&gt;  显示编译器组件 &lt;程序&gt; 的完整路径
+
+-print-multi-directory   显示不同版本 libgcc 的根目录
+
+-print-multi-lib         显示命令行选项和多个版本库搜索路径间的映射
+
+-print-multi-os-directory 显示操作系统库的相对路径
+
+-print-sysroot           显示目标库目录
+
+-print-sysroot-headers-suffix 显示用于寻找头文件的 sysroot 后缀
+
+ 
+
+目前了解的GCC相关具体选项
+
+111111.jpg
+
+-fpic
+
+用于生成位置无关代码，位置无关码的作用：
+
+1、程序在运行期间动态加载到内存中；
+
+2、程序在不同场合与不同程序组合后加载到内存（一般用于动态链接库）
+
+3、在运行期间不同地址相互之间的映射；（如bootloader）
+
+简言之，位置无关码就是可以在进程的任意内存位置执行的目标码，动态链接库必须使用。
+
+-L.
+
+搜索相应库文件路径，.是指当前路径；
+
+-march=armv7-a
+
+-march=armv7-a是指编译出来的汇编语言是针对armv7架构的；
+
+-mtune=contex-a8
+
+与上面一样，这个则是针对板子上的CPU选项是contex-a8类型的；
+
+-mfloat-abi=soft/softfp/hard
+
+"soft"选项：表明不使用FPU硬件，而是使用GCC的整数算术运算来模拟浮点运算。此选项为默认，因此一定要修改为softfp。
+
+"softfp"选项：表明要使用FPU硬件来做浮点运算，只是，函数的参数传递到整数寄存器（r0-r3）中，然后再传递到FPU中。
+
+"hard"选项：表明要使用FPU硬件来做浮点运算，并且，函数的参数直接传递到FPU的寄存器（s0、d0）中。
+
+-mfpu=vfpv3-d16
+
+指定了目标机器上可用的浮点硬件（或硬件仿真），-mfloat-abi=softfp/hard，使用硬浮点指令而不指定-mfpu的话，默认使用的是-mfpu=vfp，即不会做neon SIMD优化。因此采用neon 内置或neon 汇编，必须指定-mfpu=neon。Advanced SIMD (aka NEON) is mandatory for AArch64, so no command line option is needed to instruct the compiler to use NEON.
+
+-mthumb-interwork
+
+这个编译选项则是支持编译出来的汇编语言可以支持ARM和THUMB指令集；
+
+-mno-thumb-interwork
+
+缺省情况下是"-mno-thumb-interwork"，因为指定了"-mthumb-interwork"产生的代码稍微大一些；
+
+-Wno-write-strings
+
+会忽略掉C++ char* 转const char*的警告，这样并不会很安全；
+
+-Wno-trigraphs
+
+关闭ANSI C的三字母词编译出现的错误；在ANSI C标准中，定义了9个三字母词(trigraph)，三字母词就是几个字符的序列，合起来表示另一个字符。
+
+-fno-tree-vectorize
+
+关闭程序中的向量化的选项；gcc -O3会自动打开 -ftree-vectorize选项
+
+-fno-inline
+
+忽略代码中的inline关键字，该选项使编译器将内联函数以普通函数正常对待，等同于无优化选项的处理。
+
+-fshort-enums
+
+支持给enum类型分配它声明的值域范围的字节数，即enum类型等于大小足够的最小整数类型。
+
+typedef enum num{
+
+one = 1,
+
+two = 2,
+
+three = 3,
+
+four = 4,
+
+}NUM;
+
+NUM num1;
+
+sizeof(num1)不增加这个-fshort-enums选项的时候为4，增加后为大小为1；-fno-short-enums则是无这个选项优化处理。gcc是默认没有-fshort-enums这个选项的；
+
+-Wundef
+
+当一个没有定义的符号出现在 #if 中时，给出警告。
+
+-fexpensive-optimizations
+
+执行代价高昂的优化技术，但是不一定保证运行时性能能提升，反而可能一定程度上会产生负面影响.
+
+-frename-registers
+
+在寄存器分配后，通过使用rename registers来避免预定代码中的虚假依赖。
+
+-fomit-frame-pointer
+
+能够提高程序性能；原理上最主要的区别是少了栈帧的切换和栈地址的保存；在gdb 执行disassemble命令时，由于没有保存相应栈调用地址，而导致无法追踪函数调用顺序的问题；
+
+-Wno-psabi
+
+Processor Suppliment aBI (psABI)
+
+-fno-strict-aliasing
+
+在编译选项中加入-fstrict-aliasing的优势在于向编译器说明不同类型的lvalue将指向不相关的内存区域，编译器可以做大量的优化。而选项-fno-strict-aliasing向编译器表明不同类型的lvalue可能指向相关的内存区域，因此编译器不会做出一些极端的优化而造成不安全
+
+-funwind-tables（为何会产生大量unwind符号？）
+
+unwind table，这个表记录了与函数相关的信息，共三个字段：函数的起始地址，函数的结束地址，一个 info block 指针。
+
+Similar to ‘-fexceptions’, except that it just generates any needed static data, but does not affect the generated code in any other way.
+
+-fexceptions
+
+Enable exception handling
+
+注：大量unwind符号的产生部分是由于-funwind-tables以及-fexceptions，该选项会使object产生符号__aeabi_unwind_cpp_prN，在链接之后会在库文件中生成unwind符号。但是即使不定义这两个选项，如果代码中显式抛出了异常，编译器会默认添加-fexceptions，如果强制手工添加-fno-exceptions会报错。stack unwind 即从抛出异常的函数开始，沿着调用链向上找到 catch 所在的函数，然后从抛异常的地方开始，清理调用链上各栈帧内已经创建了的局部变量，这一整个过程。
+
+-fstack-protector
+
+在关键函数的堆栈中设置保护值。在返回地址和返回值之前，都将验证这个保护值。如果出现了缓冲区溢出，保护值不再匹配，程序就会退出。程序每次运行，保护值都是随机的，不会被远程猜出。
+
+-finline-limit=64
+
+对伪指令数超过n的函数，编译程序将不进行内联展开，默认为600。增大此值将增加编译时间和编译内存用量并且生成的二进制文件体积也会变大，此值不宜太大。
+
+-fsigned-char
+
+设定char的缺省模式为signed char
+
+-no-canonical-prefixes
+
+Do not expand any symbolic links, resolve references to ‘/../’ or ‘/./’, or make the path absolute when generating a relative prefx.
+
+-fdata-sections 以及 -ffunction-sections
+
+将每个函数或符号创建为一个sections，其中每个sections名与function或data名保持一致。即使compiler为每个function和data item分配独立的section
+
+-Wl,–gc-sections（为何导致符号的缺失？）
+
+指示链接器去掉不用的section（其中-wl, 表示后面的参数 -gc-sections 传递给链接器），链接操作以section作为最小的处理单元（结合-ffunction-sections），只要一个section中有某个符号被引用，该section就会被放入output中。
+
+什么是"被引用"，个人认为是指"被调用"，或者符号被export引起的链接器认为这是一个接口
+
+-Wa,--noexecstack
+
+执行ld链接器堆栈段不可执行机制（其中-wl, 表示后面的参数 -gc-sections 传递给assembler）
+
+-frtti
+
+RTTI（Run-Time Type Identification)，通过运行时类型信息程序能够使用基类的指针或引用来检查这些指针或引用所指的对象的实际派生类型。-frtti选项使编译器为每个有虚函数的类添加一些信息以支持rtti特性，例如dynamic_cast typeid之类,不过这个选项默认就是打开的，一般都是用-fno-rtti来关闭这个特性节约空间
+
+-fvisibility=hidden
+
+能够实现隐藏符号表的作用，nm查看符号表可以看到符号类型从T变为t，至于如何去除局部符号t，可以调用strip -x来去掉。从动态共享库中尽可能少地输出符号是一个好的实践经验。输出一个受限制的符号会提高程序的模块性，并隐藏实现的细节。在库中减少符号的数目还可以减少库的内存印迹，减少动态链接器的工作量。动态链接器装载和识别的符号越少，程序启动和运行的速度就越快。
+
+对于接口函数，可以在函数声明前添加__attribute__ ((visibility ("default")))，使其符号被单独导出。
