@@ -1,0 +1,65 @@
+        -:    0:Source:Hello.c
+        -:    0:Graph:Hello.gcno
+        -:    0:Data:Hello.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:/*******************************************************************************
+        -:    2: *      file name: Hello.c                                               
+        -:    3: *         author: Hui Chen. (c) 2019                             
+        -:    4: *           mail: chenhui13@baidu.com                                        
+        -:    5: *   created time: 2019/11/11-18:40:07                              
+        -:    6: *  modified time: 2019/11/11-18:40:07                              
+        -:    7: *******************************************************************************/
+        -:    8:#include <stdio.h>
+        -:    9:int _abs(int a)
+        -:   10:{
+        1:   11:	if (a < 0) {
+    #####:   12:		a = 0-a; 
+    #####:   13:	}
+        1:   14:	return a;
+        -:   15:}
+        -:   16:
+        -:   17:int _max(int a, int b)
+        -:   18:{
+        1:   19:	int max = a;
+        1:   20:	if (a < b) {
+        1:   21:		max = b;
+        1:   22:	}
+        1:   23:	return max;
+        -:   24:}
+        -:   25:
+        -:   26:void sort( int list[], int size)
+        -:   27:{
+        1:   28:	int i, j, temp, swap = 1;
+        6:   29:	while (swap) {
+        2:   30:		swap = 0;
+       44:   31:		for ( i = (size-1) ; i >= 0 ; i-- ) {
+      220:   32:			for ( j = 1 ; j <= i ; j++ ) {
+       90:   33:				if ( list[j-1] > list[j] ) {
+       45:   34:						temp = list[j-1];
+       45:   35:						list[j-1] = list[j];
+       45:   36:						list[j] = temp;
+       45:   37:						swap = 1;
+       45:   38:				}//if 
+       90:   39:			}//for
+       20:   40:		} //for
+        -:   41:	}//while
+        1:   42:}
+        -:   43:
+        -:   44:int main() 
+        -:   45:{
+        1:   46:	int x = 4;
+        1:   47:	int a = 15,b = 20;
+        1:   48:	int theList[10]={10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
+        -:   49:	int i;
+        1:   50:	sort( theList, 10 );
+        -:   51:
+       22:   52:	for (i = 0 ; i < 10 ; i++) { 
+       10:   53:		printf("%d\n", theList[i]); 
+       10:   54:	}
+        -:   55:
+        1:   56:	printf("Hello Ubuntu!!\n");
+        1:   57:	printf("abs(%d) is %d\n",x,_abs(x));
+        1:   58:	printf("max(%d,%d) is %d\n",a,b,_max(a,b));
+        1:   59:	return 0; 
+        -:   60:}
