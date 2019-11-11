@@ -1,0 +1,160 @@
+严格别名规则“-fstrict-aliasing”和“-fno-strict-aliasing”及类型双关
+ 
+
+“-fstrict-aliasing”表示启用严格别名规则，“-fno-strict-aliasing”表示禁用严格别名规则，当gcc的编译优化参数为“-O2”、“-O3”和“-Os”时，默认会打开“-fstrict-aliasing”。
+
+ 
+
+什么是严格别名规则？gcc对严格别名的定义：
+
+In particular, an object of one type is assumed never to reside at the same address as an object of a different type, unless the types are almost the same.
+
+即，编译器假定相同的内存地址绝不会存放不同类型的数据，否则即破坏了严格别名规则。
+
+ 
+
+别名的定义可理解为：同一内存地址有不同的名称，比如：
+
+int m = 0x20190101;
+
+int* p1 = &m;
+
+int *p2 = &m;
+
+int *p3 = p2;
+
+int n = m;
+
+ 
+
+这里“&m”、“p1”、“p2”和“p3”均是同一内存地址的别名，但n不是，因此涉及严格别名，是和指针相关的。
+
+ 
+
+下列代码，如果使用“-O2”、“-O3”或“-Os”编译，并且加不“-fno-strict-aliasing”，则“*s”的结果是未定义的，不同的编译器可能产生不同的结果，即使同一编译器也可能运行时结果不尽相同：
+
+#include <stdio.h>
+
+int main() {
+
+    int m = 0x12345678;
+
+    short* s = (short*)&m; // 使用C++的方式也不可：short* s = reinterpret_cast<short*>(&m);
+
+    printf("%x\n", *s);
+
+    return 0;
+
+}
+
+ 
+
+gcc-4.1.2上运行情况，可以看到每次结果都不相同：
+
+> g++ --version
+
+> g++ -g -o e e.cpp -O2
+
+> ./e
+
+6590
+
+> ./e
+
+590
+
+> ./e
+
+ffffb590
+
+ 
+
+怎么解决严格别名问题？采用类型相关（type-punning），手段是采用联合体union，比如下面这种类型相关的用法是安全的：
+
+#include <stdio.h>
+
+union X {
+
+    int m;
+
+    short s;
+
+};
+
+int main() {
+
+    X x;
+
+    x.m = 0x12345678;
+
+    short s = x.s;
+
+    printf("%x\n", s);
+
+    return 0;
+
+}
+
+ 
+
+然而，下列用法仍然是不安全的（多版本gcc实测正常，也未有“dereferencing type-punned pointer will break strict-aliasing rules”编译告警，但gcc手册指出结果可能不符合预期）：
+
+#include <stdio.h>
+
+union X {
+
+    int m;
+
+    short s;
+
+};
+
+int main() {
+
+    X x;
+
+    x.m = 0x12345678;
+
+    short* s = &x.s;
+
+    printf("%x\n", *s);
+
+    return 0;
+
+}
+
+ 
+
+下列代码的结果也是未定义的（多版本gcc实测也正常，同样未有编译告警，但gcc手册指出结果是未定义的）：
+
+#include <stdio.h>
+
+union X {
+
+    int m;
+
+    short s;
+
+};
+
+int main() {
+
+    int m = 0x12345678;
+
+    short s = ((X*)&m)->s;
+
+    printf("%x\n", s);
+
+    return 0;
+
+}
+
+ 
+
+如果担心风险，可加上编译参数“-fno-strict-aliasing”，但这会阻止gcc相关的优化。不过下列别名总是安全的：
+
+1) “unsigned int”别名“int”，其它类似
+
+2) “char”别名其它任何类型
+
+
