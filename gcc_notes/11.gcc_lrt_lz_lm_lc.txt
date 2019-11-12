@@ -1,0 +1,21 @@
+libz
+librt
+libm
+libc
+-lptread 链接线程库等等,也可以使自己编译的库,  posix线程 -lpthread 
+
+压缩库（Z）
+实时库（real time）
+数学库（math）
+标准C库（C lib）
+
+Linux环境:
+我要写一个c++文件,名字叫cpp.cpp
+我自己写了一个头文件,名叫user_wrap.h,这个头文件中包含了<time.h>中的函数timer_create,timer_settime等等,(注意,timer_create等函数除了需包含<time.h>外,g++还要添加-lrt选项才能链接)
+
+-ldl
+#include <dlfcn.h>
+dlopen(),dlclose() , dlerror() , dlsym() , the Base Definitions volume of IEEE Std 1003.1-2001, <dlfcn.h>
+这些函数，动态库的相关部分
+-dl ，是显式加载动态库的动态函数库
+
