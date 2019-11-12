@@ -1,0 +1,93 @@
+本文链接：https://blog.csdn.net/fuyajun01/article/details/8907207
+add_custom_command: 增加客制化的构建规则到生成的构建系统中。对于add_custom_command，有两种使用形式。第一种形式是增加一个客制命令用来产生一个输出。
+ add_custom_command(OUTPUT output1 [output2 ...]
+                     COMMAND command1[ARGS] [args1...]
+                     [COMMAND command2 [ARGS] [args2...] ...]
+                     [MAIN_DEPENDENCYdepend]
+                     [DEPENDS[depends...]]
+                     [IMPLICIT_DEPENDS<lang1> depend1 ...]
+                     [WORKING_DIRECTORYdir]
+                     [COMMENT comment] [VERBATIM] [APPEND])
+
+不要同时在多个相互独立的目标中执行上述命令产生相同的文件，主要是为了防止冲突产生。如果有多条命令，它们将会按顺序执行。ARGS是为了向后兼容，使用过程中可以忽略。MAIN_DEPENDENCY完全是可选的，它主要是针对Visual Studio给出的一个建议。在Makefile中，它会产生一个这样的新目标：
+
+ OUTPUT: MAIN_DEPENDENCY DEPENDS
+          COMMAND
+
+ 
+
+第二种形式是为某个目标如库或可执行程序添加一个客制命令。这对于要在构建一个目标之前或之后执行一些操作非常有用。该命令本身会成为目标的一部分，仅在目标本身被构建时才会执行。如果该目标已经构建，命令将不会执行。
+
+ 
+
+ add_custom_command(TARGET target
+                     PRE_BUILD | PRE_LINK| POST_BUILD
+                     COMMAND command1[ARGS] [args1...]
+                     [COMMAND command2[ARGS] [args2...] ...]
+                     [WORKING_DIRECTORYdir]
+                     [COMMENT comment][VERBATIM])
+
+命令执行的时机由如下参数决定： 
+
+PRE_BUILD - 命令将会在其他依赖项执行前执行
+  PRE_LINK - 命令将会在其他依赖项执行完后执行
+  POST_BUILD - 命令将会在目标构建完后执行。
+
+其中，PRE_BUILD只被Visual Studio 7及之后的版本支持，其他所有的构建文件产生器将视PRE_BUILD为PRE_LINK。如果指定了WORKING_DIRECTORY，那么命令将会在指定的目录下执行。如果是相对路径，那么该路径将被解释为与当前源码目录对应的构建目录相对的路径。 如果设置了COMMENT，那么在编译时，命令执行前会将COMMENT的内容当做信息输出。如果指定了APPEND ，那么COMMAND 和 DEPENDS 选项的值将会被追加到第一个指定的输出对应的客制命令中。目前，如果指定了APPEND选项，那么COMMENT, WORKING_DIRECTORY, 和 MAIN_DEPENDENCY选项将会忽略。但是将来可能会使用。如果指定了VERBATIM选项，那么，所有传递到命令的参数将会被适当地转义，这样命令接受到的参数将不会改变。建议使用VERBATIM选项，如果客制命令的输出不是创建一个存储在磁盘上的文件，需要使用命令SET_SOURCE_FILES_PROPERTIES把它标记为SYMBOLIC。
+
+    IMPLICIT_DEPENDS选项请求扫描一个输入文件的隐含依赖项。特定的语言会指明对应编程语言，它会使用相应的依赖项扫描器。目前仅支持C和CXX语言依赖项扫描器。目前IMPLICIT_DEPENDS 选项仅被Makefile产生器支持，其它构建文件的产生器将会忽略该选项。
+
+如果COMMAND指定了一个可执行的目标（由ADD_EXECUTABLE创建)，那么它会自动地被在构建时创建的可执行文件路径替换。另外，也会添加一个目标级的依赖，使得可执行目标总会在使用了该客制命令的任何目标之前构建。然而，它不会增加一个文件级的依赖，这种依赖会使得只要该可执行程序被重新编译，该客制命令也会重新运行。
+
+DEPENDS选项指定了该命令所依赖的文件。如果任何依赖项是同一目录中其他另一个客制命令 OUTPUT(CMakeLists.txt)。那么CMake会自动地将其引入到执行该客制命令的目标中来。如果没有指定DEPENDS，那么只要OUTPUT不见了，该命令就会运行。如果该命令并没有实际去创建OUTPUT，那么该规则总是执行。如果DEPENDS指定了任何一个目标 (由ADD_* 系列命令创建) ，那么就会创建一个目标级的依赖以确保该目标比任何使用该客制命令的目标要先构建。另外，如果该目标是一个可执行文件或是一个库，那么就会创建一个文件级的依赖，这样会使得只要该目标重新编译，该客制命令就会重新运行。
+
+ 
+
+add_custom_target: 增加一个没有输出的目标，使得它总是被构建。  add_custom_target(Name [ALL] [command1 [args1...]]
+                    [COMMAND command2 [args2...] ...]
+                    [DEPENDS depend depend depend ... ]
+                    [WORKING_DIRECTORY dir]
+                    [COMMENT comment] [VERBATIM]
+                    [SOURCES src1 [src2...]])
+增加一个指定名字的目标，并执行指定的命令。该目标没有输出文件，总是被认为是过期的，即使是在试图用目标的名字创建一个文件。使用ADD_CUSTOM_COMMAND命令来创建一个具有依赖项的文件。默认情况下，没有任何目标会依赖该客制目标。使用ADD_DEPENDENCIES 来添加依赖项或成为别的目标的依赖项。如果指定了ALL选项，那就表明该目标会被添加到默认的构建目标，使得它每次都被运行。(该命令的名称不能命名为 ALL). 命令和参数都是可选的，如果没有指定，将会创建一个空目标。如果设置了WORKING_DIRECTORY ，那么该命令将会在指定的目录中运行。如果它是个相对路径，那它会被解析为相对于当前源码目录对应的构建目录。如果设置了 COMMENT，在构建的时候，该值会被当成信息在执行该命令之前显示。DEPENDS参数可以是文件和同一目录中的其他客制命令的输出。
+
+如果指定了VERBATIM， 所有传递给命令的参数将会被适当地转义。建议使用该选项。
+
+SOURCES选项指定了包含进该客制目标的额外的源文件。即使这些源文件没有构建规则，但是它们会被增加到IDE的工程文件中以方便编辑。
+
+
+
+
+
+
+例子：
+
+
+
+set(TEST_FILE "log.txt")
+add_custom_command(OUTPUT  ${TEST_FILE}
+  COMMAND echo "Generating log.txt file..."
+  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_LIST_FILE} ${TEST_FILE}
+  COMMENT  "This is a test"
+ )
+add_custom_target(Test1 ALL DEPENDS ${TEST_FILE})
+
+
+add_custom_command(TARGET Test1
+  PRE_BUILD 
+  COMMAND echo "executing a fake command"
+  COMMENT "This command will be executed before building target Test1"
+ )
+
+
+
+结果：
+
+[100%] This is a test
+Generating log.txt file...
+This command will be executed before building target Test1
+executing a fake command
+[100%] Built target Test1
+————————————————
+版权声明：本文为CSDN博主「山庄来客」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/fuyajun01/article/details/8907207

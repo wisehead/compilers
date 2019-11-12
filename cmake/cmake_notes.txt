@@ -24,7 +24,25 @@ Mark cmake cached variables as advanced.
   mark_as_advanced([CLEAR|FORCE] VAR VAR2 VAR...)
 标记已命名的缓冲变量为 advanced.  advanced 变量 不会在cmake 图形界面中显示 除非 advanced 选项开启. 如果第一个参数是 CLEAR  advanced 变量变为unadvanced. 如果 FORCE 是第一个参数, 变量变为 advanced. 如果 FORCE 和 CLEAR 都未选定, 新变量标记为 advanced, 但是如果变量已是 advanced/non-advanced 状态, 就不会发生变化.
 
-5.cmake FUNCTION list
+
+
+5.ADD_CUSTOM_TARGET
+add_custom_target: 增加一个没有输出的目标，使得它总是被构建。  add_custom_target(Name [ALL] [command1 [args1...]]
+                    [COMMAND command2 [args2...] ...]
+                    [DEPENDS depend depend depend ... ]
+                    [WORKING_DIRECTORY dir]
+                    [COMMENT comment] [VERBATIM]
+                    [SOURCES src1 [src2...]])
+增加一个指定名字的目标，并执行指定的命令。该目标没有输出文件，总是被认为是过期的，即使是在试图用目标的名字创建一个文件。使用ADD_CUSTOM_COMMAND命令来创建一个具有依赖项的文件。默认情况下，没有任何目标会依赖该客制目标。使用ADD_DEPENDENCIES 来添加依赖项或成为别的目标的依赖项。如果指定了ALL选项，那就表明该目标会被添加到默认的构建目标，使得它每次都被运行。(该命令的名称不能命名为 ALL). 命令和参数都是可选的，如果没有指定，将会创建一个空目标。如果设置了WORKING_DIRECTORY ，那么该命令将会在指定的目录中运行。如果它是个相对路径，那它会被解析为相对于当前源码目录对应的构建目录。如果设置了 COMMENT，在构建的时候，该值会被当成信息在执行该命令之前显示。DEPENDS参数可以是文件和同一目录中的其他客制命令的输出。
+
+如果指定了VERBATIM， 所有传递给命令的参数将会被适当地转义。建议使用该选项。
+
+SOURCES选项指定了包含进该客制目标的额外的源文件。即使这些源文件没有构建规则，但是它们会被增加到IDE的工程文件中以方便编辑。
+
+
+----------------------------------------------------------------------------------------------------------------------
+
+100.cmake FUNCTION list
 
 CMAKE_POLICY
 CHECK_TYPE_SIZE
@@ -43,6 +61,8 @@ MYSQL_CHECK_LIBEVENT()
 
 
 CONFIGURE_PLUGINS()
+CREATE_INFO_SRC()
+
 
 
 
