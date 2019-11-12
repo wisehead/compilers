@@ -1,0 +1,7 @@
+经常我们在工程中，会使用别人的既有代码。假设我们使用了一个人的代码A目录，里面有一个-Werror的选项，把所有的警告当做错误；又使用了另一个人的代码B目录，里面存在一堆Warning。这样，当我们把它们合在一起编译的时候，A中的-Werror选项会导致B的代码编译不过。但我们又不想去修改B的代码，怎么办？
+参见 https://blog.csdn.net/liwen01/article/details/71171413
+方法是，先add_subdirectory(A)，之后，加上一句
+set(CMAK_CXX_FLAGS "${CMAK_CXX_FLAGS} -Wno-error")
+-Wno-这个前缀，就是用来取消一个编译选项的
+然后，再add_subdirectory(B)
+
