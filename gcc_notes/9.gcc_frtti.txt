@@ -1,0 +1,185 @@
+-frtti
+打开rtti(runtime type identification)?这样编译器会为每个有虚函数的类添加一些信息以支持rtti特性，例如dynamic_cast typeid之类,
+不过这个选项默认就是打开的啊，一般都是用-fno-rtti来关闭这个特性节约空间
+
+dynamic_cast：将基类类型的指针向派生类指针安全转换。多用于下行转换。上行转换时，和static_cast是一样的。C++类型转换看这里。而const_cast用来修改类型的const或volatile属性。。。下面主要说多态下的RTTI：
+
+使用条件:
+　　基类应有虚函数。
+　　编译器需启用Runtime Type Information/Identification(RTTI)，运行时类型信息。VS下在项目属性页下启用，如下，选 是: （VS2013测试:默认的留空不选也能正常使用dynamic_cast）
+
+
+结果:
+　　对指针进行dynamic_cast，失败返回null，成功返回正常cast后的对象指针； //首选
+　　对引用进行dynamic_cast，失败抛出一个异常std::bad_cast，成功返回正常cast后的对象引用。
+
+用处：一般用在多态中，即基类的指针或引用指向派生类对象时，进行安全的向下转换。
+　　　多态的基本例子如下:
+
+
+复制代码
+#include <iostream>
+using namespace std;
+
+class Base
+{
+public:
+    virtual void vFoo()
+    {
+        cout << "Base::vFoo()" << endl;
+    }
+
+    virtual ~Base(){ }
+};
+
+class Derived : public Base
+{
+public:    
+    virtual void vFoo()
+    {
+        cout << "Derived::vFoo()" << endl;
+    }
+    void Other()
+    {
+        cout << "Derived::Other()" << endl;
+    }
+    
+    virtual ~Derived(){ }
+};
+int main()
+{
+    Base *pBase = new Derived;
+    
+    pBase->vFoo(); //"Derived::vFoo()"
+
+    delete pBase;
+    return 0;
+}
+复制代码
+可看到，由于基类指针实际指向派生类实例，所以实际调用的是派生类里的vFoo()函数。
+
+但尝试 pBase->Other();//编译出错 ，虽然pBase指向派生类实例，但指针本身的类型却决定了它所能调用的函数范围。
+
+强制转换下呢: ((Derived*)pBase)->Other();//"Derived::Other()" ,成功了。
+
+但如果这样呢:
+
+Base *pBase = new Base;
+((Derived*)pBase)->Other();
+仍然成功了，正确输出。实际Other函数可以直接使用Derived::Other()来调用的，因为函数里没交互数据成员。但如果交互了呢:
+
+复制代码
+//Derived类里：
+public:
+    int a = 6;//C++11
+    void Other()
+    {
+        cout << a << endl;//随机数字，如73756547
+        a = 100;
+    }
+};
+
+//main里
+Base *pBase = new Base;
+((Derived*)pBase)->Other();
+复制代码
+运行后竟仍然成功了。但从输出的a是随机数字可以看出int a =6;并没有执行过，因为new的是Base实例。这里我们虽依然运行成功，但从程序上看，这是不对的。如果Derived类封装的更复杂(比如在构造函数里new, Other里delete)，可能肯定运行时会崩溃！所以c语言形式的强制转换在此种情况下是不安全的。
+
+可能问，为什么一定要调用Other函数呢，如果一定要在使用多态时调用它，在基类里添加Other函数并声明它为虚函数不就行了。是的，这样可以。但有时，比如我使用了一个第三方库(封装到lib里，只提供了它的头文件)，我在从它继承的派生类中添加了新函数，并想在多态下使用。此时是不可能在第三方库里添加虚函数的，因为库不能重新编译。这时就需要安全的类型转换了。dynamic_cast就可以在此种情况下起作用:
+
+复制代码
+void foo(Base *p)
+{
+    Derived* pChild = dynamic_cast<Derived*>(p);
+    if(pChild)
+          pChild->Other();
+    else
+    {
+        //不指向派生类实例时的处理
+    }
+}
+//引用时
+void foo2(Base &b)
+{
+    try
+    {
+        Derived& pChild = dynamic_cast<Derived&>(b);
+        pChild.Other();
+    }
+    catch(std::bad_cast)
+    {
+        //不指向派生类实例时的处理
+    }
+}
+复制代码
+
+对基类指针，不属于某个派生类实例将返回null，这样可用来判断类型:
+
+复制代码
+void foo(Base *p)
+{
+    if(dynamic_cast<Derived1*>(p))
+   {
+        //属于Derived1类
+    }
+   else if(dynamic_cast<Derived2*>(p))
+   {
+        //属于Derived2类
+    }
+    //...
+}
+复制代码
+ 
+
+typeid：
+
+http://www.cppblog.com/smagle/archive/2010/05/14/115286.aspx这篇写的很好，我就不怎么写了。。。直接贴它的几个例子吧
+
+需要注意(仍根据上文例子)：
+
+Base *pBase = new Derived;
+cout << typeid(pBase).name() << endl; //class Base*   虽然基类有虚函数且指针指向派生类对象，但仍输出指针类型本身
+cout << typeid(*pBase).name() << endl;//class Derived
+Base &rD = *pBase;//class Derived   //注意，引用和指针结果不同
+
+//所以typeid能对含虚函数的类类型(对象本身或引用)判断出其指向的对象的类型信息，对指针无用。
+
+例子:
+
+ 基本类型与一般类
+
+
+ 
+
+复制代码
+#include <iostream>
+using namespace std;
+
+class Base
+{
+public:
+    virtual void foo(){}
+    virtual ~Base(){}
+};
+class Derived: public Base
+{
+};
+
+int main()
+{
+    Base *pd = new Derived;
+
+    cout << typeid(pd).name() << endl //class Base *
+         << typeid(*pd).name() << endl;
+    Base &rD = *pd;
+    cout << typeid(rD).name() << endl;
+    
+    //虽无法从指针本身上判断，但可对其解引用
+    if(typeid(Derived) == typeid(*pd))
+        cout << "类型相同" << endl;
+    else
+        cout << "类型不同" << endl;
+    
+    delete pd;
+    return 0;
+}
