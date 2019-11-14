@@ -12,8 +12,10 @@ SET(HELLO_SRC main.SOURCE_PATHc)，就PROJECT_BINARY_DIR可以通过 ${HELLO_SRC
 这三个变量指代的内容是一致的，如果是in source编译，指得就是工程顶层目录，如果 是 out-of-source 编译，指的是工程编译发生的目录。PROJECT_BINARY_DIR 跟其他 指令稍有区别，现在，你可以理解为他们是一致的。
 2，CMAKE_SOURCE_DIR PROJECT_SOURCE_DIR <projectname>_SOURCE_DIR
 这三个变量指代的内容是一致的，不论采用何种编译方式，都是工程顶层目录。 也就是在in source编译时，他跟CMAKE_BINARY_DIR等变量一致。
-PROJECT_SOURCE_DIR 跟其他指令稍有区别，现在，你可以理解为他们是一致的。 3，CMAKE_CURRENT_SOURCE_DIR
-指的是当前处理的 CMakeLists.txt 所在的路径，比如上面我们提到的 src 子目录。 4，CMAKE_CURRRENT_BINARY_DIR
+PROJECT_SOURCE_DIR 跟其他指令稍有区别，现在，你可以理解为他们是一致的。 
+3，CMAKE_CURRENT_SOURCE_DIR
+指的是当前处理的 CMakeLists.txt 所在的路径，比如上面我们提到的 src 子目录。 
+4，CMAKE_CURRRENT_BINARY_DIR
 如果是 in-source 编译，它跟 CMAKE_CURRENT_SOURCE_DIR 一致，如果是 out-of- source 编译，他指的是 target 编译目录。
 使用我们上面提到的ADD_SUBDIRECTORY(src bin)可以更改这个变量的值。
 使用SET(EXECUTABLE_OUTPUT_PATH <新路径>)并不会对这个变量造成影响，它仅仅 修改了最终目标文件存放的路径。
