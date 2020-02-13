@@ -1,4 +1,4 @@
-#1.objdump -h
+#一、objdump -h
 ##1.1 demo.cpp
 
 ```cpp
@@ -62,3 +62,49 @@ gcc -c demo.cpp [-lstdc++]
 >                   CONTENTS, READONLY
 >   7 .eh_frame     00000078  0000000000000000  0000000000000000  000000f0  2** 3
 >                   CONTENTS, ALLOC, LOAD, RELOC, READONLY, DATA
+> 
+
+
+#二、 objdump -D
+##2.1 main.c
+
+```c
+#include <stdio.h>
+
+void fun(int a)
+{
+}
+ 
+int main()
+{
+    int a = 1234;
+    fun(a);
+}
+```
+##2.2 反汇编代码main.asm如下
+objdump -D main.o >main.asm
+反汇编代码main.asm如下
+
+```
+0000000000000000 <fun>:
+   0:   55                      push   %rbp
+   1:   48 89 e5                mov    %rsp,%rbp
+   4:   89 7d fc                mov    %edi,-0x4(%rbp)
+   7:   90                      nop
+   8:   5d                      pop    %rbp
+   9:   c3                      retq   
+
+000000000000000a <main>:
+   a:   55                      push   %rbp
+   b:   48 89 e5                mov    %rsp,%rbp
+   e:   48 83 ec 10             sub    $0x10,%rsp
+  12:   c7 45 fc 03 00 00 00    movl   $0x3,-0x4(%rbp)
+  19:   8b 45 fc                mov    -0x4(%rbp),%eax
+  1c:   89 c7                   mov    %eax,%edi
+  1e:   e8 00 00 00 00          callq  23 <main+0x19>
+  23:   b8 00 00 00 00          mov    $0x0,%eax
+  28:   c9                      leaveq 
+  29:   c3                      retq  
+```
+
+
