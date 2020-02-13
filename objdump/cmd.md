@@ -16,3 +16,11 @@ objdump -h demo.o
 
 ##2.2.通过.o生成汇编文件.asm
 objdump -D demo.o
+
+##2.3 显示文件头信息 
+objdump -f main.o
+
+##2.4 显示制定section段信息(comment段)
+objdump -s -j .comment main.o
+
+

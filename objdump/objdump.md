@@ -107,4 +107,22 @@ objdump -D main.o >main.asm
   29:   c3                      retq  
 ```
 
+#三、objdump -f
+显示文件头信息
+> [chenhui3@cq01-sys-replace001.cq01.baidu.com objdump_D]$ objdump -f main.o
+> 
+> main.o:     file format elf64-x86-64
+> architecture: i386:x86-64, flags 0x00000011:
+> HAS_RELOC, HAS_SYMS
+> start address 0x0000000000000000
 
+#四、objdump -s -j .comment 
+显示制定section段信息(comment段)
+[chenhui3@cq01-sys-replace001.cq01.baidu.com objdump_D]$ objdump -s -j .comment main.o
+
+main.o:     file format elf64-x86-64
+
+Contents of section .comment:
+ 0000 00474343 3a202847 4e552920 382e322e  .GCC: (GNU) 8.2.
+ 0010 3000                                 0.
+ 
