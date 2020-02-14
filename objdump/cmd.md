@@ -23,4 +23,10 @@ objdump -f main.o
 ##2.4 显示制定section段信息(comment段)
 objdump -s -j .comment main.o
 
+##2.5 查看PLT表
+objdump -d -j .plt level
+
+##2.6 查看GOT表
+objdump -R level2
+
 
