@@ -40,7 +40,7 @@ gcc -c demo.cpp [-lstdc++]
 > 
 
 ##1.3 on Linux
-> [chenhui3@cq01-sys-replace001.cq01.baidu.com objdump_h]$ objdump -h demo.o
+> [chenhui3@cq01-xxx.com objdump_h]$ objdump -h demo.o
 > 
 > demo.o:     file format elf64-x86-64
 > 
@@ -109,7 +109,7 @@ objdump -D main.o >main.asm
 
 #三、objdump -f
 显示文件头信息
-> [chenhui3@cq01-sys-replace001.cq01.baidu.com objdump_D]$ objdump -f main.o
+> [chenhui3@xxx.com objdump_D]$ objdump -f main.o
 > 
 > main.o:     file format elf64-x86-64
 > architecture: i386:x86-64, flags 0x00000011:
@@ -118,7 +118,7 @@ objdump -D main.o >main.asm
 
 #四、objdump -s -j .comment 
 显示制定section段信息(comment段)
-[chenhui3@cq01-sys-replace001.cq01.baidu.com objdump_D]$ objdump -s -j .comment main.o
+[chenhui3@cq01-xxx.com objdump_D]$ objdump -s -j .comment main.o
 
 main.o:     file format elf64-x86-64
 
