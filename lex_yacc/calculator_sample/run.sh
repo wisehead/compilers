@@ -8,3 +8,4 @@
 flex scan.l
 yacc -d calc.y
 gcc y.tab.c
+./a.out add.input
