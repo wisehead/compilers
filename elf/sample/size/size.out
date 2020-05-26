@@ -1,0 +1,3 @@
+[chenhui@cq01-sys-replace001.cq01.baidu.com elf]$ size SimpleSection.o
+   text    data     bss     dec     hex filename
+    185       8       4     197      c5 SimpleSection.o
