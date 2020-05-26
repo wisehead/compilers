@@ -485,8 +485,8 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "test.l"
-#line 2 "test.l"
+#line 1 "ch1-02.l"
+#line 2 "ch1-02.l"
 /*
  * this sample demonstrates (very) simple recognition:
  * a verb/not a verb.
@@ -674,7 +674,7 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 8 "test.l"
+#line 8 "ch1-02.l"
 
 
 #line 681 "lex.yy.c"
@@ -762,66 +762,66 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 10 "test.l"
+#line 10 "ch1-02.l"
 /* ignore white space */ ;
 	YY_BREAK
 case 2:
-#line 13 "test.l"
+#line 13 "ch1-02.l"
 case 3:
-#line 14 "test.l"
+#line 14 "ch1-02.l"
 case 4:
-#line 15 "test.l"
+#line 15 "ch1-02.l"
 case 5:
-#line 16 "test.l"
+#line 16 "ch1-02.l"
 case 6:
-#line 17 "test.l"
+#line 17 "ch1-02.l"
 case 7:
-#line 18 "test.l"
+#line 18 "ch1-02.l"
 case 8:
-#line 19 "test.l"
+#line 19 "ch1-02.l"
 case 9:
-#line 20 "test.l"
+#line 20 "ch1-02.l"
 case 10:
-#line 21 "test.l"
+#line 21 "ch1-02.l"
 case 11:
-#line 22 "test.l"
+#line 22 "ch1-02.l"
 case 12:
-#line 23 "test.l"
+#line 23 "ch1-02.l"
 case 13:
-#line 24 "test.l"
+#line 24 "ch1-02.l"
 case 14:
-#line 25 "test.l"
+#line 25 "ch1-02.l"
 case 15:
-#line 26 "test.l"
+#line 26 "ch1-02.l"
 case 16:
-#line 27 "test.l"
+#line 27 "ch1-02.l"
 case 17:
-#line 28 "test.l"
+#line 28 "ch1-02.l"
 case 18:
-#line 29 "test.l"
+#line 29 "ch1-02.l"
 case 19:
-#line 30 "test.l"
+#line 30 "ch1-02.l"
 case 20:
-#line 31 "test.l"
+#line 31 "ch1-02.l"
 case 21:
 YY_RULE_SETUP
-#line 31 "test.l"
+#line 31 "ch1-02.l"
 { printf("%s: is a verb\n", yytext); }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 33 "test.l"
+#line 33 "ch1-02.l"
 { printf("%s: is not a verb\n", yytext); }
 	YY_BREAK
 case 23:
 /* rule 23 can match eol */
 YY_RULE_SETUP
-#line 35 "test.l"
+#line 35 "ch1-02.l"
 { ECHO; /* normal default anyway */ }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 36 "test.l"
+#line 36 "ch1-02.l"
 ECHO;
 	YY_BREAK
 #line 828 "lex.yy.c"
@@ -1821,20 +1821,12 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 36 "test.l"
+#line 36 "ch1-02.l"
 
 
 
 main()
 {
 	yylex();
-}
-void yyerror(char* s)
-{
-    fprintf(stderr,"%s",s);
-}
-int yywrap()
-{
-    return 1;
 }
 

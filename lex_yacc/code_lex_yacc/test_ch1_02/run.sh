@@ -7,3 +7,8 @@
 #!/bin/sh 
 flex test.l
 gcc lex.yy.c
+
+#option 2
+#no need to add yywrap()
+lex ch1-02.l
+cc lex.yy.c -ll
