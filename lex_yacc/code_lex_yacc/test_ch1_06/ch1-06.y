@@ -43,9 +43,9 @@ extern FILE *yyin;
 
 main()
 {
-	while(!feof(yyin)) {
+	//while(!feof(yyin)) {
 		yyparse();
-	}
+	//}
 }
 
 yyerror(s)
