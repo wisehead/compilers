@@ -1535,9 +1535,9 @@ extern FILE *yyin;
 
 main()
 {
-	while(!feof(yyin)) {
+	//while(!feof(yyin)) {
 		yyparse();
-	}
+	//}
 }
 
 yyerror(s)
@@ -1546,10 +1546,8 @@ char *s;
     fprintf(stderr, "%s\n", s);
 }
 
-/*
 int yywrap()
 {
     return 1;
 }
-*/
 
