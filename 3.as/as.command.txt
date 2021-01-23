@@ -1,0 +1,3 @@
+as hello.s -o hello.o
+gcc -c hello.s -o hello.o
+gcc -c hello.c -o hello.o
