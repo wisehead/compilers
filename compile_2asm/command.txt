@@ -1,0 +1,5 @@
+gcc -S hello.i -o hello.s
+gcc -S hello.c -o hello.s
+//cc1 hello.c
+
+there is  no cc1 in gcc4.8.5, cc in a soft link for gcc.
