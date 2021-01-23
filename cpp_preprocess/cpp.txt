@@ -1,0 +1,6 @@
+#1.pre process(pre compile) command
+
+gcc -E hello.c -o hello.i
+
+cpp hello.c >hello.i
+
