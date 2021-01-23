@@ -1,0 +1,2 @@
+gcc -c simple_section.c
+objdump -h simple_section.o
