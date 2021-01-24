@@ -1,0 +1,6 @@
+gcc -c simple_section.c
+objdump -h simple_section.o
+
+# size command to get the size of the segments of elf files.
+size simple_section.o
+
