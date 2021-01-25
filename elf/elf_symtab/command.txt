@@ -1,1 +1,5 @@
 nm simple_section.o >symtab.out
+readelf -s simple_section.o >symtab.readelf.txt
+readelf -a simple_section.o >symtab.readelf_a.txt
+objdump -x simple_section.o >objdump_x.txt
+objdump -t simple_section.o//section name sym
