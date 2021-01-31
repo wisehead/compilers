@@ -1,0 +1,3 @@
+gcc -c -fno-builtin hello.c
+ld -static -e nomain -o hello hello.o
+ld -static -T hello.lds -o hello hello.o
