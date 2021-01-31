@@ -1,0 +1,2 @@
+ar -t /usr/lib64/libc.a//list the .o files.
+objdump -t libc.a//to find which .o file contains the function.
