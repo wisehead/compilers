@@ -1,0 +1,6 @@
+gcc -c a.c -o a.o
+gcc -c b.c -o b.o
+ld a.o b.o -e main -o ab
+objdump -h a.o
+objdump -h n.o
+objdump -h ab
