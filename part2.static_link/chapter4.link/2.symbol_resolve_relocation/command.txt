@@ -1,0 +1,5 @@
+objdump -d a.o
+objdump -d ab
+objdump -r a.o//relocation table
+ld a.o//will faile
+readelf -s a.o//print sym table
