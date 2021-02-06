@@ -1,0 +1,7 @@
+00400000-004bd000 r-xp 00000000 fc:01 1982412                            /home/chenhui2/compilers/part2.static_link/chapter6.load/6.4.virtual_space/section_mapping.elf
+006bc000-006bf000 rw-p 000bc000 fc:01 1982412                            /home/chenhui2/compilers/part2.static_link/chapter6.load/6.4.virtual_space/section_mapping.elf
+006bf000-006c1000 rw-p 00000000 00:00 0
+017f5000-01818000 rw-p 00000000 00:00 0                                  [heap]
+7fff68a1e000-7fff68a3f000 rw-p 00000000 00:00 0                          [stack]
+7fff68a5d000-7fff68a5f000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]

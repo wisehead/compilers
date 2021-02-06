@@ -1,3 +1,5 @@
 gcc -static  section_mapping.c
 readelf -S a.out  >section.out
 readelf -l a.out >segment.out
+./section_mapping.elf &
+cat /proc/17413/maps >proc_maps.out
