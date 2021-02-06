@@ -1,0 +1,3 @@
+gcc -fPIC -shared -o lib.so lib.c
+gcc -o program1 program1.c ./lib.so
+gcc -o program2 program2.c ./lib.so
