@@ -1,0 +1,3 @@
+gcc -static  section_mapping.c
+readelf -S a.out  >section.out
+readelf -l a.out >segment.out
