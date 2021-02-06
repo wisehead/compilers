@@ -1,0 +1,32 @@
+
+Elf file type is DYN (Shared object file)
+Entry point 0x610
+There are 7 program headers, starting at offset 64
+
+Program Headers:
+  Type           Offset             VirtAddr           PhysAddr
+                 FileSiz            MemSiz              Flags  Align
+  LOAD           0x0000000000000000 0x0000000000000000 0x0000000000000000
+                 0x00000000000007d4 0x00000000000007d4  R E    200000
+  LOAD           0x0000000000000df8 0x0000000000200df8 0x0000000000200df8
+                 0x0000000000000240 0x0000000000000248  RW     200000
+  DYNAMIC        0x0000000000000e18 0x0000000000200e18 0x0000000000200e18
+                 0x00000000000001c0 0x00000000000001c0  RW     8
+  NOTE           0x00000000000001c8 0x00000000000001c8 0x00000000000001c8
+                 0x0000000000000024 0x0000000000000024  R      4
+  GNU_EH_FRAME   0x0000000000000750 0x0000000000000750 0x0000000000000750
+                 0x000000000000001c 0x000000000000001c  R      4
+  GNU_STACK      0x0000000000000000 0x0000000000000000 0x0000000000000000
+                 0x0000000000000000 0x0000000000000000  RW     10
+  GNU_RELRO      0x0000000000000df8 0x0000000000200df8 0x0000000000200df8
+                 0x0000000000000208 0x0000000000000208  R      1
+
+ Section to Segment mapping:
+  Segment Sections...
+   00     .note.gnu.build-id .gnu.hash .dynsym .dynstr .gnu.version .gnu.version_r .rela.dyn .rela.plt .init .plt .text .fini .rodata .eh_frame_hdr .eh_frame 
+   01     .init_array .fini_array .jcr .data.rel.ro .dynamic .got .got.plt .bss 
+   02     .dynamic 
+   03     .note.gnu.build-id 
+   04     .eh_frame_hdr 
+   05     
+   06     .init_array .fini_array .jcr .data.rel.ro .dynamic .got 

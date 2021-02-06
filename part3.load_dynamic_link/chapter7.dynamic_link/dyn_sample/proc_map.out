@@ -1,0 +1,29 @@
+00400000-00401000 r-xp 00000000 fc:01 3023417                            /home/chenhui2/compilers/part3.load_dynamic_link/chapter7.dynamic_link/dyn_sample/program1
+00600000-00601000 r--p 00000000 fc:01 3023417                            /home/chenhui2/compilers/part3.load_dynamic_link/chapter7.dynamic_link/dyn_sample/program1
+00601000-00602000 rw-p 00001000 fc:01 3023417                            /home/chenhui2/compilers/part3.load_dynamic_link/chapter7.dynamic_link/dyn_sample/program1
+7fd2f0bec000-7fd2f0bee000 r-xp 00000000 fc:01 25105                      /usr/lib64/libdl-2.17.so
+7fd2f0bee000-7fd2f0dee000 ---p 00002000 fc:01 25105                      /usr/lib64/libdl-2.17.so
+7fd2f0dee000-7fd2f0def000 r--p 00002000 fc:01 25105                      /usr/lib64/libdl-2.17.so
+7fd2f0def000-7fd2f0df0000 rw-p 00003000 fc:01 25105                      /usr/lib64/libdl-2.17.so
+7fd2f0df0000-7fd2f0fb4000 r-xp 00000000 fc:01 24989                      /usr/lib64/libc-2.17.so
+7fd2f0fb4000-7fd2f11b3000 ---p 001c4000 fc:01 24989                      /usr/lib64/libc-2.17.so
+7fd2f11b3000-7fd2f11b7000 r--p 001c3000 fc:01 24989                      /usr/lib64/libc-2.17.so
+7fd2f11b7000-7fd2f11b9000 rw-p 001c7000 fc:01 24989                      /usr/lib64/libc-2.17.so
+7fd2f11b9000-7fd2f11be000 rw-p 00000000 00:00 0 
+7fd2f11be000-7fd2f11bf000 r-xp 00000000 fc:01 3023416                    /home/chenhui2/compilers/part3.load_dynamic_link/chapter7.dynamic_link/dyn_sample/lib.so
+7fd2f11bf000-7fd2f13be000 ---p 00001000 fc:01 3023416                    /home/chenhui2/compilers/part3.load_dynamic_link/chapter7.dynamic_link/dyn_sample/lib.so
+7fd2f13be000-7fd2f13bf000 r--p 00000000 fc:01 3023416                    /home/chenhui2/compilers/part3.load_dynamic_link/chapter7.dynamic_link/dyn_sample/lib.so
+7fd2f13bf000-7fd2f13c0000 rw-p 00001000 fc:01 3023416                    /home/chenhui2/compilers/part3.load_dynamic_link/chapter7.dynamic_link/dyn_sample/lib.so
+7fd2f13c0000-7fd2f13e2000 r-xp 00000000 fc:01 4899                       /usr/lib64/ld-2.17.so
+7fd2f14c3000-7fd2f14c6000 rw-p 00000000 00:00 0 
+7fd2f14d8000-7fd2f14d9000 rw-p 00000000 00:00 0 
+7fd2f14d9000-7fd2f14dc000 r-xp 00000000 fc:01 25620                      /usr/lib64/libonion_security.so.1.0.19
+7fd2f14dc000-7fd2f15dc000 ---p 00003000 fc:01 25620                      /usr/lib64/libonion_security.so.1.0.19
+7fd2f15dc000-7fd2f15dd000 rw-p 00003000 fc:01 25620                      /usr/lib64/libonion_security.so.1.0.19
+7fd2f15dd000-7fd2f15e1000 rw-p 00000000 00:00 0 
+7fd2f15e1000-7fd2f15e2000 r--p 00021000 fc:01 4899                       /usr/lib64/ld-2.17.so
+7fd2f15e2000-7fd2f15e3000 rw-p 00022000 fc:01 4899                       /usr/lib64/ld-2.17.so
+7fd2f15e3000-7fd2f15e4000 rw-p 00000000 00:00 0 
+7ffc21071000-7ffc21092000 rw-p 00000000 00:00 0                          [stack]
+7ffc211b5000-7ffc211b7000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]

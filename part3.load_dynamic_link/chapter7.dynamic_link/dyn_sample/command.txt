@@ -1,3 +1,6 @@
 gcc -fPIC -shared -o lib.so lib.c
 gcc -o program1 program1.c ./lib.so
 gcc -o program2 program2.c ./lib.so
+./program1 &
+cat /proc/18649/maps
+readelf -l lib.so >lib.so.program_header_table.out 
