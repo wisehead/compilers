@@ -1,2 +1,2 @@
 gcc -fPIC -shared -o lib.so lib.c
-objdump -R lib.so
+objdump -R lib.so >GOT.out
