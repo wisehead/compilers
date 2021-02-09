@@ -1,0 +1,2 @@
+gcc -o sample run_so_simple.c -ldl
+./sample /lib64/libm-2.17.so
