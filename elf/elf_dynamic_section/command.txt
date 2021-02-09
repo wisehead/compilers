@@ -1,0 +1,2 @@
+gcc -fPIC -shared -o lib.so lib.c
+readelf -d lib.so > dynamic.out
