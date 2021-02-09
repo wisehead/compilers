@@ -1,0 +1,4 @@
+gcc -fPIC -shared -o lib.so lib.c
+objdump -R lib.so >GOT.out
+readelf -r lib.so >readelf.out
+readelf -S lib.so >section.out
