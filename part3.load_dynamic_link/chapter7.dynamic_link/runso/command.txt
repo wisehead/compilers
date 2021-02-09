@@ -1,0 +1,6 @@
+gcc -g -o runso runso.c -ldl
+./runso /lib64/libm-2.17.so sin d2.0 d
+
+$ ./runso /lib/x86_64-linux-gnu/libm-2.15.so sin d2.0 d
+5, fun: sin [4,8,8]
+Segmentation fault (core dumped)
