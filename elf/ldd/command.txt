@@ -1,0 +1,3 @@
+gcc -fPIC -shared -o lib.so lib.c
+gcc -o program1 program1.c ./lib.so
+ldd program1 >ldd.out

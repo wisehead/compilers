@@ -1,0 +1,6 @@
+	linux-vdso.so.1 =>  (0x00007ffe201ca000)
+	/$LIB/libonion.so => /lib64/libonion.so (0x00007f336c56e000)
+	./lib.so (0x00007f336c253000)
+	libc.so.6 => /lib64/libc.so.6 (0x00007f336be85000)
+	libdl.so.2 => /lib64/libdl.so.2 (0x00007f336bc81000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007f336c455000)
