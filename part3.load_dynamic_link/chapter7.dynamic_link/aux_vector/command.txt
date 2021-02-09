@@ -1,0 +1,2 @@
+gcc auxv.c
+a.out >aux.ou

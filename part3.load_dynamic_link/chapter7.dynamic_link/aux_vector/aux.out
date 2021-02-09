@@ -1,0 +1,44 @@
+0x7ffc9c47d598
+Argument count: 0
+Argument 0: a.out
+Environment:
+HOSTNAME=VM-219-170-centos
+SHELL=/bin/bash
+TERM=screen
+HISTSIZE=3000
+OLDPWD=/home/chenhui2/compilers/part3.load_dynamic_link/chapter7.dynamic_link
+USER=chenhui2
+LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=01;05;37;41:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.axv=01;35:*.anx=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=01;36:*.au=01;36:*.flac=01;36:*.mid=01;36:*.midi=01;36:*.mka=01;36:*.mp3=01;36:*.mpc=01;36:*.ogg=01;36:*.ra=01;36:*.wav=01;36:*.axa=01;36:*.oga=01;36:*.spx=01;36:*.xspf=01;36:
+GCC7=/opt/rh/devtoolset-7/root
+MAIL=/var/spool/mail/chenhui2
+PATH=/data/chenhui2/dbpath/bin:.:/data/chenhui2/dbpath/bin:.:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/chenhui2/.local/bin:/home/chenhui2/bin:/home/chenhui2/.local/bin:/home/chenhui2/bin
+PWD=/home/chenhui2/compilers/part3.load_dynamic_link/chapter7.dynamic_link/aux_vector
+TST_HACK_BASH_SESSION_ID=44733696958928
+LANG=C
+HISTCONTROL=ignoredups
+SHLVL=1
+HOME=/home/chenhui2
+LOGNAME=chenhui2
+CVS_RSH=ssh
+LESSOPEN=||/usr/bin/lesspipe.sh %s
+bpath=/data/chenhui2/dbpath
+_=./a.out
+Auxiliary Vectors:
+Type: 33 Value: 0x7ffc9c4e1000
+Type: 16 Value: 0x1f8bfbff
+Type: 06 Value: 0x1000
+Type: 17 Value: 0x64
+Type: 03 Value: 0x400040
+Type: 04 Value: 0x38
+Type: 05 Value: 0x9
+Type: 07 Value: 0x7f277ccb6000
+Type: 08 Value: 0
+Type: 09 Value: 0x400490
+Type: 11 Value: 0x3e9
+Type: 12 Value: 0x3e9
+Type: 13 Value: 0x3e9
+Type: 14 Value: 0x3e9
+Type: 23 Value: 0
+Type: 25 Value: 0x7ffc9c47d789
+Type: 31 Value: 0x7ffc9c47fff0
+Type: 15 Value: 0x7ffc9c47d799
