@@ -1,0 +1,6 @@
+gcc -shared -fPIC lib.c -Xlinker --version-script lib.ver -o lib.so
+gcc main.c ./lib.so -o main
+./main
+
+gcc -shared -fPIC lib.c -Xlinker --version-script lib_old.ver -o lib.so
+./main
