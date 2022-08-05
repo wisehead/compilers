@@ -1,5 +1,6 @@
 %{
-#include "y.tab.h"
+//#include "y.tab.h"
+#include "ch3-01.tab.h"
 extern int yylval;
 int yylex();
 %}
