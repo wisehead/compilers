@@ -1,5 +1,5 @@
 %{
-#include "y.tab.h"
+#include "ch3-05.tab.h"
 #include "ch3hdr2.h"
 #include <math.h>
 %}
