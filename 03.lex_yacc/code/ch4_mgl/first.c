@@ -160,3 +160,8 @@ casecmp(char *p, char *q)
 	}
 	return pc-qc;
 }
+main()
+{
+	menu_second();
+	menu_cleanup();
+}
