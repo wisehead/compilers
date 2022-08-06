@@ -8,3 +8,8 @@
 #no need to add yywrap()
 lex test.l
 cc lex.yy.c -ll
+###
+flex test.l
+bison -d test.y
+gcc test.tab.c lex.yy.c -ly -ll
+#need to install flex-devel/bison-devel
