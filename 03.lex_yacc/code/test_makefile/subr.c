@@ -11,7 +11,7 @@
 
 /* includes */
 #include <stdio.h>
-//#include <stdlib.h>
+#include <stdlib.h>
 #include <string.h>
 #include "mglyac.h"
 #include "mgl-code"              /* contains definitions of 

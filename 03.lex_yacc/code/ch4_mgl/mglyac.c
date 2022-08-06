@@ -16,11 +16,17 @@ static const char yysccsid[] = "@(#)yaccpar	1.9 (Berkeley) 02/21/93";
 
 #define YYPURE 0
 
-#line 2 "ch3-05.y"
-#include "ch3hdr2.h"
+#line 2 "mglyac.y"
+#include <stdio.h>
 #include <string.h>
-#include <math.h>
-#line 7 "ch3-05.y"
+#include <stdlib.h>
+    
+int screen_done = 1; /* 1 if done, 0 otherwise */
+char *act_str;   /* extra argument for an action */
+char *cmd_str;   /* extra argument for command */
+char *item_str;  /* extra argument for 
+                  * item description */
+#line 13 "mglyac.y"
 #ifdef YYSTYPE
 #undef  YYSTYPE_IS_DECLARED
 #define YYSTYPE_IS_DECLARED 1
@@ -28,11 +34,11 @@ static const char yysccsid[] = "@(#)yaccpar	1.9 (Berkeley) 02/21/93";
 #ifndef YYSTYPE_IS_DECLARED
 #define YYSTYPE_IS_DECLARED 1
 typedef union {
-	double dval;
-	struct symtab *symp;
+    char    *string;     /* string buffer */
+    int    cmd;          /* command value */
 } YYSTYPE;
 #endif /* !YYSTYPE_IS_DECLARED */
-#line 35 "y.tab.c"
+#line 41 "y.tab.c"
 
 /* compatibility with bison */
 #ifdef YYPARSE_PARAM
@@ -65,47 +71,66 @@ typedef union {
 
 extern int YYPARSE_DECL();
 
-#define NAME 257
-#define NUMBER 258
-#define UMINUS 259
+#define QSTRING 257
+#define ID 258
+#define COMMENT 259
+#define SCREEN 260
+#define TITLE 261
+#define ITEM 262
+#define COMMAND 263
+#define ACTION 264
+#define EXECUTE 265
+#define EMPTY 266
+#define MENU 267
+#define QUIT 268
+#define IGNORE 269
+#define ATTRIBUTE 270
+#define VISIBLE 271
+#define INVISIBLE 272
+#define END 273
 #define YYERRCODE 256
 static const short yylhs[] = {                           -1,
-    0,    0,    2,    2,    1,    1,    1,    1,    1,    1,
-    1,    1,    1,
+    0,    0,    7,    7,    8,    8,   10,   10,    9,   11,
+   11,   13,   12,   12,    2,    4,    4,    1,    1,    1,
+    1,    3,    3,    3,    5,    5,    6,    6,
 };
 static const short yylen[] = {                            2,
-    2,    3,    3,    1,    3,    3,    3,    3,    2,    3,
-    1,    1,    4,
+    1,    2,    3,    2,    2,    1,    2,    1,    2,    0,
+    2,    2,    1,    2,    6,    0,    2,    2,    2,    1,
+    1,    0,    2,    2,    1,    1,    1,    1,
 };
 static const short yydefred[] = {                         0,
-    0,   11,    0,    0,    0,    0,    0,    0,    0,    0,
-    9,    0,    0,    0,    0,    0,    0,    1,    0,    0,
-   10,    2,    0,    0,    7,    8,   13,
+    0,    0,    1,    0,   26,   25,    5,    2,    0,    0,
+    4,    0,    7,    3,    0,    0,   13,    0,   11,   27,
+   28,   12,    0,   14,    0,    0,   17,    0,    0,    0,
+   20,   21,    0,   18,   19,    0,   15,   23,   24,
 };
-static const short yydgoto[] = {                          5,
-    6,    7,
+static const short yydgoto[] = {                          2,
+   33,   17,   37,   26,    7,   22,    3,    4,   10,   11,
+   12,   18,   19,
 };
-static const short yysindex[] = {                       -40,
-  -37,    0,  -38,  -38,  -40,   13,   -4,  -38,  -38,  -27,
-    0,  -16,    8,  -38,  -38,  -38,  -38,    0,   13,    7,
-    0,    0,  -30,  -30,    0,    0,    0,
+static const short yysindex[] = {                      -252,
+ -245, -252,    0, -269,    0,    0,    0,    0, -245, -269,
+    0, -243,    0,    0, -235, -235,    0, -242,    0,    0,
+    0,    0, -237,    0, -245, -233,    0, -258, -235, -245,
+    0,    0, -241,    0,    0, -247,    0,    0,    0,
 };
 static const short yyrindex[] = {                         0,
-   -2,    0,    0,    0,    0,    9,    0,    0,    0,   -9,
-    0,    0,    0,    0,    0,    0,    0,    0,   18,    0,
-    0,    0,   -6,    1,    0,    0,    0,
+ -256,    0,    0, -234,    0,    0,    0,    0,    1,    0,
+    0,    0,    0,    0,    0,    0,    0, -269,    0,    0,
+    0,    0, -232,    0,    0,    0,    0,    0,    0,    0,
+    0,    0, -259,    0,    0,    0,    0,    0,    0,
 };
 static const short yygindex[] = {                         0,
-    6,   11,
+    0,   12,    0,    0,   -9,  -14,   31,    0,    0,   24,
+    0,    0,    0,
 };
-#define YYTABLESIZE 220
-static const short yytable[] = {                          4,
-   12,    4,    9,    6,    3,   18,    3,   12,   11,   12,
-    5,   16,    9,   19,   20,   13,   17,   22,    4,   23,
-   24,   25,   26,    8,   21,   16,   15,    3,   14,    0,
-   17,   12,   12,   12,    6,   12,    6,   12,    6,   12,
-   12,    5,   12,    5,   12,    5,    0,   27,   16,   15,
-    0,   14,    0,   17,   16,   15,    0,   14,    0,   17,
+#define YYTABLESIZE 261
+static const short yytable[] = {                         13,
+    8,   23,   22,    9,    6,    6,   29,    1,   30,   31,
+   32,    5,    6,   22,   34,   27,    6,   15,   16,   16,
+   35,   20,   21,   38,   39,   25,   10,   10,   36,   24,
+   28,   16,    8,   14,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
@@ -121,15 +146,20 @@ static const short yytable[] = {                          4,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    1,    2,   10,    2,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    8,
 };
-static const short yycheck[] = {                         40,
-   10,   40,   40,   10,   45,   10,   45,   10,    3,    4,
-   10,   42,   40,    8,    9,    5,   47,   10,   10,   14,
-   15,   16,   17,   61,   41,   42,   43,   10,   45,   -1,
-   47,   41,   42,   43,   41,   45,   43,   47,   45,   42,
-   43,   41,   45,   43,   47,   45,   -1,   41,   42,   43,
-   -1,   45,   -1,   47,   42,   43,   -1,   45,   -1,   47,
+static const short yycheck[] = {                          9,
+    0,   16,  262,  273,  261,  262,  265,  260,  267,  268,
+  269,  257,  258,  273,   29,   25,  273,  261,  262,  262,
+   30,  257,  258,  271,  272,  263,  261,  262,  270,   18,
+  264,  264,    2,   10,   -1,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
@@ -145,40 +175,63 @@ static const short yycheck[] = {                         40,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-   -1,   -1,   -1,   -1,   -1,   -1,  257,  258,  257,  258,
+   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
+   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
+   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
+   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
+   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
+   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
+   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
+  260,
 };
-#define YYFINAL 5
+#define YYFINAL 2
 #ifndef YYDEBUG
 #define YYDEBUG 0
 #endif
-#define YYMAXTOKEN 259
+#define YYMAXTOKEN 273
 #if YYDEBUG
 static const char *yyname[] = {
 
-"end-of-file",0,0,0,0,0,0,0,0,0,"'\\n'",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,"'('","')'","'*'","'+'",0,"'-'",0,"'/'",0,0,0,0,0,0,0,0,0,0,0,
-0,0,"'='",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+"end-of-file",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-"NAME","NUMBER","UMINUS",
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"QSTRING","ID","COMMENT","SCREEN",
+"TITLE","ITEM","COMMAND","ACTION","EXECUTE","EMPTY","MENU","QUIT","IGNORE",
+"ATTRIBUTE","VISIBLE","INVISIBLE","END",
 };
 static const char *yyrule[] = {
-"$accept : statement_list",
-"statement_list : statement '\\n'",
-"statement_list : statement_list statement '\\n'",
-"statement : NAME '=' expression",
-"statement : expression",
-"expression : expression '+' expression",
-"expression : expression '-' expression",
-"expression : expression '*' expression",
-"expression : expression '/' expression",
-"expression : '-' expression",
-"expression : '(' expression ')'",
-"expression : NUMBER",
-"expression : NAME",
-"expression : NAME '(' expression ')'",
+"$accept : screens",
+"screens : screen",
+"screens : screens screen",
+"screen : screen_name screen_contents screen_terminator",
+"screen : screen_name screen_terminator",
+"screen_name : SCREEN id",
+"screen_name : SCREEN",
+"screen_terminator : END id",
+"screen_terminator : END",
+"screen_contents : titles lines",
+"titles :",
+"titles : titles title",
+"title : TITLE qstring",
+"lines : line",
+"lines : lines line",
+"line : ITEM qstring command ACTION action attribute",
+"command :",
+"command : COMMAND id",
+"action : EXECUTE qstring",
+"action : MENU id",
+"action : QUIT",
+"action : IGNORE",
+"attribute :",
+"attribute : ATTRIBUTE VISIBLE",
+"attribute : ATTRIBUTE INVISIBLE",
+"id : ID",
+"id : QSTRING",
+"qstring : QSTRING",
+"qstring : ID",
 
 };
 #endif
@@ -216,49 +269,83 @@ typedef struct {
 } YYSTACKDATA;
 /* variables for the parser stack */
 static YYSTACKDATA yystack;
-#line 50 "ch3-05.y"
-/* look up a symbol table entry, add if not present */
-struct symtab *
-symlook(s)
-char *s;
+#line 107 "mglyac.y"
+
+char *progname = "mgl";
+int lineno = 1;
+
+#define DEFAULT_OUTFILE "screen.out"
+
+char *usage = "%s: usage [infile] [outfile]\n";
+
+main(int argc, char **argv)
 {
-	char *p;
-	struct symtab *sp;
-	
-	for(sp = symtab; sp < &symtab[NSYMS]; sp++) {
-		/* is it already here? */
-		if(sp->name && !strcmp(sp->name, s))
-			return sp;
-		
-		/* is it free */
-		if(!sp->name) {
-			sp->name = strdup(s);
-			return sp;
-		}
-		/* otherwise continue to next */
+	char *outfile;
+	char *infile;
+	extern FILE *yyin, *yyout;
+    
+	progname = argv[0];
+    
+	if(argc > 3)
+	{
+        	fprintf(stderr,usage, progname);
+		exit(1);
 	}
-	yyerror("Too many symbols");
-	exit(1);	/* cannot continue */
-} /* symlook */
+	if(argc > 1)
+	{
+		infile = argv[1];
+		/* open for read */
+		yyin = fopen(infile,"r");
+		if(yyin == NULL) /* open failed */
+		{
+			fprintf(stderr,"%s: cannot open %s\n", 
+				progname, infile);
+			exit(1);
+		}
+	}
 
-addfunc(name, func)
-char *name;
-double (*func)();
-{
-	struct symtab *sp = symlook(name);
-	sp->funcptr = func;
-}
-
-main()
-{
-	extern double sqrt(), exp(), log();
-
-	addfunc("sqrt", sqrt);
-	addfunc("exp", exp);
-	addfunc("log", log);
+	if(argc > 2)
+	{
+		outfile = argv[2];
+	}
+	else
+	{
+      		outfile = DEFAULT_OUTFILE;
+	}
+    
+	yyout = fopen(outfile,"w");
+	if(yyout == NULL) /* open failed */
+	{
+      		fprintf(stderr,"%s: cannot open %s\n", 
+                	progname, outfile);
+		exit(1);
+	}
+    
+	/* normal interaction on yyin and 
+	   yyout from now on */
+    
 	yyparse();
+    
+	end_file(); /* write out any final information */
+    
+	/* now check EOF condition */
+	if(!screen_done) /* in the middle of a screen */
+	{
+        	warning("Premature EOF",(char *)0);
+		unlink(outfile); /* remove bad file */
+		exit(1);
+	}
+	exit(0); /* no error */
 }
-#line 261 "y.tab.c"
+
+warning(char *s, char *t) /* print warning message */
+{
+	fprintf(stderr, "%s: %s", progname, s);
+	if (t)
+		fprintf(stderr, " %s", t);
+	fprintf(stderr, " line %d\n", lineno);
+}
+#line 348 "y.tab.c"
 
 #if YYDEBUG
 #include <stdio.h>		/* needed for printf */
@@ -464,58 +551,100 @@ yyreduce:
         memset(&yyval, 0, sizeof yyval);
     switch (yyn)
     {
-case 3:
-#line 23 "ch3-05.y"
-	{ yystack.l_mark[-2].symp->value = yystack.l_mark[0].dval; }
-break;
-case 4:
-#line 24 "ch3-05.y"
-	{ printf("= %g\n", yystack.l_mark[0].dval); }
-break;
 case 5:
-#line 27 "ch3-05.y"
-	{ yyval.dval = yystack.l_mark[-2].dval + yystack.l_mark[0].dval; }
+#line 36 "mglyac.y"
+	{ start_screen(yystack.l_mark[0].string); }
 break;
 case 6:
-#line 28 "ch3-05.y"
-	{ yyval.dval = yystack.l_mark[-2].dval - yystack.l_mark[0].dval; }
+#line 37 "mglyac.y"
+	{ start_screen(strdup("default")); }
 break;
 case 7:
-#line 29 "ch3-05.y"
-	{ yyval.dval = yystack.l_mark[-2].dval * yystack.l_mark[0].dval; }
+#line 40 "mglyac.y"
+	{ end_screen(yystack.l_mark[0].string); }
 break;
 case 8:
-#line 31 "ch3-05.y"
-	{	if(yystack.l_mark[0].dval == 0.0)
-						yyerror("divide by zero");
-					else
-						yyval.dval = yystack.l_mark[-2].dval / yystack.l_mark[0].dval;
-				}
-break;
-case 9:
-#line 36 "ch3-05.y"
-	{ yyval.dval = -yystack.l_mark[0].dval; }
-break;
-case 10:
-#line 37 "ch3-05.y"
-	{ yyval.dval = yystack.l_mark[-1].dval; }
+#line 41 "mglyac.y"
+	{ end_screen(strdup("default")); }
 break;
 case 12:
-#line 39 "ch3-05.y"
-	{ yyval.dval = yystack.l_mark[0].symp->value; }
+#line 51 "mglyac.y"
+	{ add_title(yystack.l_mark[0].string); }
 break;
-case 13:
-#line 40 "ch3-05.y"
-	{
-			if(yystack.l_mark[-3].symp->funcptr)
-				yyval.dval = (yystack.l_mark[-3].symp->funcptr)(yystack.l_mark[-1].dval);
-			else {
-				printf("%s not a function\n", yystack.l_mark[-3].symp->name);
-				yyval.dval = 0.0;
-			}
-		}
+case 15:
+#line 59 "mglyac.y"
+	{ item_str = yystack.l_mark[-4].string;
+	   add_line(yystack.l_mark[-1].cmd, yystack.l_mark[0].cmd);
+           yyval.cmd = ITEM;
+          }
 break;
-#line 518 "y.tab.c"
+case 16:
+#line 65 "mglyac.y"
+	{ cmd_str = strdup(""); }
+break;
+case 17:
+#line 66 "mglyac.y"
+	{ cmd_str = yystack.l_mark[0].string; }
+break;
+case 18:
+#line 70 "mglyac.y"
+	{ act_str = yystack.l_mark[0].string;
+	   yyval.cmd = EXECUTE;
+         }
+break;
+case 19:
+#line 74 "mglyac.y"
+	{ /* make "menu_" $2 */
+	   act_str = malloc(strlen(yystack.l_mark[0].string) + 6);
+	   strcpy(act_str,"menu_");
+           strcat(act_str, yystack.l_mark[0].string);
+	   free(yystack.l_mark[0].string);
+	   yyval.cmd = MENU;
+	 }
+break;
+case 20:
+#line 81 "mglyac.y"
+	{ yyval.cmd = QUIT; }
+break;
+case 21:
+#line 82 "mglyac.y"
+	{ yyval.cmd = IGNORE; }
+break;
+case 22:
+#line 85 "mglyac.y"
+	{ yyval.cmd = VISIBLE; }
+break;
+case 23:
+#line 86 "mglyac.y"
+	{ yyval.cmd = VISIBLE; }
+break;
+case 24:
+#line 87 "mglyac.y"
+	{ yyval.cmd = INVISIBLE; }
+break;
+case 25:
+#line 91 "mglyac.y"
+	{ yyval.string = yystack.l_mark[0].string; }
+break;
+case 26:
+#line 93 "mglyac.y"
+	{ warning("String literal inappropriate",
+               (char *)0);
+       yyval.string = yystack.l_mark[0].string;	/* but use it anyway */
+     }
+break;
+case 27:
+#line 99 "mglyac.y"
+	{ yyval.string = yystack.l_mark[0].string; }
+break;
+case 28:
+#line 101 "mglyac.y"
+	{ warning("Non-string literal inappropriate",
+                    (char *)0);
+	    yyval.string = yystack.l_mark[0].string;	/* but use it anyway */
+          }
+break;
+#line 647 "y.tab.c"
     }
     yystack.s_mark -= yym;
     yystate = *yystack.s_mark;
