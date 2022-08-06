@@ -1,5 +1,6 @@
 %{
-#include "y.tab.h"
+//#include "y.tab.h"
+#include "ch3-03.tab.h"
 #include <math.h>
 extern double vbltable[26];
 %}
