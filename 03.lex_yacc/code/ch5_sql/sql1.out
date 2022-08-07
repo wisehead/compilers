@@ -1,0 +1,5532 @@
+   0  $accept : sql_list $end
+
+   1  sql_list : sql ';'
+   2           | sql_list sql ';'
+
+   3  sql : schema
+
+   4  schema : CREATE SCHEMA AUTHORIZATION user opt_schema_element_list
+
+   5  opt_schema_element_list :
+   6                          | schema_element_list
+
+   7  schema_element_list : schema_element
+   8                      | schema_element_list schema_element
+
+   9  schema_element : base_table_def
+  10                 | view_def
+  11                 | privilege_def
+
+  12  base_table_def : CREATE TABLE table '(' base_table_element_commalist ')'
+
+  13  base_table_element_commalist : base_table_element
+  14                               | base_table_element_commalist ',' base_table_element
+
+  15  base_table_element : column_def
+  16                     | table_constraint_def
+
+  17  column_def : column data_type column_def_opt_list
+
+  18  column_def_opt_list :
+  19                      | column_def_opt_list column_def_opt
+
+  20  column_def_opt : NOT NULLX
+  21                 | NOT NULLX UNIQUE
+  22                 | NOT NULLX PRIMARY KEY
+  23                 | DEFAULT literal
+  24                 | DEFAULT NULLX
+  25                 | DEFAULT USER
+  26                 | CHECK '(' search_condition ')'
+  27                 | REFERENCES table
+  28                 | REFERENCES table '(' column_commalist ')'
+
+  29  table_constraint_def : UNIQUE '(' column_commalist ')'
+  30                       | PRIMARY KEY '(' column_commalist ')'
+  31                       | FOREIGN KEY '(' column_commalist ')' REFERENCES table
+  32                       | FOREIGN KEY '(' column_commalist ')' REFERENCES table '(' column_commalist ')'
+  33                       | CHECK '(' search_condition ')'
+
+  34  column_commalist : column
+  35                   | column_commalist ',' column
+
+  36  view_def : CREATE VIEW table opt_column_commalist AS query_spec opt_with_check_option
+
+  37  opt_with_check_option :
+  38                        | WITH CHECK OPTION
+
+  39  opt_column_commalist :
+  40                       | '(' column_commalist ')'
+
+  41  privilege_def : GRANT privileges ON table TO grantee_commalist opt_with_grant_option
+
+  42  opt_with_grant_option :
+  43                        | WITH GRANT OPTION
+
+  44  privileges : ALL PRIVILEGES
+  45             | ALL
+  46             | operation_commalist
+
+  47  operation_commalist : operation
+  48                      | operation_commalist ',' operation
+
+  49  operation : SELECT
+  50            | INSERT
+  51            | DELETE
+  52            | UPDATE opt_column_commalist
+  53            | REFERENCES opt_column_commalist
+
+  54  grantee_commalist : grantee
+  55                    | grantee_commalist ',' grantee
+
+  56  grantee : PUBLIC
+  57          | user
+
+  58  sql : module_def
+
+  59  module_def : MODULE opt_module LANGUAGE lang AUTHORIZATION user opt_cursor_def_list procedure_def_list
+
+  60  opt_module :
+  61             | module
+
+  62  lang : COBOL
+  63       | FORTRAN
+  64       | PASCAL
+  65       | PLI
+  66       | C
+  67       | ADA
+
+  68  opt_cursor_def_list :
+  69                      | cursor_def_list
+
+  70  cursor_def_list : cursor_def
+  71                  | cursor_def_list cursor_def
+
+  72  cursor_def : DECLARE cursor CURSOR FOR query_exp opt_order_by_clause
+
+  73  opt_order_by_clause :
+  74                      | ORDER BY ordering_spec_commalist
+
+  75  ordering_spec_commalist : ordering_spec
+  76                          | ordering_spec_commalist ',' ordering_spec
+
+  77  ordering_spec : INTNUM opt_asc_desc
+  78                | column_ref opt_asc_desc
+
+  79  opt_asc_desc :
+  80               | ASC
+  81               | DESC
+
+  82  procedure_def_list : procedure_def
+  83                     | procedure_def_list procedure_def
+
+  84  procedure_def : PROCEDURE procedure parameter_def_list ';' manipulative_statement_list
+
+  85  manipulative_statement_list : manipulative_statement
+  86                              | manipulative_statement_list manipulative_statement
+
+  87  parameter_def_list : parameter_def
+  88                     | parameter_def_list parameter_def
+
+  89  parameter_def : parameter data_type
+  90                | SQLCODE
+
+  91  sql : manipulative_statement
+
+  92  manipulative_statement : close_statement
+  93                         | commit_statement
+  94                         | delete_statement_positioned
+  95                         | delete_statement_searched
+  96                         | fetch_statement
+  97                         | insert_statement
+  98                         | open_statement
+  99                         | rollback_statement
+ 100                         | select_statement
+ 101                         | update_statement_positioned
+ 102                         | update_statement_searched
+
+ 103  close_statement : CLOSE cursor
+
+ 104  commit_statement : COMMIT WORK
+
+ 105  delete_statement_positioned : DELETE FROM table WHERE CURRENT OF cursor
+
+ 106  delete_statement_searched : DELETE FROM table opt_where_clause
+
+ 107  fetch_statement : FETCH cursor INTO target_commalist
+
+ 108  insert_statement : INSERT INTO table opt_column_commalist values_or_query_spec
+
+ 109  values_or_query_spec : VALUES '(' insert_atom_commalist ')'
+ 110                       | query_spec
+
+ 111  insert_atom_commalist : insert_atom
+ 112                        | insert_atom_commalist ',' insert_atom
+
+ 113  insert_atom : atom
+ 114              | NULLX
+
+ 115  open_statement : OPEN cursor
+
+ 116  rollback_statement : ROLLBACK WORK
+
+ 117  select_statement : SELECT opt_all_distinct selection INTO target_commalist table_exp
+
+ 118  opt_all_distinct :
+ 119                   | ALL
+ 120                   | DISTINCT
+
+ 121  update_statement_positioned : UPDATE table SET assignment_commalist WHERE CURRENT OF cursor
+
+ 122  assignment_commalist :
+ 123                       | assignment
+ 124                       | assignment_commalist ',' assignment
+
+ 125  assignment : column '=' scalar_exp
+ 126             | column '=' NULLX
+
+ 127  update_statement_searched : UPDATE table SET assignment_commalist opt_where_clause
+
+ 128  target_commalist : target
+ 129                   | target_commalist ',' target
+
+ 130  target : parameter_ref
+
+ 131  opt_where_clause :
+ 132                   | where_clause
+
+ 133  query_exp : query_term
+ 134            | query_exp UNION query_term
+ 135            | query_exp UNION ALL query_term
+
+ 136  query_term : query_spec
+ 137             | '(' query_exp ')'
+
+ 138  query_spec : SELECT opt_all_distinct selection table_exp
+
+ 139  selection : scalar_exp_commalist
+ 140            | '*'
+
+ 141  table_exp : from_clause opt_where_clause opt_group_by_clause opt_having_clause
+
+ 142  from_clause : FROM table_ref_commalist
+
+ 143  table_ref_commalist : table_ref
+ 144                      | table_ref_commalist ',' table_ref
+
+ 145  table_ref : table
+ 146            | table range_variable
+
+ 147  where_clause : WHERE search_condition
+
+ 148  opt_group_by_clause :
+ 149                      | GROUP BY column_ref_commalist
+
+ 150  column_ref_commalist : column_ref
+ 151                       | column_ref_commalist ',' column_ref
+
+ 152  opt_having_clause :
+ 153                    | HAVING search_condition
+
+ 154  search_condition :
+ 155                   | search_condition OR search_condition
+ 156                   | search_condition AND search_condition
+ 157                   | NOT search_condition
+ 158                   | '(' search_condition ')'
+ 159                   | predicate
+
+ 160  predicate : comparison_predicate
+ 161            | between_predicate
+ 162            | like_predicate
+ 163            | test_for_null
+ 164            | in_predicate
+ 165            | all_or_any_predicate
+ 166            | existence_test
+
+ 167  comparison_predicate : scalar_exp COMPARISON scalar_exp
+ 168                       | scalar_exp COMPARISON subquery
+
+ 169  between_predicate : scalar_exp NOT BETWEEN scalar_exp AND scalar_exp
+ 170                    | scalar_exp BETWEEN scalar_exp AND scalar_exp
+
+ 171  like_predicate : scalar_exp NOT LIKE atom opt_escape
+ 172                 | scalar_exp LIKE atom opt_escape
+
+ 173  opt_escape :
+ 174             | ESCAPE atom
+
+ 175  test_for_null : column_ref IS NOT NULLX
+ 176                | column_ref IS NULLX
+
+ 177  in_predicate : scalar_exp NOT IN '(' subquery ')'
+ 178               | scalar_exp IN '(' subquery ')'
+ 179               | scalar_exp NOT IN '(' atom_commalist ')'
+ 180               | scalar_exp IN '(' atom_commalist ')'
+
+ 181  atom_commalist : atom
+ 182                 | atom_commalist ',' atom
+
+ 183  all_or_any_predicate : scalar_exp COMPARISON any_all_some subquery
+
+ 184  any_all_some : ANY
+ 185               | ALL
+ 186               | SOME
+
+ 187  existence_test : EXISTS subquery
+
+ 188  subquery : '(' SELECT opt_all_distinct selection table_exp ')'
+
+ 189  scalar_exp : scalar_exp '+' scalar_exp
+ 190             | scalar_exp '-' scalar_exp
+ 191             | scalar_exp '*' scalar_exp
+ 192             | scalar_exp '/' scalar_exp
+ 193             | '+' scalar_exp
+ 194             | '-' scalar_exp
+ 195             | atom
+ 196             | column_ref
+ 197             | function_ref
+ 198             | '(' scalar_exp ')'
+
+ 199  scalar_exp_commalist : scalar_exp
+ 200                       | scalar_exp_commalist ',' scalar_exp
+
+ 201  atom : parameter_ref
+ 202       | literal
+ 203       | USER
+
+ 204  parameter_ref : parameter
+ 205                | parameter parameter
+ 206                | parameter INDICATOR parameter
+
+ 207  function_ref : AMMSC '(' '*' ')'
+ 208               | AMMSC '(' DISTINCT column_ref ')'
+ 209               | AMMSC '(' ALL scalar_exp ')'
+ 210               | AMMSC '(' scalar_exp ')'
+
+ 211  literal : STRING
+ 212          | INTNUM
+ 213          | APPROXNUM
+
+ 214  table : NAME
+ 215        | NAME '.' NAME
+
+ 216  column_ref : NAME
+ 217             | NAME '.' NAME
+ 218             | NAME '.' NAME '.' NAME
+
+ 219  data_type : CHARACTER
+ 220            | CHARACTER '(' INTNUM ')'
+ 221            | NUMERIC
+ 222            | NUMERIC '(' INTNUM ')'
+ 223            | NUMERIC '(' INTNUM ',' INTNUM ')'
+ 224            | DECIMAL
+ 225            | DECIMAL '(' INTNUM ')'
+ 226            | DECIMAL '(' INTNUM ',' INTNUM ')'
+ 227            | INTEGER
+ 228            | SMALLINT
+ 229            | FLOAT
+ 230            | FLOAT '(' INTNUM ')'
+ 231            | REAL
+ 232            | DOUBLE PRECISION
+
+ 233  column : NAME
+
+ 234  cursor : NAME
+
+ 235  module : NAME
+
+ 236  parameter : ':' NAME
+
+ 237  procedure : NAME
+
+ 238  range_variable : NAME
+
+ 239  user : NAME
+
+ 240  sql : WHENEVER NOT FOUND when_action
+ 241      | WHENEVER SQLERROR when_action
+
+ 242  when_action : GOTO NAME
+ 243              | CONTINUE
+
+state 0
+	$accept : . sql_list $end  (0)
+
+	CLOSE  shift 1
+	COMMIT  shift 2
+	CREATE  shift 3
+	DELETE  shift 4
+	FETCH  shift 5
+	INSERT  shift 6
+	MODULE  shift 7
+	OPEN  shift 8
+	ROLLBACK  shift 9
+	SELECT  shift 10
+	UPDATE  shift 11
+	WHENEVER  shift 12
+	.  error
+
+	sql_list  goto 13
+	sql  goto 14
+	schema  goto 15
+	module_def  goto 16
+	manipulative_statement  goto 17
+	close_statement  goto 18
+	commit_statement  goto 19
+	delete_statement_positioned  goto 20
+	delete_statement_searched  goto 21
+	fetch_statement  goto 22
+	insert_statement  goto 23
+	open_statement  goto 24
+	rollback_statement  goto 25
+	select_statement  goto 26
+	update_statement_positioned  goto 27
+	update_statement_searched  goto 28
+
+
+state 1
+	close_statement : CLOSE . cursor  (103)
+
+	NAME  shift 29
+	.  error
+
+	cursor  goto 30
+
+
+state 2
+	commit_statement : COMMIT . WORK  (104)
+
+	WORK  shift 31
+	.  error
+
+
+state 3
+	schema : CREATE . SCHEMA AUTHORIZATION user opt_schema_element_list  (4)
+
+	SCHEMA  shift 32
+	.  error
+
+
+state 4
+	delete_statement_positioned : DELETE . FROM table WHERE CURRENT OF cursor  (105)
+	delete_statement_searched : DELETE . FROM table opt_where_clause  (106)
+
+	FROM  shift 33
+	.  error
+
+
+state 5
+	fetch_statement : FETCH . cursor INTO target_commalist  (107)
+
+	NAME  shift 29
+	.  error
+
+	cursor  goto 34
+
+
+state 6
+	insert_statement : INSERT . INTO table opt_column_commalist values_or_query_spec  (108)
+
+	INTO  shift 35
+	.  error
+
+
+state 7
+	module_def : MODULE . opt_module LANGUAGE lang AUTHORIZATION user opt_cursor_def_list procedure_def_list  (59)
+	opt_module : .  (60)
+
+	NAME  shift 36
+	LANGUAGE  reduce 60
+
+	opt_module  goto 37
+	module  goto 38
+
+
+state 8
+	open_statement : OPEN . cursor  (115)
+
+	NAME  shift 29
+	.  error
+
+	cursor  goto 39
+
+
+state 9
+	rollback_statement : ROLLBACK . WORK  (116)
+
+	WORK  shift 40
+	.  error
+
+
+state 10
+	select_statement : SELECT . opt_all_distinct selection INTO target_commalist table_exp  (117)
+	opt_all_distinct : .  (118)
+
+	ALL  shift 41
+	DISTINCT  shift 42
+	NAME  reduce 118
+	STRING  reduce 118
+	INTNUM  reduce 118
+	APPROXNUM  reduce 118
+	'+'  reduce 118
+	'-'  reduce 118
+	'*'  reduce 118
+	AMMSC  reduce 118
+	USER  reduce 118
+	'('  reduce 118
+	':'  reduce 118
+
+	opt_all_distinct  goto 43
+
+
+state 11
+	update_statement_positioned : UPDATE . table SET assignment_commalist WHERE CURRENT OF cursor  (121)
+	update_statement_searched : UPDATE . table SET assignment_commalist opt_where_clause  (127)
+
+	NAME  shift 44
+	.  error
+
+	table  goto 45
+
+
+state 12
+	sql : WHENEVER . NOT FOUND when_action  (240)
+	sql : WHENEVER . SQLERROR when_action  (241)
+
+	NOT  shift 46
+	SQLERROR  shift 47
+	.  error
+
+
+state 13
+	$accept : sql_list . $end  (0)
+	sql_list : sql_list . sql ';'  (2)
+
+	$end  accept
+	CLOSE  shift 1
+	COMMIT  shift 2
+	CREATE  shift 3
+	DELETE  shift 4
+	FETCH  shift 5
+	INSERT  shift 6
+	MODULE  shift 7
+	OPEN  shift 8
+	ROLLBACK  shift 9
+	SELECT  shift 10
+	UPDATE  shift 11
+	WHENEVER  shift 12
+	.  error
+
+	sql  goto 48
+	schema  goto 15
+	module_def  goto 16
+	manipulative_statement  goto 17
+	close_statement  goto 18
+	commit_statement  goto 19
+	delete_statement_positioned  goto 20
+	delete_statement_searched  goto 21
+	fetch_statement  goto 22
+	insert_statement  goto 23
+	open_statement  goto 24
+	rollback_statement  goto 25
+	select_statement  goto 26
+	update_statement_positioned  goto 27
+	update_statement_searched  goto 28
+
+
+state 14
+	sql_list : sql . ';'  (1)
+
+	';'  shift 49
+	.  error
+
+
+state 15
+	sql : schema .  (3)
+
+	.  reduce 3
+
+
+state 16
+	sql : module_def .  (58)
+
+	.  reduce 58
+
+
+state 17
+	sql : manipulative_statement .  (91)
+
+	.  reduce 91
+
+
+state 18
+	manipulative_statement : close_statement .  (92)
+
+	.  reduce 92
+
+
+state 19
+	manipulative_statement : commit_statement .  (93)
+
+	.  reduce 93
+
+
+state 20
+	manipulative_statement : delete_statement_positioned .  (94)
+
+	.  reduce 94
+
+
+state 21
+	manipulative_statement : delete_statement_searched .  (95)
+
+	.  reduce 95
+
+
+state 22
+	manipulative_statement : fetch_statement .  (96)
+
+	.  reduce 96
+
+
+state 23
+	manipulative_statement : insert_statement .  (97)
+
+	.  reduce 97
+
+
+state 24
+	manipulative_statement : open_statement .  (98)
+
+	.  reduce 98
+
+
+state 25
+	manipulative_statement : rollback_statement .  (99)
+
+	.  reduce 99
+
+
+state 26
+	manipulative_statement : select_statement .  (100)
+
+	.  reduce 100
+
+
+state 27
+	manipulative_statement : update_statement_positioned .  (101)
+
+	.  reduce 101
+
+
+state 28
+	manipulative_statement : update_statement_searched .  (102)
+
+	.  reduce 102
+
+
+state 29
+	cursor : NAME .  (234)
+
+	.  reduce 234
+
+
+state 30
+	close_statement : CLOSE cursor .  (103)
+
+	.  reduce 103
+
+
+state 31
+	commit_statement : COMMIT WORK .  (104)
+
+	.  reduce 104
+
+
+state 32
+	schema : CREATE SCHEMA . AUTHORIZATION user opt_schema_element_list  (4)
+
+	AUTHORIZATION  shift 50
+	.  error
+
+
+state 33
+	delete_statement_positioned : DELETE FROM . table WHERE CURRENT OF cursor  (105)
+	delete_statement_searched : DELETE FROM . table opt_where_clause  (106)
+
+	NAME  shift 44
+	.  error
+
+	table  goto 51
+
+
+state 34
+	fetch_statement : FETCH cursor . INTO target_commalist  (107)
+
+	INTO  shift 52
+	.  error
+
+
+state 35
+	insert_statement : INSERT INTO . table opt_column_commalist values_or_query_spec  (108)
+
+	NAME  shift 44
+	.  error
+
+	table  goto 53
+
+
+state 36
+	module : NAME .  (235)
+
+	.  reduce 235
+
+
+state 37
+	module_def : MODULE opt_module . LANGUAGE lang AUTHORIZATION user opt_cursor_def_list procedure_def_list  (59)
+
+	LANGUAGE  shift 54
+	.  error
+
+
+state 38
+	opt_module : module .  (61)
+
+	.  reduce 61
+
+
+state 39
+	open_statement : OPEN cursor .  (115)
+
+	.  reduce 115
+
+
+state 40
+	rollback_statement : ROLLBACK WORK .  (116)
+
+	.  reduce 116
+
+
+state 41
+	opt_all_distinct : ALL .  (119)
+
+	.  reduce 119
+
+
+state 42
+	opt_all_distinct : DISTINCT .  (120)
+
+	.  reduce 120
+
+
+state 43
+	select_statement : SELECT opt_all_distinct . selection INTO target_commalist table_exp  (117)
+
+	NAME  shift 55
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	'+'  shift 59
+	'-'  shift 60
+	'*'  shift 61
+	AMMSC  shift 62
+	USER  shift 63
+	'('  shift 64
+	':'  shift 65
+	.  error
+
+	literal  goto 66
+	column_ref  goto 67
+	parameter  goto 68
+	atom  goto 69
+	selection  goto 70
+	scalar_exp  goto 71
+	parameter_ref  goto 72
+	scalar_exp_commalist  goto 73
+	function_ref  goto 74
+
+
+state 44
+	table : NAME .  (214)
+	table : NAME . '.' NAME  (215)
+
+	'.'  shift 75
+	NAME  reduce 214
+	NOT  reduce 214
+	AS  reduce 214
+	CHECK  reduce 214
+	CLOSE  reduce 214
+	COMMIT  reduce 214
+	CREATE  reduce 214
+	DECLARE  reduce 214
+	DEFAULT  reduce 214
+	DELETE  reduce 214
+	FETCH  reduce 214
+	GRANT  reduce 214
+	GROUP  reduce 214
+	HAVING  reduce 214
+	INSERT  reduce 214
+	OPEN  reduce 214
+	ORDER  reduce 214
+	PROCEDURE  reduce 214
+	REFERENCES  reduce 214
+	ROLLBACK  reduce 214
+	SELECT  reduce 214
+	SET  reduce 214
+	TO  reduce 214
+	UNION  reduce 214
+	UPDATE  reduce 214
+	VALUES  reduce 214
+	WHERE  reduce 214
+	WITH  reduce 214
+	';'  reduce 214
+	'('  reduce 214
+	')'  reduce 214
+	','  reduce 214
+
+
+state 45
+	update_statement_positioned : UPDATE table . SET assignment_commalist WHERE CURRENT OF cursor  (121)
+	update_statement_searched : UPDATE table . SET assignment_commalist opt_where_clause  (127)
+
+	SET  shift 76
+	.  error
+
+
+state 46
+	sql : WHENEVER NOT . FOUND when_action  (240)
+
+	FOUND  shift 77
+	.  error
+
+
+state 47
+	sql : WHENEVER SQLERROR . when_action  (241)
+
+	CONTINUE  shift 78
+	GOTO  shift 79
+	.  error
+
+	when_action  goto 80
+
+
+state 48
+	sql_list : sql_list sql . ';'  (2)
+
+	';'  shift 81
+	.  error
+
+
+state 49
+	sql_list : sql ';' .  (1)
+
+	.  reduce 1
+
+
+state 50
+	schema : CREATE SCHEMA AUTHORIZATION . user opt_schema_element_list  (4)
+
+	NAME  shift 82
+	.  error
+
+	user  goto 83
+
+
+state 51
+	delete_statement_positioned : DELETE FROM table . WHERE CURRENT OF cursor  (105)
+	delete_statement_searched : DELETE FROM table . opt_where_clause  (106)
+	opt_where_clause : .  (131)
+
+	WHERE  shift 84
+	CLOSE  reduce 131
+	COMMIT  reduce 131
+	DELETE  reduce 131
+	FETCH  reduce 131
+	INSERT  reduce 131
+	OPEN  reduce 131
+	PROCEDURE  reduce 131
+	ROLLBACK  reduce 131
+	SELECT  reduce 131
+	UPDATE  reduce 131
+	';'  reduce 131
+
+	opt_where_clause  goto 85
+	where_clause  goto 86
+
+
+state 52
+	fetch_statement : FETCH cursor INTO . target_commalist  (107)
+
+	':'  shift 65
+	.  error
+
+	parameter  goto 68
+	target_commalist  goto 87
+	target  goto 88
+	parameter_ref  goto 89
+
+
+state 53
+	insert_statement : INSERT INTO table . opt_column_commalist values_or_query_spec  (108)
+	opt_column_commalist : .  (39)
+
+	'('  shift 90
+	SELECT  reduce 39
+	VALUES  reduce 39
+
+	opt_column_commalist  goto 91
+
+
+state 54
+	module_def : MODULE opt_module LANGUAGE . lang AUTHORIZATION user opt_cursor_def_list procedure_def_list  (59)
+
+	COBOL  shift 92
+	FORTRAN  shift 93
+	PASCAL  shift 94
+	PLI  shift 95
+	C  shift 96
+	ADA  shift 97
+	.  error
+
+	lang  goto 98
+
+
+state 55
+	column_ref : NAME .  (216)
+	column_ref : NAME . '.' NAME  (217)
+	column_ref : NAME . '.' NAME '.' NAME  (218)
+
+	'.'  shift 99
+	OR  reduce 216
+	AND  reduce 216
+	NOT  reduce 216
+	COMPARISON  reduce 216
+	'+'  reduce 216
+	'-'  reduce 216
+	'*'  reduce 216
+	'/'  reduce 216
+	ASC  reduce 216
+	BETWEEN  reduce 216
+	CLOSE  reduce 216
+	COMMIT  reduce 216
+	CREATE  reduce 216
+	DECLARE  reduce 216
+	DELETE  reduce 216
+	DESC  reduce 216
+	FETCH  reduce 216
+	FROM  reduce 216
+	GRANT  reduce 216
+	GROUP  reduce 216
+	HAVING  reduce 216
+	IN  reduce 216
+	INSERT  reduce 216
+	INTO  reduce 216
+	IS  reduce 216
+	LIKE  reduce 216
+	OPEN  reduce 216
+	ORDER  reduce 216
+	PROCEDURE  reduce 216
+	ROLLBACK  reduce 216
+	SELECT  reduce 216
+	UNION  reduce 216
+	UPDATE  reduce 216
+	WHERE  reduce 216
+	WITH  reduce 216
+	';'  reduce 216
+	')'  reduce 216
+	','  reduce 216
+
+
+state 56
+	literal : STRING .  (211)
+
+	.  reduce 211
+
+
+state 57
+	literal : INTNUM .  (212)
+
+	.  reduce 212
+
+
+state 58
+	literal : APPROXNUM .  (213)
+
+	.  reduce 213
+
+
+state 59
+	scalar_exp : '+' . scalar_exp  (193)
+
+	NAME  shift 55
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	'+'  shift 59
+	'-'  shift 60
+	AMMSC  shift 62
+	USER  shift 63
+	'('  shift 64
+	':'  shift 65
+	.  error
+
+	literal  goto 66
+	column_ref  goto 67
+	parameter  goto 68
+	atom  goto 69
+	scalar_exp  goto 100
+	parameter_ref  goto 72
+	function_ref  goto 74
+
+
+state 60
+	scalar_exp : '-' . scalar_exp  (194)
+
+	NAME  shift 55
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	'+'  shift 59
+	'-'  shift 60
+	AMMSC  shift 62
+	USER  shift 63
+	'('  shift 64
+	':'  shift 65
+	.  error
+
+	literal  goto 66
+	column_ref  goto 67
+	parameter  goto 68
+	atom  goto 69
+	scalar_exp  goto 101
+	parameter_ref  goto 72
+	function_ref  goto 74
+
+
+state 61
+	selection : '*' .  (140)
+
+	.  reduce 140
+
+
+state 62
+	function_ref : AMMSC . '(' '*' ')'  (207)
+	function_ref : AMMSC . '(' DISTINCT column_ref ')'  (208)
+	function_ref : AMMSC . '(' ALL scalar_exp ')'  (209)
+	function_ref : AMMSC . '(' scalar_exp ')'  (210)
+
+	'('  shift 102
+	.  error
+
+
+state 63
+	atom : USER .  (203)
+
+	.  reduce 203
+
+
+state 64
+	scalar_exp : '(' . scalar_exp ')'  (198)
+
+	NAME  shift 55
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	'+'  shift 59
+	'-'  shift 60
+	AMMSC  shift 62
+	USER  shift 63
+	'('  shift 64
+	':'  shift 65
+	.  error
+
+	literal  goto 66
+	column_ref  goto 67
+	parameter  goto 68
+	atom  goto 69
+	scalar_exp  goto 103
+	parameter_ref  goto 72
+	function_ref  goto 74
+
+
+state 65
+	parameter : ':' . NAME  (236)
+
+	NAME  shift 104
+	.  error
+
+
+state 66
+	atom : literal .  (202)
+
+	.  reduce 202
+
+
+state 67
+	scalar_exp : column_ref .  (196)
+
+	.  reduce 196
+
+
+state 68
+	parameter_ref : parameter .  (204)
+	parameter_ref : parameter . parameter  (205)
+	parameter_ref : parameter . INDICATOR parameter  (206)
+
+	INDICATOR  shift 105
+	':'  shift 65
+	OR  reduce 204
+	AND  reduce 204
+	NOT  reduce 204
+	COMPARISON  reduce 204
+	'+'  reduce 204
+	'-'  reduce 204
+	'*'  reduce 204
+	'/'  reduce 204
+	BETWEEN  reduce 204
+	CLOSE  reduce 204
+	COMMIT  reduce 204
+	CREATE  reduce 204
+	DECLARE  reduce 204
+	DELETE  reduce 204
+	ESCAPE  reduce 204
+	FETCH  reduce 204
+	FROM  reduce 204
+	GRANT  reduce 204
+	GROUP  reduce 204
+	HAVING  reduce 204
+	IN  reduce 204
+	INSERT  reduce 204
+	INTO  reduce 204
+	LIKE  reduce 204
+	OPEN  reduce 204
+	ORDER  reduce 204
+	PROCEDURE  reduce 204
+	ROLLBACK  reduce 204
+	SELECT  reduce 204
+	UNION  reduce 204
+	UPDATE  reduce 204
+	WHERE  reduce 204
+	WITH  reduce 204
+	';'  reduce 204
+	')'  reduce 204
+	','  reduce 204
+
+	parameter  goto 106
+
+
+state 69
+	scalar_exp : atom .  (195)
+
+	.  reduce 195
+
+
+state 70
+	select_statement : SELECT opt_all_distinct selection . INTO target_commalist table_exp  (117)
+
+	INTO  shift 107
+	.  error
+
+
+state 71
+	scalar_exp : scalar_exp . '+' scalar_exp  (189)
+	scalar_exp : scalar_exp . '-' scalar_exp  (190)
+	scalar_exp : scalar_exp . '*' scalar_exp  (191)
+	scalar_exp : scalar_exp . '/' scalar_exp  (192)
+	scalar_exp_commalist : scalar_exp .  (199)
+
+	'+'  shift 108
+	'-'  shift 109
+	'*'  shift 110
+	'/'  shift 111
+	FROM  reduce 199
+	INTO  reduce 199
+	','  reduce 199
+
+
+state 72
+	atom : parameter_ref .  (201)
+
+	.  reduce 201
+
+
+state 73
+	selection : scalar_exp_commalist .  (139)
+	scalar_exp_commalist : scalar_exp_commalist . ',' scalar_exp  (200)
+
+	','  shift 112
+	FROM  reduce 139
+	INTO  reduce 139
+
+
+state 74
+	scalar_exp : function_ref .  (197)
+
+	.  reduce 197
+
+
+state 75
+	table : NAME '.' . NAME  (215)
+
+	NAME  shift 113
+	.  error
+
+
+state 76
+	update_statement_positioned : UPDATE table SET . assignment_commalist WHERE CURRENT OF cursor  (121)
+	update_statement_searched : UPDATE table SET . assignment_commalist opt_where_clause  (127)
+	assignment_commalist : .  (122)
+
+	NAME  shift 114
+	CLOSE  reduce 122
+	COMMIT  reduce 122
+	DELETE  reduce 122
+	FETCH  reduce 122
+	INSERT  reduce 122
+	OPEN  reduce 122
+	PROCEDURE  reduce 122
+	ROLLBACK  reduce 122
+	SELECT  reduce 122
+	UPDATE  reduce 122
+	WHERE  reduce 122
+	';'  reduce 122
+	','  reduce 122
+
+	column  goto 115
+	assignment_commalist  goto 116
+	assignment  goto 117
+
+
+state 77
+	sql : WHENEVER NOT FOUND . when_action  (240)
+
+	CONTINUE  shift 78
+	GOTO  shift 79
+	.  error
+
+	when_action  goto 118
+
+
+state 78
+	when_action : CONTINUE .  (243)
+
+	.  reduce 243
+
+
+state 79
+	when_action : GOTO . NAME  (242)
+
+	NAME  shift 119
+	.  error
+
+
+state 80
+	sql : WHENEVER SQLERROR when_action .  (241)
+
+	.  reduce 241
+
+
+state 81
+	sql_list : sql_list sql ';' .  (2)
+
+	.  reduce 2
+
+
+state 82
+	user : NAME .  (239)
+
+	.  reduce 239
+
+
+state 83
+	schema : CREATE SCHEMA AUTHORIZATION user . opt_schema_element_list  (4)
+	opt_schema_element_list : .  (5)
+
+	CREATE  shift 120
+	GRANT  shift 121
+	';'  reduce 5
+
+	opt_schema_element_list  goto 122
+	schema_element_list  goto 123
+	schema_element  goto 124
+	base_table_def  goto 125
+	view_def  goto 126
+	privilege_def  goto 127
+
+
+state 84
+	delete_statement_positioned : DELETE FROM table WHERE . CURRENT OF cursor  (105)
+	where_clause : WHERE . search_condition  (147)
+	search_condition : .  (154)
+
+	NAME  shift 55
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	NOT  shift 128
+	'+'  shift 59
+	'-'  shift 60
+	AMMSC  shift 62
+	CURRENT  shift 129
+	EXISTS  shift 130
+	USER  shift 63
+	'('  shift 131
+	':'  shift 65
+	OR  reduce 154
+	AND  reduce 154
+	CLOSE  reduce 154
+	COMMIT  reduce 154
+	DELETE  reduce 154
+	FETCH  reduce 154
+	INSERT  reduce 154
+	OPEN  reduce 154
+	PROCEDURE  reduce 154
+	ROLLBACK  reduce 154
+	SELECT  reduce 154
+	UPDATE  reduce 154
+	';'  reduce 154
+
+	literal  goto 66
+	search_condition  goto 132
+	column_ref  goto 133
+	parameter  goto 68
+	atom  goto 69
+	scalar_exp  goto 134
+	parameter_ref  goto 72
+	predicate  goto 135
+	comparison_predicate  goto 136
+	between_predicate  goto 137
+	like_predicate  goto 138
+	test_for_null  goto 139
+	in_predicate  goto 140
+	all_or_any_predicate  goto 141
+	existence_test  goto 142
+	function_ref  goto 74
+
+
+state 85
+	delete_statement_searched : DELETE FROM table opt_where_clause .  (106)
+
+	.  reduce 106
+
+
+state 86
+	opt_where_clause : where_clause .  (132)
+
+	.  reduce 132
+
+
+state 87
+	fetch_statement : FETCH cursor INTO target_commalist .  (107)
+	target_commalist : target_commalist . ',' target  (129)
+
+	','  shift 143
+	CLOSE  reduce 107
+	COMMIT  reduce 107
+	DELETE  reduce 107
+	FETCH  reduce 107
+	INSERT  reduce 107
+	OPEN  reduce 107
+	PROCEDURE  reduce 107
+	ROLLBACK  reduce 107
+	SELECT  reduce 107
+	UPDATE  reduce 107
+	';'  reduce 107
+
+
+state 88
+	target_commalist : target .  (128)
+
+	.  reduce 128
+
+
+state 89
+	target : parameter_ref .  (130)
+
+	.  reduce 130
+
+
+state 90
+	opt_column_commalist : '(' . column_commalist ')'  (40)
+
+	NAME  shift 114
+	.  error
+
+	column  goto 144
+	column_commalist  goto 145
+
+
+state 91
+	insert_statement : INSERT INTO table opt_column_commalist . values_or_query_spec  (108)
+
+	SELECT  shift 146
+	VALUES  shift 147
+	.  error
+
+	query_spec  goto 148
+	values_or_query_spec  goto 149
+
+
+state 92
+	lang : COBOL .  (62)
+
+	.  reduce 62
+
+
+state 93
+	lang : FORTRAN .  (63)
+
+	.  reduce 63
+
+
+state 94
+	lang : PASCAL .  (64)
+
+	.  reduce 64
+
+
+state 95
+	lang : PLI .  (65)
+
+	.  reduce 65
+
+
+state 96
+	lang : C .  (66)
+
+	.  reduce 66
+
+
+state 97
+	lang : ADA .  (67)
+
+	.  reduce 67
+
+
+state 98
+	module_def : MODULE opt_module LANGUAGE lang . AUTHORIZATION user opt_cursor_def_list procedure_def_list  (59)
+
+	AUTHORIZATION  shift 150
+	.  error
+
+
+state 99
+	column_ref : NAME '.' . NAME  (217)
+	column_ref : NAME '.' . NAME '.' NAME  (218)
+
+	NAME  shift 151
+	.  error
+
+
+state 100
+	scalar_exp : scalar_exp . '+' scalar_exp  (189)
+	scalar_exp : scalar_exp . '-' scalar_exp  (190)
+	scalar_exp : scalar_exp . '*' scalar_exp  (191)
+	scalar_exp : scalar_exp . '/' scalar_exp  (192)
+	scalar_exp : '+' scalar_exp .  (193)
+
+	.  reduce 193
+
+
+state 101
+	scalar_exp : scalar_exp . '+' scalar_exp  (189)
+	scalar_exp : scalar_exp . '-' scalar_exp  (190)
+	scalar_exp : scalar_exp . '*' scalar_exp  (191)
+	scalar_exp : scalar_exp . '/' scalar_exp  (192)
+	scalar_exp : '-' scalar_exp .  (194)
+
+	.  reduce 194
+
+
+state 102
+	function_ref : AMMSC '(' . '*' ')'  (207)
+	function_ref : AMMSC '(' . DISTINCT column_ref ')'  (208)
+	function_ref : AMMSC '(' . ALL scalar_exp ')'  (209)
+	function_ref : AMMSC '(' . scalar_exp ')'  (210)
+
+	NAME  shift 55
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	'+'  shift 59
+	'-'  shift 60
+	'*'  shift 152
+	ALL  shift 153
+	AMMSC  shift 62
+	DISTINCT  shift 154
+	USER  shift 63
+	'('  shift 64
+	':'  shift 65
+	.  error
+
+	literal  goto 66
+	column_ref  goto 67
+	parameter  goto 68
+	atom  goto 69
+	scalar_exp  goto 155
+	parameter_ref  goto 72
+	function_ref  goto 74
+
+
+state 103
+	scalar_exp : scalar_exp . '+' scalar_exp  (189)
+	scalar_exp : scalar_exp . '-' scalar_exp  (190)
+	scalar_exp : scalar_exp . '*' scalar_exp  (191)
+	scalar_exp : scalar_exp . '/' scalar_exp  (192)
+	scalar_exp : '(' scalar_exp . ')'  (198)
+
+	'+'  shift 108
+	'-'  shift 109
+	'*'  shift 110
+	'/'  shift 111
+	')'  shift 156
+	.  error
+
+
+state 104
+	parameter : ':' NAME .  (236)
+
+	.  reduce 236
+
+
+state 105
+	parameter_ref : parameter INDICATOR . parameter  (206)
+
+	':'  shift 65
+	.  error
+
+	parameter  goto 157
+
+
+state 106
+	parameter_ref : parameter parameter .  (205)
+
+	.  reduce 205
+
+
+state 107
+	select_statement : SELECT opt_all_distinct selection INTO . target_commalist table_exp  (117)
+
+	':'  shift 65
+	.  error
+
+	parameter  goto 68
+	target_commalist  goto 158
+	target  goto 88
+	parameter_ref  goto 89
+
+
+state 108
+	scalar_exp : scalar_exp '+' . scalar_exp  (189)
+
+	NAME  shift 55
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	'+'  shift 59
+	'-'  shift 60
+	AMMSC  shift 62
+	USER  shift 63
+	'('  shift 64
+	':'  shift 65
+	.  error
+
+	literal  goto 66
+	column_ref  goto 67
+	parameter  goto 68
+	atom  goto 69
+	scalar_exp  goto 159
+	parameter_ref  goto 72
+	function_ref  goto 74
+
+
+state 109
+	scalar_exp : scalar_exp '-' . scalar_exp  (190)
+
+	NAME  shift 55
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	'+'  shift 59
+	'-'  shift 60
+	AMMSC  shift 62
+	USER  shift 63
+	'('  shift 64
+	':'  shift 65
+	.  error
+
+	literal  goto 66
+	column_ref  goto 67
+	parameter  goto 68
+	atom  goto 69
+	scalar_exp  goto 160
+	parameter_ref  goto 72
+	function_ref  goto 74
+
+
+state 110
+	scalar_exp : scalar_exp '*' . scalar_exp  (191)
+
+	NAME  shift 55
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	'+'  shift 59
+	'-'  shift 60
+	AMMSC  shift 62
+	USER  shift 63
+	'('  shift 64
+	':'  shift 65
+	.  error
+
+	literal  goto 66
+	column_ref  goto 67
+	parameter  goto 68
+	atom  goto 69
+	scalar_exp  goto 161
+	parameter_ref  goto 72
+	function_ref  goto 74
+
+
+state 111
+	scalar_exp : scalar_exp '/' . scalar_exp  (192)
+
+	NAME  shift 55
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	'+'  shift 59
+	'-'  shift 60
+	AMMSC  shift 62
+	USER  shift 63
+	'('  shift 64
+	':'  shift 65
+	.  error
+
+	literal  goto 66
+	column_ref  goto 67
+	parameter  goto 68
+	atom  goto 69
+	scalar_exp  goto 162
+	parameter_ref  goto 72
+	function_ref  goto 74
+
+
+state 112
+	scalar_exp_commalist : scalar_exp_commalist ',' . scalar_exp  (200)
+
+	NAME  shift 55
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	'+'  shift 59
+	'-'  shift 60
+	AMMSC  shift 62
+	USER  shift 63
+	'('  shift 64
+	':'  shift 65
+	.  error
+
+	literal  goto 66
+	column_ref  goto 67
+	parameter  goto 68
+	atom  goto 69
+	scalar_exp  goto 163
+	parameter_ref  goto 72
+	function_ref  goto 74
+
+
+state 113
+	table : NAME '.' NAME .  (215)
+
+	.  reduce 215
+
+
+state 114
+	column : NAME .  (233)
+
+	.  reduce 233
+
+
+state 115
+	assignment : column . '=' scalar_exp  (125)
+	assignment : column . '=' NULLX  (126)
+
+	'='  shift 164
+	.  error
+
+
+state 116
+	update_statement_positioned : UPDATE table SET assignment_commalist . WHERE CURRENT OF cursor  (121)
+	assignment_commalist : assignment_commalist . ',' assignment  (124)
+	update_statement_searched : UPDATE table SET assignment_commalist . opt_where_clause  (127)
+	opt_where_clause : .  (131)
+
+	WHERE  shift 165
+	','  shift 166
+	CLOSE  reduce 131
+	COMMIT  reduce 131
+	DELETE  reduce 131
+	FETCH  reduce 131
+	INSERT  reduce 131
+	OPEN  reduce 131
+	PROCEDURE  reduce 131
+	ROLLBACK  reduce 131
+	SELECT  reduce 131
+	UPDATE  reduce 131
+	';'  reduce 131
+
+	opt_where_clause  goto 167
+	where_clause  goto 86
+
+
+state 117
+	assignment_commalist : assignment .  (123)
+
+	.  reduce 123
+
+
+state 118
+	sql : WHENEVER NOT FOUND when_action .  (240)
+
+	.  reduce 240
+
+
+state 119
+	when_action : GOTO NAME .  (242)
+
+	.  reduce 242
+
+
+state 120
+	base_table_def : CREATE . TABLE table '(' base_table_element_commalist ')'  (12)
+	view_def : CREATE . VIEW table opt_column_commalist AS query_spec opt_with_check_option  (36)
+
+	TABLE  shift 168
+	VIEW  shift 169
+	.  error
+
+
+state 121
+	privilege_def : GRANT . privileges ON table TO grantee_commalist opt_with_grant_option  (41)
+
+	ALL  shift 170
+	DELETE  shift 171
+	INSERT  shift 172
+	REFERENCES  shift 173
+	SELECT  shift 174
+	UPDATE  shift 175
+	.  error
+
+	privileges  goto 176
+	operation_commalist  goto 177
+	operation  goto 178
+
+
+state 122
+	schema : CREATE SCHEMA AUTHORIZATION user opt_schema_element_list .  (4)
+
+	.  reduce 4
+
+
+state 123
+	opt_schema_element_list : schema_element_list .  (6)
+	schema_element_list : schema_element_list . schema_element  (8)
+
+	CREATE  shift 120
+	GRANT  shift 121
+	';'  reduce 6
+
+	schema_element  goto 179
+	base_table_def  goto 125
+	view_def  goto 126
+	privilege_def  goto 127
+
+
+state 124
+	schema_element_list : schema_element .  (7)
+
+	.  reduce 7
+
+
+state 125
+	schema_element : base_table_def .  (9)
+
+	.  reduce 9
+
+
+state 126
+	schema_element : view_def .  (10)
+
+	.  reduce 10
+
+
+state 127
+	schema_element : privilege_def .  (11)
+
+	.  reduce 11
+
+
+state 128
+	search_condition : NOT . search_condition  (157)
+	search_condition : .  (154)
+
+	NAME  shift 55
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	NOT  shift 128
+	'+'  shift 59
+	'-'  shift 60
+	AMMSC  shift 62
+	EXISTS  shift 130
+	USER  shift 63
+	'('  shift 131
+	':'  shift 65
+	OR  reduce 154
+	AND  reduce 154
+	CLOSE  reduce 154
+	COMMIT  reduce 154
+	CREATE  reduce 154
+	DECLARE  reduce 154
+	DELETE  reduce 154
+	FETCH  reduce 154
+	GRANT  reduce 154
+	GROUP  reduce 154
+	HAVING  reduce 154
+	INSERT  reduce 154
+	OPEN  reduce 154
+	ORDER  reduce 154
+	PROCEDURE  reduce 154
+	ROLLBACK  reduce 154
+	SELECT  reduce 154
+	UNION  reduce 154
+	UPDATE  reduce 154
+	WITH  reduce 154
+	';'  reduce 154
+	')'  reduce 154
+
+	literal  goto 66
+	search_condition  goto 180
+	column_ref  goto 133
+	parameter  goto 68
+	atom  goto 69
+	scalar_exp  goto 134
+	parameter_ref  goto 72
+	predicate  goto 135
+	comparison_predicate  goto 136
+	between_predicate  goto 137
+	like_predicate  goto 138
+	test_for_null  goto 139
+	in_predicate  goto 140
+	all_or_any_predicate  goto 141
+	existence_test  goto 142
+	function_ref  goto 74
+
+
+state 129
+	delete_statement_positioned : DELETE FROM table WHERE CURRENT . OF cursor  (105)
+
+	OF  shift 181
+	.  error
+
+
+state 130
+	existence_test : EXISTS . subquery  (187)
+
+	'('  shift 182
+	.  error
+
+	subquery  goto 183
+
+
+state 131
+	search_condition : '(' . search_condition ')'  (158)
+	scalar_exp : '(' . scalar_exp ')'  (198)
+	search_condition : .  (154)
+
+	NAME  shift 55
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	NOT  shift 128
+	'+'  shift 59
+	'-'  shift 60
+	AMMSC  shift 62
+	EXISTS  shift 130
+	USER  shift 63
+	'('  shift 131
+	':'  shift 65
+	OR  reduce 154
+	AND  reduce 154
+	')'  reduce 154
+
+	literal  goto 66
+	search_condition  goto 184
+	column_ref  goto 133
+	parameter  goto 68
+	atom  goto 69
+	scalar_exp  goto 185
+	parameter_ref  goto 72
+	predicate  goto 135
+	comparison_predicate  goto 136
+	between_predicate  goto 137
+	like_predicate  goto 138
+	test_for_null  goto 139
+	in_predicate  goto 140
+	all_or_any_predicate  goto 141
+	existence_test  goto 142
+	function_ref  goto 74
+
+
+state 132
+	where_clause : WHERE search_condition .  (147)
+	search_condition : search_condition . OR search_condition  (155)
+	search_condition : search_condition . AND search_condition  (156)
+
+	OR  shift 186
+	AND  shift 187
+	CLOSE  reduce 147
+	COMMIT  reduce 147
+	CREATE  reduce 147
+	DECLARE  reduce 147
+	DELETE  reduce 147
+	FETCH  reduce 147
+	GRANT  reduce 147
+	GROUP  reduce 147
+	HAVING  reduce 147
+	INSERT  reduce 147
+	OPEN  reduce 147
+	ORDER  reduce 147
+	PROCEDURE  reduce 147
+	ROLLBACK  reduce 147
+	SELECT  reduce 147
+	UNION  reduce 147
+	UPDATE  reduce 147
+	WITH  reduce 147
+	';'  reduce 147
+	')'  reduce 147
+
+
+state 133
+	test_for_null : column_ref . IS NOT NULLX  (175)
+	test_for_null : column_ref . IS NULLX  (176)
+	scalar_exp : column_ref .  (196)
+
+	IS  shift 188
+	NOT  reduce 196
+	COMPARISON  reduce 196
+	'+'  reduce 196
+	'-'  reduce 196
+	'*'  reduce 196
+	'/'  reduce 196
+	BETWEEN  reduce 196
+	IN  reduce 196
+	LIKE  reduce 196
+	')'  reduce 196
+
+
+state 134
+	comparison_predicate : scalar_exp . COMPARISON scalar_exp  (167)
+	comparison_predicate : scalar_exp . COMPARISON subquery  (168)
+	between_predicate : scalar_exp . NOT BETWEEN scalar_exp AND scalar_exp  (169)
+	between_predicate : scalar_exp . BETWEEN scalar_exp AND scalar_exp  (170)
+	like_predicate : scalar_exp . NOT LIKE atom opt_escape  (171)
+	like_predicate : scalar_exp . LIKE atom opt_escape  (172)
+	in_predicate : scalar_exp . NOT IN '(' subquery ')'  (177)
+	in_predicate : scalar_exp . IN '(' subquery ')'  (178)
+	in_predicate : scalar_exp . NOT IN '(' atom_commalist ')'  (179)
+	in_predicate : scalar_exp . IN '(' atom_commalist ')'  (180)
+	all_or_any_predicate : scalar_exp . COMPARISON any_all_some subquery  (183)
+	scalar_exp : scalar_exp . '+' scalar_exp  (189)
+	scalar_exp : scalar_exp . '-' scalar_exp  (190)
+	scalar_exp : scalar_exp . '*' scalar_exp  (191)
+	scalar_exp : scalar_exp . '/' scalar_exp  (192)
+
+	NOT  shift 189
+	COMPARISON  shift 190
+	'+'  shift 108
+	'-'  shift 109
+	'*'  shift 110
+	'/'  shift 111
+	BETWEEN  shift 191
+	IN  shift 192
+	LIKE  shift 193
+	.  error
+
+
+state 135
+	search_condition : predicate .  (159)
+
+	.  reduce 159
+
+
+state 136
+	predicate : comparison_predicate .  (160)
+
+	.  reduce 160
+
+
+state 137
+	predicate : between_predicate .  (161)
+
+	.  reduce 161
+
+
+state 138
+	predicate : like_predicate .  (162)
+
+	.  reduce 162
+
+
+state 139
+	predicate : test_for_null .  (163)
+
+	.  reduce 163
+
+
+state 140
+	predicate : in_predicate .  (164)
+
+	.  reduce 164
+
+
+state 141
+	predicate : all_or_any_predicate .  (165)
+
+	.  reduce 165
+
+
+state 142
+	predicate : existence_test .  (166)
+
+	.  reduce 166
+
+
+state 143
+	target_commalist : target_commalist ',' . target  (129)
+
+	':'  shift 65
+	.  error
+
+	parameter  goto 68
+	target  goto 194
+	parameter_ref  goto 89
+
+
+state 144
+	column_commalist : column .  (34)
+
+	.  reduce 34
+
+
+state 145
+	column_commalist : column_commalist . ',' column  (35)
+	opt_column_commalist : '(' column_commalist . ')'  (40)
+
+	')'  shift 195
+	','  shift 196
+	.  error
+
+
+state 146
+	query_spec : SELECT . opt_all_distinct selection table_exp  (138)
+	opt_all_distinct : .  (118)
+
+	ALL  shift 41
+	DISTINCT  shift 42
+	NAME  reduce 118
+	STRING  reduce 118
+	INTNUM  reduce 118
+	APPROXNUM  reduce 118
+	'+'  reduce 118
+	'-'  reduce 118
+	'*'  reduce 118
+	AMMSC  reduce 118
+	USER  reduce 118
+	'('  reduce 118
+	':'  reduce 118
+
+	opt_all_distinct  goto 197
+
+
+state 147
+	values_or_query_spec : VALUES . '(' insert_atom_commalist ')'  (109)
+
+	'('  shift 198
+	.  error
+
+
+state 148
+	values_or_query_spec : query_spec .  (110)
+
+	.  reduce 110
+
+
+state 149
+	insert_statement : INSERT INTO table opt_column_commalist values_or_query_spec .  (108)
+
+	.  reduce 108
+
+
+state 150
+	module_def : MODULE opt_module LANGUAGE lang AUTHORIZATION . user opt_cursor_def_list procedure_def_list  (59)
+
+	NAME  shift 82
+	.  error
+
+	user  goto 199
+
+
+state 151
+	column_ref : NAME '.' NAME .  (217)
+	column_ref : NAME '.' NAME . '.' NAME  (218)
+
+	'.'  shift 200
+	OR  reduce 217
+	AND  reduce 217
+	NOT  reduce 217
+	COMPARISON  reduce 217
+	'+'  reduce 217
+	'-'  reduce 217
+	'*'  reduce 217
+	'/'  reduce 217
+	ASC  reduce 217
+	BETWEEN  reduce 217
+	CLOSE  reduce 217
+	COMMIT  reduce 217
+	CREATE  reduce 217
+	DECLARE  reduce 217
+	DELETE  reduce 217
+	DESC  reduce 217
+	FETCH  reduce 217
+	FROM  reduce 217
+	GRANT  reduce 217
+	GROUP  reduce 217
+	HAVING  reduce 217
+	IN  reduce 217
+	INSERT  reduce 217
+	INTO  reduce 217
+	IS  reduce 217
+	LIKE  reduce 217
+	OPEN  reduce 217
+	ORDER  reduce 217
+	PROCEDURE  reduce 217
+	ROLLBACK  reduce 217
+	SELECT  reduce 217
+	UNION  reduce 217
+	UPDATE  reduce 217
+	WHERE  reduce 217
+	WITH  reduce 217
+	';'  reduce 217
+	')'  reduce 217
+	','  reduce 217
+
+
+state 152
+	function_ref : AMMSC '(' '*' . ')'  (207)
+
+	')'  shift 201
+	.  error
+
+
+state 153
+	function_ref : AMMSC '(' ALL . scalar_exp ')'  (209)
+
+	NAME  shift 55
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	'+'  shift 59
+	'-'  shift 60
+	AMMSC  shift 62
+	USER  shift 63
+	'('  shift 64
+	':'  shift 65
+	.  error
+
+	literal  goto 66
+	column_ref  goto 67
+	parameter  goto 68
+	atom  goto 69
+	scalar_exp  goto 202
+	parameter_ref  goto 72
+	function_ref  goto 74
+
+
+state 154
+	function_ref : AMMSC '(' DISTINCT . column_ref ')'  (208)
+
+	NAME  shift 55
+	.  error
+
+	column_ref  goto 203
+
+
+state 155
+	scalar_exp : scalar_exp . '+' scalar_exp  (189)
+	scalar_exp : scalar_exp . '-' scalar_exp  (190)
+	scalar_exp : scalar_exp . '*' scalar_exp  (191)
+	scalar_exp : scalar_exp . '/' scalar_exp  (192)
+	function_ref : AMMSC '(' scalar_exp . ')'  (210)
+
+	'+'  shift 108
+	'-'  shift 109
+	'*'  shift 110
+	'/'  shift 111
+	')'  shift 204
+	.  error
+
+
+state 156
+	scalar_exp : '(' scalar_exp ')' .  (198)
+
+	.  reduce 198
+
+
+state 157
+	parameter_ref : parameter INDICATOR parameter .  (206)
+
+	.  reduce 206
+
+
+state 158
+	select_statement : SELECT opt_all_distinct selection INTO target_commalist . table_exp  (117)
+	target_commalist : target_commalist . ',' target  (129)
+
+	FROM  shift 205
+	','  shift 143
+	.  error
+
+	table_exp  goto 206
+	from_clause  goto 207
+
+
+state 159
+	scalar_exp : scalar_exp . '+' scalar_exp  (189)
+	scalar_exp : scalar_exp '+' scalar_exp .  (189)
+	scalar_exp : scalar_exp . '-' scalar_exp  (190)
+	scalar_exp : scalar_exp . '*' scalar_exp  (191)
+	scalar_exp : scalar_exp . '/' scalar_exp  (192)
+
+	'*'  shift 110
+	'/'  shift 111
+	OR  reduce 189
+	AND  reduce 189
+	NOT  reduce 189
+	COMPARISON  reduce 189
+	'+'  reduce 189
+	'-'  reduce 189
+	BETWEEN  reduce 189
+	CLOSE  reduce 189
+	COMMIT  reduce 189
+	CREATE  reduce 189
+	DECLARE  reduce 189
+	DELETE  reduce 189
+	FETCH  reduce 189
+	FROM  reduce 189
+	GRANT  reduce 189
+	GROUP  reduce 189
+	HAVING  reduce 189
+	IN  reduce 189
+	INSERT  reduce 189
+	INTO  reduce 189
+	LIKE  reduce 189
+	OPEN  reduce 189
+	ORDER  reduce 189
+	PROCEDURE  reduce 189
+	ROLLBACK  reduce 189
+	SELECT  reduce 189
+	UNION  reduce 189
+	UPDATE  reduce 189
+	WHERE  reduce 189
+	WITH  reduce 189
+	';'  reduce 189
+	')'  reduce 189
+	','  reduce 189
+
+
+state 160
+	scalar_exp : scalar_exp . '+' scalar_exp  (189)
+	scalar_exp : scalar_exp . '-' scalar_exp  (190)
+	scalar_exp : scalar_exp '-' scalar_exp .  (190)
+	scalar_exp : scalar_exp . '*' scalar_exp  (191)
+	scalar_exp : scalar_exp . '/' scalar_exp  (192)
+
+	'*'  shift 110
+	'/'  shift 111
+	OR  reduce 190
+	AND  reduce 190
+	NOT  reduce 190
+	COMPARISON  reduce 190
+	'+'  reduce 190
+	'-'  reduce 190
+	BETWEEN  reduce 190
+	CLOSE  reduce 190
+	COMMIT  reduce 190
+	CREATE  reduce 190
+	DECLARE  reduce 190
+	DELETE  reduce 190
+	FETCH  reduce 190
+	FROM  reduce 190
+	GRANT  reduce 190
+	GROUP  reduce 190
+	HAVING  reduce 190
+	IN  reduce 190
+	INSERT  reduce 190
+	INTO  reduce 190
+	LIKE  reduce 190
+	OPEN  reduce 190
+	ORDER  reduce 190
+	PROCEDURE  reduce 190
+	ROLLBACK  reduce 190
+	SELECT  reduce 190
+	UNION  reduce 190
+	UPDATE  reduce 190
+	WHERE  reduce 190
+	WITH  reduce 190
+	';'  reduce 190
+	')'  reduce 190
+	','  reduce 190
+
+
+state 161
+	scalar_exp : scalar_exp . '+' scalar_exp  (189)
+	scalar_exp : scalar_exp . '-' scalar_exp  (190)
+	scalar_exp : scalar_exp . '*' scalar_exp  (191)
+	scalar_exp : scalar_exp '*' scalar_exp .  (191)
+	scalar_exp : scalar_exp . '/' scalar_exp  (192)
+
+	.  reduce 191
+
+
+state 162
+	scalar_exp : scalar_exp . '+' scalar_exp  (189)
+	scalar_exp : scalar_exp . '-' scalar_exp  (190)
+	scalar_exp : scalar_exp . '*' scalar_exp  (191)
+	scalar_exp : scalar_exp . '/' scalar_exp  (192)
+	scalar_exp : scalar_exp '/' scalar_exp .  (192)
+
+	.  reduce 192
+
+
+state 163
+	scalar_exp : scalar_exp . '+' scalar_exp  (189)
+	scalar_exp : scalar_exp . '-' scalar_exp  (190)
+	scalar_exp : scalar_exp . '*' scalar_exp  (191)
+	scalar_exp : scalar_exp . '/' scalar_exp  (192)
+	scalar_exp_commalist : scalar_exp_commalist ',' scalar_exp .  (200)
+
+	'+'  shift 108
+	'-'  shift 109
+	'*'  shift 110
+	'/'  shift 111
+	FROM  reduce 200
+	INTO  reduce 200
+	','  reduce 200
+
+
+state 164
+	assignment : column '=' . scalar_exp  (125)
+	assignment : column '=' . NULLX  (126)
+
+	NAME  shift 55
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	'+'  shift 59
+	'-'  shift 60
+	AMMSC  shift 62
+	NULLX  shift 208
+	USER  shift 63
+	'('  shift 64
+	':'  shift 65
+	.  error
+
+	literal  goto 66
+	column_ref  goto 67
+	parameter  goto 68
+	atom  goto 69
+	scalar_exp  goto 209
+	parameter_ref  goto 72
+	function_ref  goto 74
+
+
+state 165
+	update_statement_positioned : UPDATE table SET assignment_commalist WHERE . CURRENT OF cursor  (121)
+	where_clause : WHERE . search_condition  (147)
+	search_condition : .  (154)
+
+	NAME  shift 55
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	NOT  shift 128
+	'+'  shift 59
+	'-'  shift 60
+	AMMSC  shift 62
+	CURRENT  shift 210
+	EXISTS  shift 130
+	USER  shift 63
+	'('  shift 131
+	':'  shift 65
+	OR  reduce 154
+	AND  reduce 154
+	CLOSE  reduce 154
+	COMMIT  reduce 154
+	DELETE  reduce 154
+	FETCH  reduce 154
+	INSERT  reduce 154
+	OPEN  reduce 154
+	PROCEDURE  reduce 154
+	ROLLBACK  reduce 154
+	SELECT  reduce 154
+	UPDATE  reduce 154
+	';'  reduce 154
+
+	literal  goto 66
+	search_condition  goto 132
+	column_ref  goto 133
+	parameter  goto 68
+	atom  goto 69
+	scalar_exp  goto 134
+	parameter_ref  goto 72
+	predicate  goto 135
+	comparison_predicate  goto 136
+	between_predicate  goto 137
+	like_predicate  goto 138
+	test_for_null  goto 139
+	in_predicate  goto 140
+	all_or_any_predicate  goto 141
+	existence_test  goto 142
+	function_ref  goto 74
+
+
+state 166
+	assignment_commalist : assignment_commalist ',' . assignment  (124)
+
+	NAME  shift 114
+	.  error
+
+	column  goto 115
+	assignment  goto 211
+
+
+state 167
+	update_statement_searched : UPDATE table SET assignment_commalist opt_where_clause .  (127)
+
+	.  reduce 127
+
+
+state 168
+	base_table_def : CREATE TABLE . table '(' base_table_element_commalist ')'  (12)
+
+	NAME  shift 44
+	.  error
+
+	table  goto 212
+
+
+state 169
+	view_def : CREATE VIEW . table opt_column_commalist AS query_spec opt_with_check_option  (36)
+
+	NAME  shift 44
+	.  error
+
+	table  goto 213
+
+
+state 170
+	privileges : ALL . PRIVILEGES  (44)
+	privileges : ALL .  (45)
+
+	PRIVILEGES  shift 214
+	ON  reduce 45
+
+
+state 171
+	operation : DELETE .  (51)
+
+	.  reduce 51
+
+
+state 172
+	operation : INSERT .  (50)
+
+	.  reduce 50
+
+
+state 173
+	operation : REFERENCES . opt_column_commalist  (53)
+	opt_column_commalist : .  (39)
+
+	'('  shift 90
+	ON  reduce 39
+	','  reduce 39
+
+	opt_column_commalist  goto 215
+
+
+state 174
+	operation : SELECT .  (49)
+
+	.  reduce 49
+
+
+state 175
+	operation : UPDATE . opt_column_commalist  (52)
+	opt_column_commalist : .  (39)
+
+	'('  shift 90
+	ON  reduce 39
+	','  reduce 39
+
+	opt_column_commalist  goto 216
+
+
+state 176
+	privilege_def : GRANT privileges . ON table TO grantee_commalist opt_with_grant_option  (41)
+
+	ON  shift 217
+	.  error
+
+
+state 177
+	privileges : operation_commalist .  (46)
+	operation_commalist : operation_commalist . ',' operation  (48)
+
+	','  shift 218
+	ON  reduce 46
+
+
+state 178
+	operation_commalist : operation .  (47)
+
+	.  reduce 47
+
+
+state 179
+	schema_element_list : schema_element_list schema_element .  (8)
+
+	.  reduce 8
+
+
+state 180
+	search_condition : search_condition . OR search_condition  (155)
+	search_condition : search_condition . AND search_condition  (156)
+	search_condition : NOT search_condition .  (157)
+
+	.  reduce 157
+
+
+state 181
+	delete_statement_positioned : DELETE FROM table WHERE CURRENT OF . cursor  (105)
+
+	NAME  shift 29
+	.  error
+
+	cursor  goto 219
+
+
+state 182
+	subquery : '(' . SELECT opt_all_distinct selection table_exp ')'  (188)
+
+	SELECT  shift 220
+	.  error
+
+
+state 183
+	existence_test : EXISTS subquery .  (187)
+
+	.  reduce 187
+
+
+state 184
+	search_condition : search_condition . OR search_condition  (155)
+	search_condition : search_condition . AND search_condition  (156)
+	search_condition : '(' search_condition . ')'  (158)
+
+	OR  shift 186
+	AND  shift 187
+	')'  shift 221
+	.  error
+
+
+state 185
+	comparison_predicate : scalar_exp . COMPARISON scalar_exp  (167)
+	comparison_predicate : scalar_exp . COMPARISON subquery  (168)
+	between_predicate : scalar_exp . NOT BETWEEN scalar_exp AND scalar_exp  (169)
+	between_predicate : scalar_exp . BETWEEN scalar_exp AND scalar_exp  (170)
+	like_predicate : scalar_exp . NOT LIKE atom opt_escape  (171)
+	like_predicate : scalar_exp . LIKE atom opt_escape  (172)
+	in_predicate : scalar_exp . NOT IN '(' subquery ')'  (177)
+	in_predicate : scalar_exp . IN '(' subquery ')'  (178)
+	in_predicate : scalar_exp . NOT IN '(' atom_commalist ')'  (179)
+	in_predicate : scalar_exp . IN '(' atom_commalist ')'  (180)
+	all_or_any_predicate : scalar_exp . COMPARISON any_all_some subquery  (183)
+	scalar_exp : scalar_exp . '+' scalar_exp  (189)
+	scalar_exp : scalar_exp . '-' scalar_exp  (190)
+	scalar_exp : scalar_exp . '*' scalar_exp  (191)
+	scalar_exp : scalar_exp . '/' scalar_exp  (192)
+	scalar_exp : '(' scalar_exp . ')'  (198)
+
+	NOT  shift 189
+	COMPARISON  shift 190
+	'+'  shift 108
+	'-'  shift 109
+	'*'  shift 110
+	'/'  shift 111
+	BETWEEN  shift 191
+	IN  shift 192
+	LIKE  shift 193
+	')'  shift 156
+	.  error
+
+
+state 186
+	search_condition : search_condition OR . search_condition  (155)
+	search_condition : .  (154)
+
+	NAME  shift 55
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	NOT  shift 128
+	'+'  shift 59
+	'-'  shift 60
+	AMMSC  shift 62
+	EXISTS  shift 130
+	USER  shift 63
+	'('  shift 131
+	':'  shift 65
+	OR  reduce 154
+	AND  reduce 154
+	CLOSE  reduce 154
+	COMMIT  reduce 154
+	CREATE  reduce 154
+	DECLARE  reduce 154
+	DELETE  reduce 154
+	FETCH  reduce 154
+	GRANT  reduce 154
+	GROUP  reduce 154
+	HAVING  reduce 154
+	INSERT  reduce 154
+	OPEN  reduce 154
+	ORDER  reduce 154
+	PROCEDURE  reduce 154
+	ROLLBACK  reduce 154
+	SELECT  reduce 154
+	UNION  reduce 154
+	UPDATE  reduce 154
+	WITH  reduce 154
+	';'  reduce 154
+	')'  reduce 154
+
+	literal  goto 66
+	search_condition  goto 222
+	column_ref  goto 133
+	parameter  goto 68
+	atom  goto 69
+	scalar_exp  goto 134
+	parameter_ref  goto 72
+	predicate  goto 135
+	comparison_predicate  goto 136
+	between_predicate  goto 137
+	like_predicate  goto 138
+	test_for_null  goto 139
+	in_predicate  goto 140
+	all_or_any_predicate  goto 141
+	existence_test  goto 142
+	function_ref  goto 74
+
+
+state 187
+	search_condition : search_condition AND . search_condition  (156)
+	search_condition : .  (154)
+
+	NAME  shift 55
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	NOT  shift 128
+	'+'  shift 59
+	'-'  shift 60
+	AMMSC  shift 62
+	EXISTS  shift 130
+	USER  shift 63
+	'('  shift 131
+	':'  shift 65
+	OR  reduce 154
+	AND  reduce 154
+	CLOSE  reduce 154
+	COMMIT  reduce 154
+	CREATE  reduce 154
+	DECLARE  reduce 154
+	DELETE  reduce 154
+	FETCH  reduce 154
+	GRANT  reduce 154
+	GROUP  reduce 154
+	HAVING  reduce 154
+	INSERT  reduce 154
+	OPEN  reduce 154
+	ORDER  reduce 154
+	PROCEDURE  reduce 154
+	ROLLBACK  reduce 154
+	SELECT  reduce 154
+	UNION  reduce 154
+	UPDATE  reduce 154
+	WITH  reduce 154
+	';'  reduce 154
+	')'  reduce 154
+
+	literal  goto 66
+	search_condition  goto 223
+	column_ref  goto 133
+	parameter  goto 68
+	atom  goto 69
+	scalar_exp  goto 134
+	parameter_ref  goto 72
+	predicate  goto 135
+	comparison_predicate  goto 136
+	between_predicate  goto 137
+	like_predicate  goto 138
+	test_for_null  goto 139
+	in_predicate  goto 140
+	all_or_any_predicate  goto 141
+	existence_test  goto 142
+	function_ref  goto 74
+
+
+state 188
+	test_for_null : column_ref IS . NOT NULLX  (175)
+	test_for_null : column_ref IS . NULLX  (176)
+
+	NOT  shift 224
+	NULLX  shift 225
+	.  error
+
+
+state 189
+	between_predicate : scalar_exp NOT . BETWEEN scalar_exp AND scalar_exp  (169)
+	like_predicate : scalar_exp NOT . LIKE atom opt_escape  (171)
+	in_predicate : scalar_exp NOT . IN '(' subquery ')'  (177)
+	in_predicate : scalar_exp NOT . IN '(' atom_commalist ')'  (179)
+
+	BETWEEN  shift 226
+	IN  shift 227
+	LIKE  shift 228
+	.  error
+
+
+state 190
+	comparison_predicate : scalar_exp COMPARISON . scalar_exp  (167)
+	comparison_predicate : scalar_exp COMPARISON . subquery  (168)
+	all_or_any_predicate : scalar_exp COMPARISON . any_all_some subquery  (183)
+
+	NAME  shift 55
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	'+'  shift 59
+	'-'  shift 60
+	ALL  shift 229
+	AMMSC  shift 62
+	ANY  shift 230
+	SOME  shift 231
+	USER  shift 63
+	'('  shift 232
+	':'  shift 65
+	.  error
+
+	literal  goto 66
+	column_ref  goto 67
+	parameter  goto 68
+	atom  goto 69
+	scalar_exp  goto 233
+	parameter_ref  goto 72
+	subquery  goto 234
+	any_all_some  goto 235
+	function_ref  goto 74
+
+
+state 191
+	between_predicate : scalar_exp BETWEEN . scalar_exp AND scalar_exp  (170)
+
+	NAME  shift 55
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	'+'  shift 59
+	'-'  shift 60
+	AMMSC  shift 62
+	USER  shift 63
+	'('  shift 64
+	':'  shift 65
+	.  error
+
+	literal  goto 66
+	column_ref  goto 67
+	parameter  goto 68
+	atom  goto 69
+	scalar_exp  goto 236
+	parameter_ref  goto 72
+	function_ref  goto 74
+
+
+state 192
+	in_predicate : scalar_exp IN . '(' subquery ')'  (178)
+	in_predicate : scalar_exp IN . '(' atom_commalist ')'  (180)
+
+	'('  shift 237
+	.  error
+
+
+state 193
+	like_predicate : scalar_exp LIKE . atom opt_escape  (172)
+
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	USER  shift 63
+	':'  shift 65
+	.  error
+
+	literal  goto 66
+	parameter  goto 68
+	atom  goto 238
+	parameter_ref  goto 72
+
+
+state 194
+	target_commalist : target_commalist ',' target .  (129)
+
+	.  reduce 129
+
+
+state 195
+	opt_column_commalist : '(' column_commalist ')' .  (40)
+
+	.  reduce 40
+
+
+state 196
+	column_commalist : column_commalist ',' . column  (35)
+
+	NAME  shift 114
+	.  error
+
+	column  goto 239
+
+
+state 197
+	query_spec : SELECT opt_all_distinct . selection table_exp  (138)
+
+	NAME  shift 55
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	'+'  shift 59
+	'-'  shift 60
+	'*'  shift 61
+	AMMSC  shift 62
+	USER  shift 63
+	'('  shift 64
+	':'  shift 65
+	.  error
+
+	literal  goto 66
+	column_ref  goto 67
+	parameter  goto 68
+	atom  goto 69
+	selection  goto 240
+	scalar_exp  goto 71
+	parameter_ref  goto 72
+	scalar_exp_commalist  goto 73
+	function_ref  goto 74
+
+
+state 198
+	values_or_query_spec : VALUES '(' . insert_atom_commalist ')'  (109)
+
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	NULLX  shift 241
+	USER  shift 63
+	':'  shift 65
+	.  error
+
+	literal  goto 66
+	parameter  goto 68
+	insert_atom_commalist  goto 242
+	insert_atom  goto 243
+	atom  goto 244
+	parameter_ref  goto 72
+
+
+state 199
+	module_def : MODULE opt_module LANGUAGE lang AUTHORIZATION user . opt_cursor_def_list procedure_def_list  (59)
+	opt_cursor_def_list : .  (68)
+
+	DECLARE  shift 245
+	PROCEDURE  reduce 68
+
+	opt_cursor_def_list  goto 246
+	cursor_def_list  goto 247
+	cursor_def  goto 248
+
+
+state 200
+	column_ref : NAME '.' NAME '.' . NAME  (218)
+
+	NAME  shift 249
+	.  error
+
+
+state 201
+	function_ref : AMMSC '(' '*' ')' .  (207)
+
+	.  reduce 207
+
+
+state 202
+	scalar_exp : scalar_exp . '+' scalar_exp  (189)
+	scalar_exp : scalar_exp . '-' scalar_exp  (190)
+	scalar_exp : scalar_exp . '*' scalar_exp  (191)
+	scalar_exp : scalar_exp . '/' scalar_exp  (192)
+	function_ref : AMMSC '(' ALL scalar_exp . ')'  (209)
+
+	'+'  shift 108
+	'-'  shift 109
+	'*'  shift 110
+	'/'  shift 111
+	')'  shift 250
+	.  error
+
+
+state 203
+	function_ref : AMMSC '(' DISTINCT column_ref . ')'  (208)
+
+	')'  shift 251
+	.  error
+
+
+state 204
+	function_ref : AMMSC '(' scalar_exp ')' .  (210)
+
+	.  reduce 210
+
+
+state 205
+	from_clause : FROM . table_ref_commalist  (142)
+
+	NAME  shift 44
+	.  error
+
+	table  goto 252
+	table_ref_commalist  goto 253
+	table_ref  goto 254
+
+
+state 206
+	select_statement : SELECT opt_all_distinct selection INTO target_commalist table_exp .  (117)
+
+	.  reduce 117
+
+
+state 207
+	table_exp : from_clause . opt_where_clause opt_group_by_clause opt_having_clause  (141)
+	opt_where_clause : .  (131)
+
+	WHERE  shift 255
+	CLOSE  reduce 131
+	COMMIT  reduce 131
+	CREATE  reduce 131
+	DECLARE  reduce 131
+	DELETE  reduce 131
+	FETCH  reduce 131
+	GRANT  reduce 131
+	GROUP  reduce 131
+	HAVING  reduce 131
+	INSERT  reduce 131
+	OPEN  reduce 131
+	ORDER  reduce 131
+	PROCEDURE  reduce 131
+	ROLLBACK  reduce 131
+	SELECT  reduce 131
+	UNION  reduce 131
+	UPDATE  reduce 131
+	WITH  reduce 131
+	';'  reduce 131
+	')'  reduce 131
+
+	opt_where_clause  goto 256
+	where_clause  goto 86
+
+
+state 208
+	assignment : column '=' NULLX .  (126)
+
+	.  reduce 126
+
+
+state 209
+	assignment : column '=' scalar_exp .  (125)
+	scalar_exp : scalar_exp . '+' scalar_exp  (189)
+	scalar_exp : scalar_exp . '-' scalar_exp  (190)
+	scalar_exp : scalar_exp . '*' scalar_exp  (191)
+	scalar_exp : scalar_exp . '/' scalar_exp  (192)
+
+	'+'  shift 108
+	'-'  shift 109
+	'*'  shift 110
+	'/'  shift 111
+	CLOSE  reduce 125
+	COMMIT  reduce 125
+	DELETE  reduce 125
+	FETCH  reduce 125
+	INSERT  reduce 125
+	OPEN  reduce 125
+	PROCEDURE  reduce 125
+	ROLLBACK  reduce 125
+	SELECT  reduce 125
+	UPDATE  reduce 125
+	WHERE  reduce 125
+	';'  reduce 125
+	','  reduce 125
+
+
+state 210
+	update_statement_positioned : UPDATE table SET assignment_commalist WHERE CURRENT . OF cursor  (121)
+
+	OF  shift 257
+	.  error
+
+
+state 211
+	assignment_commalist : assignment_commalist ',' assignment .  (124)
+
+	.  reduce 124
+
+
+state 212
+	base_table_def : CREATE TABLE table . '(' base_table_element_commalist ')'  (12)
+
+	'('  shift 258
+	.  error
+
+
+state 213
+	view_def : CREATE VIEW table . opt_column_commalist AS query_spec opt_with_check_option  (36)
+	opt_column_commalist : .  (39)
+
+	'('  shift 90
+	AS  reduce 39
+
+	opt_column_commalist  goto 259
+
+
+state 214
+	privileges : ALL PRIVILEGES .  (44)
+
+	.  reduce 44
+
+
+state 215
+	operation : REFERENCES opt_column_commalist .  (53)
+
+	.  reduce 53
+
+
+state 216
+	operation : UPDATE opt_column_commalist .  (52)
+
+	.  reduce 52
+
+
+state 217
+	privilege_def : GRANT privileges ON . table TO grantee_commalist opt_with_grant_option  (41)
+
+	NAME  shift 44
+	.  error
+
+	table  goto 260
+
+
+state 218
+	operation_commalist : operation_commalist ',' . operation  (48)
+
+	DELETE  shift 171
+	INSERT  shift 172
+	REFERENCES  shift 173
+	SELECT  shift 174
+	UPDATE  shift 175
+	.  error
+
+	operation  goto 261
+
+
+state 219
+	delete_statement_positioned : DELETE FROM table WHERE CURRENT OF cursor .  (105)
+
+	.  reduce 105
+
+
+state 220
+	subquery : '(' SELECT . opt_all_distinct selection table_exp ')'  (188)
+	opt_all_distinct : .  (118)
+
+	ALL  shift 41
+	DISTINCT  shift 42
+	NAME  reduce 118
+	STRING  reduce 118
+	INTNUM  reduce 118
+	APPROXNUM  reduce 118
+	'+'  reduce 118
+	'-'  reduce 118
+	'*'  reduce 118
+	AMMSC  reduce 118
+	USER  reduce 118
+	'('  reduce 118
+	':'  reduce 118
+
+	opt_all_distinct  goto 262
+
+
+state 221
+	search_condition : '(' search_condition ')' .  (158)
+
+	.  reduce 158
+
+
+state 222
+	search_condition : search_condition . OR search_condition  (155)
+	search_condition : search_condition OR search_condition .  (155)
+	search_condition : search_condition . AND search_condition  (156)
+
+	AND  shift 187
+	OR  reduce 155
+	CLOSE  reduce 155
+	COMMIT  reduce 155
+	CREATE  reduce 155
+	DECLARE  reduce 155
+	DELETE  reduce 155
+	FETCH  reduce 155
+	GRANT  reduce 155
+	GROUP  reduce 155
+	HAVING  reduce 155
+	INSERT  reduce 155
+	OPEN  reduce 155
+	ORDER  reduce 155
+	PROCEDURE  reduce 155
+	ROLLBACK  reduce 155
+	SELECT  reduce 155
+	UNION  reduce 155
+	UPDATE  reduce 155
+	WITH  reduce 155
+	';'  reduce 155
+	')'  reduce 155
+
+
+state 223
+	search_condition : search_condition . OR search_condition  (155)
+	search_condition : search_condition . AND search_condition  (156)
+	search_condition : search_condition AND search_condition .  (156)
+
+	.  reduce 156
+
+
+state 224
+	test_for_null : column_ref IS NOT . NULLX  (175)
+
+	NULLX  shift 263
+	.  error
+
+
+state 225
+	test_for_null : column_ref IS NULLX .  (176)
+
+	.  reduce 176
+
+
+state 226
+	between_predicate : scalar_exp NOT BETWEEN . scalar_exp AND scalar_exp  (169)
+
+	NAME  shift 55
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	'+'  shift 59
+	'-'  shift 60
+	AMMSC  shift 62
+	USER  shift 63
+	'('  shift 64
+	':'  shift 65
+	.  error
+
+	literal  goto 66
+	column_ref  goto 67
+	parameter  goto 68
+	atom  goto 69
+	scalar_exp  goto 264
+	parameter_ref  goto 72
+	function_ref  goto 74
+
+
+state 227
+	in_predicate : scalar_exp NOT IN . '(' subquery ')'  (177)
+	in_predicate : scalar_exp NOT IN . '(' atom_commalist ')'  (179)
+
+	'('  shift 265
+	.  error
+
+
+state 228
+	like_predicate : scalar_exp NOT LIKE . atom opt_escape  (171)
+
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	USER  shift 63
+	':'  shift 65
+	.  error
+
+	literal  goto 66
+	parameter  goto 68
+	atom  goto 266
+	parameter_ref  goto 72
+
+
+state 229
+	any_all_some : ALL .  (185)
+
+	.  reduce 185
+
+
+state 230
+	any_all_some : ANY .  (184)
+
+	.  reduce 184
+
+
+state 231
+	any_all_some : SOME .  (186)
+
+	.  reduce 186
+
+
+state 232
+	subquery : '(' . SELECT opt_all_distinct selection table_exp ')'  (188)
+	scalar_exp : '(' . scalar_exp ')'  (198)
+
+	NAME  shift 55
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	'+'  shift 59
+	'-'  shift 60
+	AMMSC  shift 62
+	SELECT  shift 220
+	USER  shift 63
+	'('  shift 64
+	':'  shift 65
+	.  error
+
+	literal  goto 66
+	column_ref  goto 67
+	parameter  goto 68
+	atom  goto 69
+	scalar_exp  goto 103
+	parameter_ref  goto 72
+	function_ref  goto 74
+
+
+state 233
+	comparison_predicate : scalar_exp COMPARISON scalar_exp .  (167)
+	scalar_exp : scalar_exp . '+' scalar_exp  (189)
+	scalar_exp : scalar_exp . '-' scalar_exp  (190)
+	scalar_exp : scalar_exp . '*' scalar_exp  (191)
+	scalar_exp : scalar_exp . '/' scalar_exp  (192)
+
+	'+'  shift 108
+	'-'  shift 109
+	'*'  shift 110
+	'/'  shift 111
+	OR  reduce 167
+	AND  reduce 167
+	CLOSE  reduce 167
+	COMMIT  reduce 167
+	CREATE  reduce 167
+	DECLARE  reduce 167
+	DELETE  reduce 167
+	FETCH  reduce 167
+	GRANT  reduce 167
+	GROUP  reduce 167
+	HAVING  reduce 167
+	INSERT  reduce 167
+	OPEN  reduce 167
+	ORDER  reduce 167
+	PROCEDURE  reduce 167
+	ROLLBACK  reduce 167
+	SELECT  reduce 167
+	UNION  reduce 167
+	UPDATE  reduce 167
+	WITH  reduce 167
+	';'  reduce 167
+	')'  reduce 167
+
+
+state 234
+	comparison_predicate : scalar_exp COMPARISON subquery .  (168)
+
+	.  reduce 168
+
+
+state 235
+	all_or_any_predicate : scalar_exp COMPARISON any_all_some . subquery  (183)
+
+	'('  shift 182
+	.  error
+
+	subquery  goto 267
+
+
+state 236
+	between_predicate : scalar_exp BETWEEN scalar_exp . AND scalar_exp  (170)
+	scalar_exp : scalar_exp . '+' scalar_exp  (189)
+	scalar_exp : scalar_exp . '-' scalar_exp  (190)
+	scalar_exp : scalar_exp . '*' scalar_exp  (191)
+	scalar_exp : scalar_exp . '/' scalar_exp  (192)
+
+	AND  shift 268
+	'+'  shift 108
+	'-'  shift 109
+	'*'  shift 110
+	'/'  shift 111
+	.  error
+
+
+state 237
+	in_predicate : scalar_exp IN '(' . subquery ')'  (178)
+	in_predicate : scalar_exp IN '(' . atom_commalist ')'  (180)
+
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	USER  shift 63
+	'('  shift 182
+	':'  shift 65
+	.  error
+
+	literal  goto 66
+	parameter  goto 68
+	atom  goto 269
+	parameter_ref  goto 72
+	subquery  goto 270
+	atom_commalist  goto 271
+
+
+state 238
+	like_predicate : scalar_exp LIKE atom . opt_escape  (172)
+	opt_escape : .  (173)
+
+	ESCAPE  shift 272
+	OR  reduce 173
+	AND  reduce 173
+	CLOSE  reduce 173
+	COMMIT  reduce 173
+	CREATE  reduce 173
+	DECLARE  reduce 173
+	DELETE  reduce 173
+	FETCH  reduce 173
+	GRANT  reduce 173
+	GROUP  reduce 173
+	HAVING  reduce 173
+	INSERT  reduce 173
+	OPEN  reduce 173
+	ORDER  reduce 173
+	PROCEDURE  reduce 173
+	ROLLBACK  reduce 173
+	SELECT  reduce 173
+	UNION  reduce 173
+	UPDATE  reduce 173
+	WITH  reduce 173
+	';'  reduce 173
+	')'  reduce 173
+
+	opt_escape  goto 273
+
+
+state 239
+	column_commalist : column_commalist ',' column .  (35)
+
+	.  reduce 35
+
+
+state 240
+	query_spec : SELECT opt_all_distinct selection . table_exp  (138)
+
+	FROM  shift 205
+	.  error
+
+	table_exp  goto 274
+	from_clause  goto 207
+
+
+state 241
+	insert_atom : NULLX .  (114)
+
+	.  reduce 114
+
+
+state 242
+	values_or_query_spec : VALUES '(' insert_atom_commalist . ')'  (109)
+	insert_atom_commalist : insert_atom_commalist . ',' insert_atom  (112)
+
+	')'  shift 275
+	','  shift 276
+	.  error
+
+
+state 243
+	insert_atom_commalist : insert_atom .  (111)
+
+	.  reduce 111
+
+
+state 244
+	insert_atom : atom .  (113)
+
+	.  reduce 113
+
+
+state 245
+	cursor_def : DECLARE . cursor CURSOR FOR query_exp opt_order_by_clause  (72)
+
+	NAME  shift 29
+	.  error
+
+	cursor  goto 277
+
+
+state 246
+	module_def : MODULE opt_module LANGUAGE lang AUTHORIZATION user opt_cursor_def_list . procedure_def_list  (59)
+
+	PROCEDURE  shift 278
+	.  error
+
+	procedure_def_list  goto 279
+	procedure_def  goto 280
+
+
+state 247
+	opt_cursor_def_list : cursor_def_list .  (69)
+	cursor_def_list : cursor_def_list . cursor_def  (71)
+
+	DECLARE  shift 245
+	PROCEDURE  reduce 69
+
+	cursor_def  goto 281
+
+
+state 248
+	cursor_def_list : cursor_def .  (70)
+
+	.  reduce 70
+
+
+state 249
+	column_ref : NAME '.' NAME '.' NAME .  (218)
+
+	.  reduce 218
+
+
+state 250
+	function_ref : AMMSC '(' ALL scalar_exp ')' .  (209)
+
+	.  reduce 209
+
+
+state 251
+	function_ref : AMMSC '(' DISTINCT column_ref ')' .  (208)
+
+	.  reduce 208
+
+
+state 252
+	table_ref : table .  (145)
+	table_ref : table . range_variable  (146)
+
+	NAME  shift 282
+	CLOSE  reduce 145
+	COMMIT  reduce 145
+	CREATE  reduce 145
+	DECLARE  reduce 145
+	DELETE  reduce 145
+	FETCH  reduce 145
+	GRANT  reduce 145
+	GROUP  reduce 145
+	HAVING  reduce 145
+	INSERT  reduce 145
+	OPEN  reduce 145
+	ORDER  reduce 145
+	PROCEDURE  reduce 145
+	ROLLBACK  reduce 145
+	SELECT  reduce 145
+	UNION  reduce 145
+	UPDATE  reduce 145
+	WHERE  reduce 145
+	WITH  reduce 145
+	';'  reduce 145
+	')'  reduce 145
+	','  reduce 145
+
+	range_variable  goto 283
+
+
+state 253
+	from_clause : FROM table_ref_commalist .  (142)
+	table_ref_commalist : table_ref_commalist . ',' table_ref  (144)
+
+	','  shift 284
+	CLOSE  reduce 142
+	COMMIT  reduce 142
+	CREATE  reduce 142
+	DECLARE  reduce 142
+	DELETE  reduce 142
+	FETCH  reduce 142
+	GRANT  reduce 142
+	GROUP  reduce 142
+	HAVING  reduce 142
+	INSERT  reduce 142
+	OPEN  reduce 142
+	ORDER  reduce 142
+	PROCEDURE  reduce 142
+	ROLLBACK  reduce 142
+	SELECT  reduce 142
+	UNION  reduce 142
+	UPDATE  reduce 142
+	WHERE  reduce 142
+	WITH  reduce 142
+	';'  reduce 142
+	')'  reduce 142
+
+
+state 254
+	table_ref_commalist : table_ref .  (143)
+
+	.  reduce 143
+
+
+state 255
+	where_clause : WHERE . search_condition  (147)
+	search_condition : .  (154)
+
+	NAME  shift 55
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	NOT  shift 128
+	'+'  shift 59
+	'-'  shift 60
+	AMMSC  shift 62
+	EXISTS  shift 130
+	USER  shift 63
+	'('  shift 131
+	':'  shift 65
+	OR  reduce 154
+	AND  reduce 154
+	CLOSE  reduce 154
+	COMMIT  reduce 154
+	CREATE  reduce 154
+	DECLARE  reduce 154
+	DELETE  reduce 154
+	FETCH  reduce 154
+	GRANT  reduce 154
+	GROUP  reduce 154
+	HAVING  reduce 154
+	INSERT  reduce 154
+	OPEN  reduce 154
+	ORDER  reduce 154
+	PROCEDURE  reduce 154
+	ROLLBACK  reduce 154
+	SELECT  reduce 154
+	UNION  reduce 154
+	UPDATE  reduce 154
+	WITH  reduce 154
+	';'  reduce 154
+	')'  reduce 154
+
+	literal  goto 66
+	search_condition  goto 132
+	column_ref  goto 133
+	parameter  goto 68
+	atom  goto 69
+	scalar_exp  goto 134
+	parameter_ref  goto 72
+	predicate  goto 135
+	comparison_predicate  goto 136
+	between_predicate  goto 137
+	like_predicate  goto 138
+	test_for_null  goto 139
+	in_predicate  goto 140
+	all_or_any_predicate  goto 141
+	existence_test  goto 142
+	function_ref  goto 74
+
+
+state 256
+	table_exp : from_clause opt_where_clause . opt_group_by_clause opt_having_clause  (141)
+	opt_group_by_clause : .  (148)
+
+	GROUP  shift 285
+	CLOSE  reduce 148
+	COMMIT  reduce 148
+	CREATE  reduce 148
+	DECLARE  reduce 148
+	DELETE  reduce 148
+	FETCH  reduce 148
+	GRANT  reduce 148
+	HAVING  reduce 148
+	INSERT  reduce 148
+	OPEN  reduce 148
+	ORDER  reduce 148
+	PROCEDURE  reduce 148
+	ROLLBACK  reduce 148
+	SELECT  reduce 148
+	UNION  reduce 148
+	UPDATE  reduce 148
+	WITH  reduce 148
+	';'  reduce 148
+	')'  reduce 148
+
+	opt_group_by_clause  goto 286
+
+
+state 257
+	update_statement_positioned : UPDATE table SET assignment_commalist WHERE CURRENT OF . cursor  (121)
+
+	NAME  shift 29
+	.  error
+
+	cursor  goto 287
+
+
+state 258
+	base_table_def : CREATE TABLE table '(' . base_table_element_commalist ')'  (12)
+
+	NAME  shift 114
+	CHECK  shift 288
+	FOREIGN  shift 289
+	PRIMARY  shift 290
+	UNIQUE  shift 291
+	.  error
+
+	base_table_element_commalist  goto 292
+	base_table_element  goto 293
+	column_def  goto 294
+	table_constraint_def  goto 295
+	column  goto 296
+
+
+state 259
+	view_def : CREATE VIEW table opt_column_commalist . AS query_spec opt_with_check_option  (36)
+
+	AS  shift 297
+	.  error
+
+
+state 260
+	privilege_def : GRANT privileges ON table . TO grantee_commalist opt_with_grant_option  (41)
+
+	TO  shift 298
+	.  error
+
+
+state 261
+	operation_commalist : operation_commalist ',' operation .  (48)
+
+	.  reduce 48
+
+
+state 262
+	subquery : '(' SELECT opt_all_distinct . selection table_exp ')'  (188)
+
+	NAME  shift 55
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	'+'  shift 59
+	'-'  shift 60
+	'*'  shift 61
+	AMMSC  shift 62
+	USER  shift 63
+	'('  shift 64
+	':'  shift 65
+	.  error
+
+	literal  goto 66
+	column_ref  goto 67
+	parameter  goto 68
+	atom  goto 69
+	selection  goto 299
+	scalar_exp  goto 71
+	parameter_ref  goto 72
+	scalar_exp_commalist  goto 73
+	function_ref  goto 74
+
+
+state 263
+	test_for_null : column_ref IS NOT NULLX .  (175)
+
+	.  reduce 175
+
+
+state 264
+	between_predicate : scalar_exp NOT BETWEEN scalar_exp . AND scalar_exp  (169)
+	scalar_exp : scalar_exp . '+' scalar_exp  (189)
+	scalar_exp : scalar_exp . '-' scalar_exp  (190)
+	scalar_exp : scalar_exp . '*' scalar_exp  (191)
+	scalar_exp : scalar_exp . '/' scalar_exp  (192)
+
+	AND  shift 300
+	'+'  shift 108
+	'-'  shift 109
+	'*'  shift 110
+	'/'  shift 111
+	.  error
+
+
+state 265
+	in_predicate : scalar_exp NOT IN '(' . subquery ')'  (177)
+	in_predicate : scalar_exp NOT IN '(' . atom_commalist ')'  (179)
+
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	USER  shift 63
+	'('  shift 182
+	':'  shift 65
+	.  error
+
+	literal  goto 66
+	parameter  goto 68
+	atom  goto 269
+	parameter_ref  goto 72
+	subquery  goto 301
+	atom_commalist  goto 302
+
+
+state 266
+	like_predicate : scalar_exp NOT LIKE atom . opt_escape  (171)
+	opt_escape : .  (173)
+
+	ESCAPE  shift 272
+	OR  reduce 173
+	AND  reduce 173
+	CLOSE  reduce 173
+	COMMIT  reduce 173
+	CREATE  reduce 173
+	DECLARE  reduce 173
+	DELETE  reduce 173
+	FETCH  reduce 173
+	GRANT  reduce 173
+	GROUP  reduce 173
+	HAVING  reduce 173
+	INSERT  reduce 173
+	OPEN  reduce 173
+	ORDER  reduce 173
+	PROCEDURE  reduce 173
+	ROLLBACK  reduce 173
+	SELECT  reduce 173
+	UNION  reduce 173
+	UPDATE  reduce 173
+	WITH  reduce 173
+	';'  reduce 173
+	')'  reduce 173
+
+	opt_escape  goto 303
+
+
+state 267
+	all_or_any_predicate : scalar_exp COMPARISON any_all_some subquery .  (183)
+
+	.  reduce 183
+
+
+state 268
+	between_predicate : scalar_exp BETWEEN scalar_exp AND . scalar_exp  (170)
+
+	NAME  shift 55
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	'+'  shift 59
+	'-'  shift 60
+	AMMSC  shift 62
+	USER  shift 63
+	'('  shift 64
+	':'  shift 65
+	.  error
+
+	literal  goto 66
+	column_ref  goto 67
+	parameter  goto 68
+	atom  goto 69
+	scalar_exp  goto 304
+	parameter_ref  goto 72
+	function_ref  goto 74
+
+
+state 269
+	atom_commalist : atom .  (181)
+
+	.  reduce 181
+
+
+state 270
+	in_predicate : scalar_exp IN '(' subquery . ')'  (178)
+
+	')'  shift 305
+	.  error
+
+
+state 271
+	in_predicate : scalar_exp IN '(' atom_commalist . ')'  (180)
+	atom_commalist : atom_commalist . ',' atom  (182)
+
+	')'  shift 306
+	','  shift 307
+	.  error
+
+
+state 272
+	opt_escape : ESCAPE . atom  (174)
+
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	USER  shift 63
+	':'  shift 65
+	.  error
+
+	literal  goto 66
+	parameter  goto 68
+	atom  goto 308
+	parameter_ref  goto 72
+
+
+state 273
+	like_predicate : scalar_exp LIKE atom opt_escape .  (172)
+
+	.  reduce 172
+
+
+state 274
+	query_spec : SELECT opt_all_distinct selection table_exp .  (138)
+
+	.  reduce 138
+
+
+state 275
+	values_or_query_spec : VALUES '(' insert_atom_commalist ')' .  (109)
+
+	.  reduce 109
+
+
+state 276
+	insert_atom_commalist : insert_atom_commalist ',' . insert_atom  (112)
+
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	NULLX  shift 241
+	USER  shift 63
+	':'  shift 65
+	.  error
+
+	literal  goto 66
+	parameter  goto 68
+	insert_atom  goto 309
+	atom  goto 244
+	parameter_ref  goto 72
+
+
+state 277
+	cursor_def : DECLARE cursor . CURSOR FOR query_exp opt_order_by_clause  (72)
+
+	CURSOR  shift 310
+	.  error
+
+
+state 278
+	procedure_def : PROCEDURE . procedure parameter_def_list ';' manipulative_statement_list  (84)
+
+	NAME  shift 311
+	.  error
+
+	procedure  goto 312
+
+
+state 279
+	module_def : MODULE opt_module LANGUAGE lang AUTHORIZATION user opt_cursor_def_list procedure_def_list .  (59)
+	procedure_def_list : procedure_def_list . procedure_def  (83)
+
+	PROCEDURE  shift 278
+	';'  reduce 59
+
+	procedure_def  goto 313
+
+
+state 280
+	procedure_def_list : procedure_def .  (82)
+
+	.  reduce 82
+
+
+state 281
+	cursor_def_list : cursor_def_list cursor_def .  (71)
+
+	.  reduce 71
+
+
+state 282
+	range_variable : NAME .  (238)
+
+	.  reduce 238
+
+
+state 283
+	table_ref : table range_variable .  (146)
+
+	.  reduce 146
+
+
+state 284
+	table_ref_commalist : table_ref_commalist ',' . table_ref  (144)
+
+	NAME  shift 44
+	.  error
+
+	table  goto 252
+	table_ref  goto 314
+
+
+state 285
+	opt_group_by_clause : GROUP . BY column_ref_commalist  (149)
+
+	BY  shift 315
+	.  error
+
+
+state 286
+	table_exp : from_clause opt_where_clause opt_group_by_clause . opt_having_clause  (141)
+	opt_having_clause : .  (152)
+
+	HAVING  shift 316
+	CLOSE  reduce 152
+	COMMIT  reduce 152
+	CREATE  reduce 152
+	DECLARE  reduce 152
+	DELETE  reduce 152
+	FETCH  reduce 152
+	GRANT  reduce 152
+	INSERT  reduce 152
+	OPEN  reduce 152
+	ORDER  reduce 152
+	PROCEDURE  reduce 152
+	ROLLBACK  reduce 152
+	SELECT  reduce 152
+	UNION  reduce 152
+	UPDATE  reduce 152
+	WITH  reduce 152
+	';'  reduce 152
+	')'  reduce 152
+
+	opt_having_clause  goto 317
+
+
+state 287
+	update_statement_positioned : UPDATE table SET assignment_commalist WHERE CURRENT OF cursor .  (121)
+
+	.  reduce 121
+
+
+state 288
+	table_constraint_def : CHECK . '(' search_condition ')'  (33)
+
+	'('  shift 318
+	.  error
+
+
+state 289
+	table_constraint_def : FOREIGN . KEY '(' column_commalist ')' REFERENCES table  (31)
+	table_constraint_def : FOREIGN . KEY '(' column_commalist ')' REFERENCES table '(' column_commalist ')'  (32)
+
+	KEY  shift 319
+	.  error
+
+
+state 290
+	table_constraint_def : PRIMARY . KEY '(' column_commalist ')'  (30)
+
+	KEY  shift 320
+	.  error
+
+
+state 291
+	table_constraint_def : UNIQUE . '(' column_commalist ')'  (29)
+
+	'('  shift 321
+	.  error
+
+
+state 292
+	base_table_def : CREATE TABLE table '(' base_table_element_commalist . ')'  (12)
+	base_table_element_commalist : base_table_element_commalist . ',' base_table_element  (14)
+
+	')'  shift 322
+	','  shift 323
+	.  error
+
+
+state 293
+	base_table_element_commalist : base_table_element .  (13)
+
+	.  reduce 13
+
+
+state 294
+	base_table_element : column_def .  (15)
+
+	.  reduce 15
+
+
+state 295
+	base_table_element : table_constraint_def .  (16)
+
+	.  reduce 16
+
+
+state 296
+	column_def : column . data_type column_def_opt_list  (17)
+
+	CHARACTER  shift 324
+	DECIMAL  shift 325
+	DOUBLE  shift 326
+	FLOAT  shift 327
+	INTEGER  shift 328
+	NUMERIC  shift 329
+	REAL  shift 330
+	SMALLINT  shift 331
+	.  error
+
+	data_type  goto 332
+
+
+state 297
+	view_def : CREATE VIEW table opt_column_commalist AS . query_spec opt_with_check_option  (36)
+
+	SELECT  shift 146
+	.  error
+
+	query_spec  goto 333
+
+
+state 298
+	privilege_def : GRANT privileges ON table TO . grantee_commalist opt_with_grant_option  (41)
+
+	NAME  shift 82
+	PUBLIC  shift 334
+	.  error
+
+	user  goto 335
+	grantee_commalist  goto 336
+	grantee  goto 337
+
+
+state 299
+	subquery : '(' SELECT opt_all_distinct selection . table_exp ')'  (188)
+
+	FROM  shift 205
+	.  error
+
+	table_exp  goto 338
+	from_clause  goto 207
+
+
+state 300
+	between_predicate : scalar_exp NOT BETWEEN scalar_exp AND . scalar_exp  (169)
+
+	NAME  shift 55
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	'+'  shift 59
+	'-'  shift 60
+	AMMSC  shift 62
+	USER  shift 63
+	'('  shift 64
+	':'  shift 65
+	.  error
+
+	literal  goto 66
+	column_ref  goto 67
+	parameter  goto 68
+	atom  goto 69
+	scalar_exp  goto 339
+	parameter_ref  goto 72
+	function_ref  goto 74
+
+
+state 301
+	in_predicate : scalar_exp NOT IN '(' subquery . ')'  (177)
+
+	')'  shift 340
+	.  error
+
+
+state 302
+	in_predicate : scalar_exp NOT IN '(' atom_commalist . ')'  (179)
+	atom_commalist : atom_commalist . ',' atom  (182)
+
+	')'  shift 341
+	','  shift 307
+	.  error
+
+
+state 303
+	like_predicate : scalar_exp NOT LIKE atom opt_escape .  (171)
+
+	.  reduce 171
+
+
+state 304
+	between_predicate : scalar_exp BETWEEN scalar_exp AND scalar_exp .  (170)
+	scalar_exp : scalar_exp . '+' scalar_exp  (189)
+	scalar_exp : scalar_exp . '-' scalar_exp  (190)
+	scalar_exp : scalar_exp . '*' scalar_exp  (191)
+	scalar_exp : scalar_exp . '/' scalar_exp  (192)
+
+	'+'  shift 108
+	'-'  shift 109
+	'*'  shift 110
+	'/'  shift 111
+	OR  reduce 170
+	AND  reduce 170
+	CLOSE  reduce 170
+	COMMIT  reduce 170
+	CREATE  reduce 170
+	DECLARE  reduce 170
+	DELETE  reduce 170
+	FETCH  reduce 170
+	GRANT  reduce 170
+	GROUP  reduce 170
+	HAVING  reduce 170
+	INSERT  reduce 170
+	OPEN  reduce 170
+	ORDER  reduce 170
+	PROCEDURE  reduce 170
+	ROLLBACK  reduce 170
+	SELECT  reduce 170
+	UNION  reduce 170
+	UPDATE  reduce 170
+	WITH  reduce 170
+	';'  reduce 170
+	')'  reduce 170
+
+
+state 305
+	in_predicate : scalar_exp IN '(' subquery ')' .  (178)
+
+	.  reduce 178
+
+
+state 306
+	in_predicate : scalar_exp IN '(' atom_commalist ')' .  (180)
+
+	.  reduce 180
+
+
+state 307
+	atom_commalist : atom_commalist ',' . atom  (182)
+
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	USER  shift 63
+	':'  shift 65
+	.  error
+
+	literal  goto 66
+	parameter  goto 68
+	atom  goto 342
+	parameter_ref  goto 72
+
+
+state 308
+	opt_escape : ESCAPE atom .  (174)
+
+	.  reduce 174
+
+
+state 309
+	insert_atom_commalist : insert_atom_commalist ',' insert_atom .  (112)
+
+	.  reduce 112
+
+
+state 310
+	cursor_def : DECLARE cursor CURSOR . FOR query_exp opt_order_by_clause  (72)
+
+	FOR  shift 343
+	.  error
+
+
+state 311
+	procedure : NAME .  (237)
+
+	.  reduce 237
+
+
+state 312
+	procedure_def : PROCEDURE procedure . parameter_def_list ';' manipulative_statement_list  (84)
+
+	SQLCODE  shift 344
+	':'  shift 65
+	.  error
+
+	parameter_def_list  goto 345
+	parameter_def  goto 346
+	parameter  goto 347
+
+
+state 313
+	procedure_def_list : procedure_def_list procedure_def .  (83)
+
+	.  reduce 83
+
+
+state 314
+	table_ref_commalist : table_ref_commalist ',' table_ref .  (144)
+
+	.  reduce 144
+
+
+state 315
+	opt_group_by_clause : GROUP BY . column_ref_commalist  (149)
+
+	NAME  shift 55
+	.  error
+
+	column_ref  goto 348
+	column_ref_commalist  goto 349
+
+
+state 316
+	opt_having_clause : HAVING . search_condition  (153)
+	search_condition : .  (154)
+
+	NAME  shift 55
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	NOT  shift 128
+	'+'  shift 59
+	'-'  shift 60
+	AMMSC  shift 62
+	EXISTS  shift 130
+	USER  shift 63
+	'('  shift 131
+	':'  shift 65
+	OR  reduce 154
+	AND  reduce 154
+	CLOSE  reduce 154
+	COMMIT  reduce 154
+	CREATE  reduce 154
+	DECLARE  reduce 154
+	DELETE  reduce 154
+	FETCH  reduce 154
+	GRANT  reduce 154
+	INSERT  reduce 154
+	OPEN  reduce 154
+	ORDER  reduce 154
+	PROCEDURE  reduce 154
+	ROLLBACK  reduce 154
+	SELECT  reduce 154
+	UNION  reduce 154
+	UPDATE  reduce 154
+	WITH  reduce 154
+	';'  reduce 154
+	')'  reduce 154
+
+	literal  goto 66
+	search_condition  goto 350
+	column_ref  goto 133
+	parameter  goto 68
+	atom  goto 69
+	scalar_exp  goto 134
+	parameter_ref  goto 72
+	predicate  goto 135
+	comparison_predicate  goto 136
+	between_predicate  goto 137
+	like_predicate  goto 138
+	test_for_null  goto 139
+	in_predicate  goto 140
+	all_or_any_predicate  goto 141
+	existence_test  goto 142
+	function_ref  goto 74
+
+
+state 317
+	table_exp : from_clause opt_where_clause opt_group_by_clause opt_having_clause .  (141)
+
+	.  reduce 141
+
+
+state 318
+	table_constraint_def : CHECK '(' . search_condition ')'  (33)
+	search_condition : .  (154)
+
+	NAME  shift 55
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	NOT  shift 128
+	'+'  shift 59
+	'-'  shift 60
+	AMMSC  shift 62
+	EXISTS  shift 130
+	USER  shift 63
+	'('  shift 131
+	':'  shift 65
+	OR  reduce 154
+	AND  reduce 154
+	')'  reduce 154
+
+	literal  goto 66
+	search_condition  goto 351
+	column_ref  goto 133
+	parameter  goto 68
+	atom  goto 69
+	scalar_exp  goto 134
+	parameter_ref  goto 72
+	predicate  goto 135
+	comparison_predicate  goto 136
+	between_predicate  goto 137
+	like_predicate  goto 138
+	test_for_null  goto 139
+	in_predicate  goto 140
+	all_or_any_predicate  goto 141
+	existence_test  goto 142
+	function_ref  goto 74
+
+
+state 319
+	table_constraint_def : FOREIGN KEY . '(' column_commalist ')' REFERENCES table  (31)
+	table_constraint_def : FOREIGN KEY . '(' column_commalist ')' REFERENCES table '(' column_commalist ')'  (32)
+
+	'('  shift 352
+	.  error
+
+
+state 320
+	table_constraint_def : PRIMARY KEY . '(' column_commalist ')'  (30)
+
+	'('  shift 353
+	.  error
+
+
+state 321
+	table_constraint_def : UNIQUE '(' . column_commalist ')'  (29)
+
+	NAME  shift 114
+	.  error
+
+	column  goto 144
+	column_commalist  goto 354
+
+
+state 322
+	base_table_def : CREATE TABLE table '(' base_table_element_commalist ')' .  (12)
+
+	.  reduce 12
+
+
+state 323
+	base_table_element_commalist : base_table_element_commalist ',' . base_table_element  (14)
+
+	NAME  shift 114
+	CHECK  shift 288
+	FOREIGN  shift 289
+	PRIMARY  shift 290
+	UNIQUE  shift 291
+	.  error
+
+	base_table_element  goto 355
+	column_def  goto 294
+	table_constraint_def  goto 295
+	column  goto 296
+
+
+state 324
+	data_type : CHARACTER .  (219)
+	data_type : CHARACTER . '(' INTNUM ')'  (220)
+
+	'('  shift 356
+	NOT  reduce 219
+	CHECK  reduce 219
+	DEFAULT  reduce 219
+	REFERENCES  reduce 219
+	SQLCODE  reduce 219
+	';'  reduce 219
+	')'  reduce 219
+	','  reduce 219
+	':'  reduce 219
+
+
+state 325
+	data_type : DECIMAL .  (224)
+	data_type : DECIMAL . '(' INTNUM ')'  (225)
+	data_type : DECIMAL . '(' INTNUM ',' INTNUM ')'  (226)
+
+	'('  shift 357
+	NOT  reduce 224
+	CHECK  reduce 224
+	DEFAULT  reduce 224
+	REFERENCES  reduce 224
+	SQLCODE  reduce 224
+	';'  reduce 224
+	')'  reduce 224
+	','  reduce 224
+	':'  reduce 224
+
+
+state 326
+	data_type : DOUBLE . PRECISION  (232)
+
+	PRECISION  shift 358
+	.  error
+
+
+state 327
+	data_type : FLOAT .  (229)
+	data_type : FLOAT . '(' INTNUM ')'  (230)
+
+	'('  shift 359
+	NOT  reduce 229
+	CHECK  reduce 229
+	DEFAULT  reduce 229
+	REFERENCES  reduce 229
+	SQLCODE  reduce 229
+	';'  reduce 229
+	')'  reduce 229
+	','  reduce 229
+	':'  reduce 229
+
+
+state 328
+	data_type : INTEGER .  (227)
+
+	.  reduce 227
+
+
+state 329
+	data_type : NUMERIC .  (221)
+	data_type : NUMERIC . '(' INTNUM ')'  (222)
+	data_type : NUMERIC . '(' INTNUM ',' INTNUM ')'  (223)
+
+	'('  shift 360
+	NOT  reduce 221
+	CHECK  reduce 221
+	DEFAULT  reduce 221
+	REFERENCES  reduce 221
+	SQLCODE  reduce 221
+	';'  reduce 221
+	')'  reduce 221
+	','  reduce 221
+	':'  reduce 221
+
+
+state 330
+	data_type : REAL .  (231)
+
+	.  reduce 231
+
+
+state 331
+	data_type : SMALLINT .  (228)
+
+	.  reduce 228
+
+
+state 332
+	column_def : column data_type . column_def_opt_list  (17)
+	column_def_opt_list : .  (18)
+
+	.  reduce 18
+
+	column_def_opt_list  goto 361
+
+
+state 333
+	view_def : CREATE VIEW table opt_column_commalist AS query_spec . opt_with_check_option  (36)
+	opt_with_check_option : .  (37)
+
+	WITH  shift 362
+	CREATE  reduce 37
+	GRANT  reduce 37
+	';'  reduce 37
+
+	opt_with_check_option  goto 363
+
+
+state 334
+	grantee : PUBLIC .  (56)
+
+	.  reduce 56
+
+
+state 335
+	grantee : user .  (57)
+
+	.  reduce 57
+
+
+state 336
+	privilege_def : GRANT privileges ON table TO grantee_commalist . opt_with_grant_option  (41)
+	grantee_commalist : grantee_commalist . ',' grantee  (55)
+	opt_with_grant_option : .  (42)
+
+	WITH  shift 364
+	','  shift 365
+	CREATE  reduce 42
+	GRANT  reduce 42
+	';'  reduce 42
+
+	opt_with_grant_option  goto 366
+
+
+state 337
+	grantee_commalist : grantee .  (54)
+
+	.  reduce 54
+
+
+state 338
+	subquery : '(' SELECT opt_all_distinct selection table_exp . ')'  (188)
+
+	')'  shift 367
+	.  error
+
+
+state 339
+	between_predicate : scalar_exp NOT BETWEEN scalar_exp AND scalar_exp .  (169)
+	scalar_exp : scalar_exp . '+' scalar_exp  (189)
+	scalar_exp : scalar_exp . '-' scalar_exp  (190)
+	scalar_exp : scalar_exp . '*' scalar_exp  (191)
+	scalar_exp : scalar_exp . '/' scalar_exp  (192)
+
+	'+'  shift 108
+	'-'  shift 109
+	'*'  shift 110
+	'/'  shift 111
+	OR  reduce 169
+	AND  reduce 169
+	CLOSE  reduce 169
+	COMMIT  reduce 169
+	CREATE  reduce 169
+	DECLARE  reduce 169
+	DELETE  reduce 169
+	FETCH  reduce 169
+	GRANT  reduce 169
+	GROUP  reduce 169
+	HAVING  reduce 169
+	INSERT  reduce 169
+	OPEN  reduce 169
+	ORDER  reduce 169
+	PROCEDURE  reduce 169
+	ROLLBACK  reduce 169
+	SELECT  reduce 169
+	UNION  reduce 169
+	UPDATE  reduce 169
+	WITH  reduce 169
+	';'  reduce 169
+	')'  reduce 169
+
+
+state 340
+	in_predicate : scalar_exp NOT IN '(' subquery ')' .  (177)
+
+	.  reduce 177
+
+
+state 341
+	in_predicate : scalar_exp NOT IN '(' atom_commalist ')' .  (179)
+
+	.  reduce 179
+
+
+state 342
+	atom_commalist : atom_commalist ',' atom .  (182)
+
+	.  reduce 182
+
+
+state 343
+	cursor_def : DECLARE cursor CURSOR FOR . query_exp opt_order_by_clause  (72)
+
+	SELECT  shift 146
+	'('  shift 368
+	.  error
+
+	query_spec  goto 369
+	query_exp  goto 370
+	query_term  goto 371
+
+
+state 344
+	parameter_def : SQLCODE .  (90)
+
+	.  reduce 90
+
+
+state 345
+	procedure_def : PROCEDURE procedure parameter_def_list . ';' manipulative_statement_list  (84)
+	parameter_def_list : parameter_def_list . parameter_def  (88)
+
+	SQLCODE  shift 344
+	';'  shift 372
+	':'  shift 65
+	.  error
+
+	parameter_def  goto 373
+	parameter  goto 347
+
+
+state 346
+	parameter_def_list : parameter_def .  (87)
+
+	.  reduce 87
+
+
+state 347
+	parameter_def : parameter . data_type  (89)
+
+	CHARACTER  shift 324
+	DECIMAL  shift 325
+	DOUBLE  shift 326
+	FLOAT  shift 327
+	INTEGER  shift 328
+	NUMERIC  shift 329
+	REAL  shift 330
+	SMALLINT  shift 331
+	.  error
+
+	data_type  goto 374
+
+
+state 348
+	column_ref_commalist : column_ref .  (150)
+
+	.  reduce 150
+
+
+state 349
+	opt_group_by_clause : GROUP BY column_ref_commalist .  (149)
+	column_ref_commalist : column_ref_commalist . ',' column_ref  (151)
+
+	','  shift 375
+	CLOSE  reduce 149
+	COMMIT  reduce 149
+	CREATE  reduce 149
+	DECLARE  reduce 149
+	DELETE  reduce 149
+	FETCH  reduce 149
+	GRANT  reduce 149
+	HAVING  reduce 149
+	INSERT  reduce 149
+	OPEN  reduce 149
+	ORDER  reduce 149
+	PROCEDURE  reduce 149
+	ROLLBACK  reduce 149
+	SELECT  reduce 149
+	UNION  reduce 149
+	UPDATE  reduce 149
+	WITH  reduce 149
+	';'  reduce 149
+	')'  reduce 149
+
+
+state 350
+	opt_having_clause : HAVING search_condition .  (153)
+	search_condition : search_condition . OR search_condition  (155)
+	search_condition : search_condition . AND search_condition  (156)
+
+	OR  shift 186
+	AND  shift 187
+	CLOSE  reduce 153
+	COMMIT  reduce 153
+	CREATE  reduce 153
+	DECLARE  reduce 153
+	DELETE  reduce 153
+	FETCH  reduce 153
+	GRANT  reduce 153
+	INSERT  reduce 153
+	OPEN  reduce 153
+	ORDER  reduce 153
+	PROCEDURE  reduce 153
+	ROLLBACK  reduce 153
+	SELECT  reduce 153
+	UNION  reduce 153
+	UPDATE  reduce 153
+	WITH  reduce 153
+	';'  reduce 153
+	')'  reduce 153
+
+
+state 351
+	table_constraint_def : CHECK '(' search_condition . ')'  (33)
+	search_condition : search_condition . OR search_condition  (155)
+	search_condition : search_condition . AND search_condition  (156)
+
+	OR  shift 186
+	AND  shift 187
+	')'  shift 376
+	.  error
+
+
+state 352
+	table_constraint_def : FOREIGN KEY '(' . column_commalist ')' REFERENCES table  (31)
+	table_constraint_def : FOREIGN KEY '(' . column_commalist ')' REFERENCES table '(' column_commalist ')'  (32)
+
+	NAME  shift 114
+	.  error
+
+	column  goto 144
+	column_commalist  goto 377
+
+
+state 353
+	table_constraint_def : PRIMARY KEY '(' . column_commalist ')'  (30)
+
+	NAME  shift 114
+	.  error
+
+	column  goto 144
+	column_commalist  goto 378
+
+
+state 354
+	table_constraint_def : UNIQUE '(' column_commalist . ')'  (29)
+	column_commalist : column_commalist . ',' column  (35)
+
+	')'  shift 379
+	','  shift 196
+	.  error
+
+
+state 355
+	base_table_element_commalist : base_table_element_commalist ',' base_table_element .  (14)
+
+	.  reduce 14
+
+
+state 356
+	data_type : CHARACTER '(' . INTNUM ')'  (220)
+
+	INTNUM  shift 380
+	.  error
+
+
+state 357
+	data_type : DECIMAL '(' . INTNUM ')'  (225)
+	data_type : DECIMAL '(' . INTNUM ',' INTNUM ')'  (226)
+
+	INTNUM  shift 381
+	.  error
+
+
+state 358
+	data_type : DOUBLE PRECISION .  (232)
+
+	.  reduce 232
+
+
+state 359
+	data_type : FLOAT '(' . INTNUM ')'  (230)
+
+	INTNUM  shift 382
+	.  error
+
+
+state 360
+	data_type : NUMERIC '(' . INTNUM ')'  (222)
+	data_type : NUMERIC '(' . INTNUM ',' INTNUM ')'  (223)
+
+	INTNUM  shift 383
+	.  error
+
+
+state 361
+	column_def : column data_type column_def_opt_list .  (17)
+	column_def_opt_list : column_def_opt_list . column_def_opt  (19)
+
+	NOT  shift 384
+	CHECK  shift 385
+	DEFAULT  shift 386
+	REFERENCES  shift 387
+	')'  reduce 17
+	','  reduce 17
+
+	column_def_opt  goto 388
+
+
+state 362
+	opt_with_check_option : WITH . CHECK OPTION  (38)
+
+	CHECK  shift 389
+	.  error
+
+
+state 363
+	view_def : CREATE VIEW table opt_column_commalist AS query_spec opt_with_check_option .  (36)
+
+	.  reduce 36
+
+
+state 364
+	opt_with_grant_option : WITH . GRANT OPTION  (43)
+
+	GRANT  shift 390
+	.  error
+
+
+state 365
+	grantee_commalist : grantee_commalist ',' . grantee  (55)
+
+	NAME  shift 82
+	PUBLIC  shift 334
+	.  error
+
+	user  goto 335
+	grantee  goto 391
+
+
+state 366
+	privilege_def : GRANT privileges ON table TO grantee_commalist opt_with_grant_option .  (41)
+
+	.  reduce 41
+
+
+state 367
+	subquery : '(' SELECT opt_all_distinct selection table_exp ')' .  (188)
+
+	.  reduce 188
+
+
+state 368
+	query_term : '(' . query_exp ')'  (137)
+
+	SELECT  shift 146
+	'('  shift 368
+	.  error
+
+	query_spec  goto 369
+	query_exp  goto 392
+	query_term  goto 371
+
+
+state 369
+	query_term : query_spec .  (136)
+
+	.  reduce 136
+
+
+state 370
+	cursor_def : DECLARE cursor CURSOR FOR query_exp . opt_order_by_clause  (72)
+	query_exp : query_exp . UNION query_term  (134)
+	query_exp : query_exp . UNION ALL query_term  (135)
+	opt_order_by_clause : .  (73)
+
+	ORDER  shift 393
+	UNION  shift 394
+	DECLARE  reduce 73
+	PROCEDURE  reduce 73
+
+	opt_order_by_clause  goto 395
+
+
+state 371
+	query_exp : query_term .  (133)
+
+	.  reduce 133
+
+
+state 372
+	procedure_def : PROCEDURE procedure parameter_def_list ';' . manipulative_statement_list  (84)
+
+	CLOSE  shift 1
+	COMMIT  shift 2
+	DELETE  shift 4
+	FETCH  shift 5
+	INSERT  shift 6
+	OPEN  shift 8
+	ROLLBACK  shift 9
+	SELECT  shift 10
+	UPDATE  shift 11
+	.  error
+
+	manipulative_statement_list  goto 396
+	manipulative_statement  goto 397
+	close_statement  goto 18
+	commit_statement  goto 19
+	delete_statement_positioned  goto 20
+	delete_statement_searched  goto 21
+	fetch_statement  goto 22
+	insert_statement  goto 23
+	open_statement  goto 24
+	rollback_statement  goto 25
+	select_statement  goto 26
+	update_statement_positioned  goto 27
+	update_statement_searched  goto 28
+
+
+state 373
+	parameter_def_list : parameter_def_list parameter_def .  (88)
+
+	.  reduce 88
+
+
+state 374
+	parameter_def : parameter data_type .  (89)
+
+	.  reduce 89
+
+
+state 375
+	column_ref_commalist : column_ref_commalist ',' . column_ref  (151)
+
+	NAME  shift 55
+	.  error
+
+	column_ref  goto 398
+
+
+state 376
+	table_constraint_def : CHECK '(' search_condition ')' .  (33)
+
+	.  reduce 33
+
+
+state 377
+	table_constraint_def : FOREIGN KEY '(' column_commalist . ')' REFERENCES table  (31)
+	table_constraint_def : FOREIGN KEY '(' column_commalist . ')' REFERENCES table '(' column_commalist ')'  (32)
+	column_commalist : column_commalist . ',' column  (35)
+
+	')'  shift 399
+	','  shift 196
+	.  error
+
+
+state 378
+	table_constraint_def : PRIMARY KEY '(' column_commalist . ')'  (30)
+	column_commalist : column_commalist . ',' column  (35)
+
+	')'  shift 400
+	','  shift 196
+	.  error
+
+
+state 379
+	table_constraint_def : UNIQUE '(' column_commalist ')' .  (29)
+
+	.  reduce 29
+
+
+state 380
+	data_type : CHARACTER '(' INTNUM . ')'  (220)
+
+	')'  shift 401
+	.  error
+
+
+state 381
+	data_type : DECIMAL '(' INTNUM . ')'  (225)
+	data_type : DECIMAL '(' INTNUM . ',' INTNUM ')'  (226)
+
+	')'  shift 402
+	','  shift 403
+	.  error
+
+
+state 382
+	data_type : FLOAT '(' INTNUM . ')'  (230)
+
+	')'  shift 404
+	.  error
+
+
+state 383
+	data_type : NUMERIC '(' INTNUM . ')'  (222)
+	data_type : NUMERIC '(' INTNUM . ',' INTNUM ')'  (223)
+
+	')'  shift 405
+	','  shift 406
+	.  error
+
+
+state 384
+	column_def_opt : NOT . NULLX  (20)
+	column_def_opt : NOT . NULLX UNIQUE  (21)
+	column_def_opt : NOT . NULLX PRIMARY KEY  (22)
+
+	NULLX  shift 407
+	.  error
+
+
+state 385
+	column_def_opt : CHECK . '(' search_condition ')'  (26)
+
+	'('  shift 408
+	.  error
+
+
+state 386
+	column_def_opt : DEFAULT . literal  (23)
+	column_def_opt : DEFAULT . NULLX  (24)
+	column_def_opt : DEFAULT . USER  (25)
+
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	NULLX  shift 409
+	USER  shift 410
+	.  error
+
+	literal  goto 411
+
+
+state 387
+	column_def_opt : REFERENCES . table  (27)
+	column_def_opt : REFERENCES . table '(' column_commalist ')'  (28)
+
+	NAME  shift 44
+	.  error
+
+	table  goto 412
+
+
+state 388
+	column_def_opt_list : column_def_opt_list column_def_opt .  (19)
+
+	.  reduce 19
+
+
+state 389
+	opt_with_check_option : WITH CHECK . OPTION  (38)
+
+	OPTION  shift 413
+	.  error
+
+
+state 390
+	opt_with_grant_option : WITH GRANT . OPTION  (43)
+
+	OPTION  shift 414
+	.  error
+
+
+state 391
+	grantee_commalist : grantee_commalist ',' grantee .  (55)
+
+	.  reduce 55
+
+
+state 392
+	query_exp : query_exp . UNION query_term  (134)
+	query_exp : query_exp . UNION ALL query_term  (135)
+	query_term : '(' query_exp . ')'  (137)
+
+	UNION  shift 394
+	')'  shift 415
+	.  error
+
+
+state 393
+	opt_order_by_clause : ORDER . BY ordering_spec_commalist  (74)
+
+	BY  shift 416
+	.  error
+
+
+state 394
+	query_exp : query_exp UNION . query_term  (134)
+	query_exp : query_exp UNION . ALL query_term  (135)
+
+	ALL  shift 417
+	SELECT  shift 146
+	'('  shift 368
+	.  error
+
+	query_spec  goto 369
+	query_term  goto 418
+
+
+state 395
+	cursor_def : DECLARE cursor CURSOR FOR query_exp opt_order_by_clause .  (72)
+
+	.  reduce 72
+
+
+state 396
+	procedure_def : PROCEDURE procedure parameter_def_list ';' manipulative_statement_list .  (84)
+	manipulative_statement_list : manipulative_statement_list . manipulative_statement  (86)
+
+	CLOSE  shift 1
+	COMMIT  shift 2
+	DELETE  shift 4
+	FETCH  shift 5
+	INSERT  shift 6
+	OPEN  shift 8
+	ROLLBACK  shift 9
+	SELECT  shift 10
+	UPDATE  shift 11
+	PROCEDURE  reduce 84
+	';'  reduce 84
+
+	manipulative_statement  goto 419
+	close_statement  goto 18
+	commit_statement  goto 19
+	delete_statement_positioned  goto 20
+	delete_statement_searched  goto 21
+	fetch_statement  goto 22
+	insert_statement  goto 23
+	open_statement  goto 24
+	rollback_statement  goto 25
+	select_statement  goto 26
+	update_statement_positioned  goto 27
+	update_statement_searched  goto 28
+
+
+state 397
+	manipulative_statement_list : manipulative_statement .  (85)
+
+	.  reduce 85
+
+
+state 398
+	column_ref_commalist : column_ref_commalist ',' column_ref .  (151)
+
+	.  reduce 151
+
+
+state 399
+	table_constraint_def : FOREIGN KEY '(' column_commalist ')' . REFERENCES table  (31)
+	table_constraint_def : FOREIGN KEY '(' column_commalist ')' . REFERENCES table '(' column_commalist ')'  (32)
+
+	REFERENCES  shift 420
+	.  error
+
+
+state 400
+	table_constraint_def : PRIMARY KEY '(' column_commalist ')' .  (30)
+
+	.  reduce 30
+
+
+state 401
+	data_type : CHARACTER '(' INTNUM ')' .  (220)
+
+	.  reduce 220
+
+
+state 402
+	data_type : DECIMAL '(' INTNUM ')' .  (225)
+
+	.  reduce 225
+
+
+state 403
+	data_type : DECIMAL '(' INTNUM ',' . INTNUM ')'  (226)
+
+	INTNUM  shift 421
+	.  error
+
+
+state 404
+	data_type : FLOAT '(' INTNUM ')' .  (230)
+
+	.  reduce 230
+
+
+state 405
+	data_type : NUMERIC '(' INTNUM ')' .  (222)
+
+	.  reduce 222
+
+
+state 406
+	data_type : NUMERIC '(' INTNUM ',' . INTNUM ')'  (223)
+
+	INTNUM  shift 422
+	.  error
+
+
+state 407
+	column_def_opt : NOT NULLX .  (20)
+	column_def_opt : NOT NULLX . UNIQUE  (21)
+	column_def_opt : NOT NULLX . PRIMARY KEY  (22)
+
+	PRIMARY  shift 423
+	UNIQUE  shift 424
+	NOT  reduce 20
+	CHECK  reduce 20
+	DEFAULT  reduce 20
+	REFERENCES  reduce 20
+	')'  reduce 20
+	','  reduce 20
+
+
+state 408
+	column_def_opt : CHECK '(' . search_condition ')'  (26)
+	search_condition : .  (154)
+
+	NAME  shift 55
+	STRING  shift 56
+	INTNUM  shift 57
+	APPROXNUM  shift 58
+	NOT  shift 128
+	'+'  shift 59
+	'-'  shift 60
+	AMMSC  shift 62
+	EXISTS  shift 130
+	USER  shift 63
+	'('  shift 131
+	':'  shift 65
+	OR  reduce 154
+	AND  reduce 154
+	')'  reduce 154
+
+	literal  goto 66
+	search_condition  goto 425
+	column_ref  goto 133
+	parameter  goto 68
+	atom  goto 69
+	scalar_exp  goto 134
+	parameter_ref  goto 72
+	predicate  goto 135
+	comparison_predicate  goto 136
+	between_predicate  goto 137
+	like_predicate  goto 138
+	test_for_null  goto 139
+	in_predicate  goto 140
+	all_or_any_predicate  goto 141
+	existence_test  goto 142
+	function_ref  goto 74
+
+
+state 409
+	column_def_opt : DEFAULT NULLX .  (24)
+
+	.  reduce 24
+
+
+state 410
+	column_def_opt : DEFAULT USER .  (25)
+
+	.  reduce 25
+
+
+state 411
+	column_def_opt : DEFAULT literal .  (23)
+
+	.  reduce 23
+
+
+state 412
+	column_def_opt : REFERENCES table .  (27)
+	column_def_opt : REFERENCES table . '(' column_commalist ')'  (28)
+
+	'('  shift 426
+	NOT  reduce 27
+	CHECK  reduce 27
+	DEFAULT  reduce 27
+	REFERENCES  reduce 27
+	')'  reduce 27
+	','  reduce 27
+
+
+state 413
+	opt_with_check_option : WITH CHECK OPTION .  (38)
+
+	.  reduce 38
+
+
+state 414
+	opt_with_grant_option : WITH GRANT OPTION .  (43)
+
+	.  reduce 43
+
+
+state 415
+	query_term : '(' query_exp ')' .  (137)
+
+	.  reduce 137
+
+
+state 416
+	opt_order_by_clause : ORDER BY . ordering_spec_commalist  (74)
+
+	NAME  shift 55
+	INTNUM  shift 427
+	.  error
+
+	ordering_spec_commalist  goto 428
+	ordering_spec  goto 429
+	column_ref  goto 430
+
+
+state 417
+	query_exp : query_exp UNION ALL . query_term  (135)
+
+	SELECT  shift 146
+	'('  shift 368
+	.  error
+
+	query_spec  goto 369
+	query_term  goto 431
+
+
+state 418
+	query_exp : query_exp UNION query_term .  (134)
+
+	.  reduce 134
+
+
+state 419
+	manipulative_statement_list : manipulative_statement_list manipulative_statement .  (86)
+
+	.  reduce 86
+
+
+state 420
+	table_constraint_def : FOREIGN KEY '(' column_commalist ')' REFERENCES . table  (31)
+	table_constraint_def : FOREIGN KEY '(' column_commalist ')' REFERENCES . table '(' column_commalist ')'  (32)
+
+	NAME  shift 44
+	.  error
+
+	table  goto 432
+
+
+state 421
+	data_type : DECIMAL '(' INTNUM ',' INTNUM . ')'  (226)
+
+	')'  shift 433
+	.  error
+
+
+state 422
+	data_type : NUMERIC '(' INTNUM ',' INTNUM . ')'  (223)
+
+	')'  shift 434
+	.  error
+
+
+state 423
+	column_def_opt : NOT NULLX PRIMARY . KEY  (22)
+
+	KEY  shift 435
+	.  error
+
+
+state 424
+	column_def_opt : NOT NULLX UNIQUE .  (21)
+
+	.  reduce 21
+
+
+state 425
+	column_def_opt : CHECK '(' search_condition . ')'  (26)
+	search_condition : search_condition . OR search_condition  (155)
+	search_condition : search_condition . AND search_condition  (156)
+
+	OR  shift 186
+	AND  shift 187
+	')'  shift 436
+	.  error
+
+
+state 426
+	column_def_opt : REFERENCES table '(' . column_commalist ')'  (28)
+
+	NAME  shift 114
+	.  error
+
+	column  goto 144
+	column_commalist  goto 437
+
+
+state 427
+	ordering_spec : INTNUM . opt_asc_desc  (77)
+	opt_asc_desc : .  (79)
+
+	ASC  shift 438
+	DESC  shift 439
+	DECLARE  reduce 79
+	PROCEDURE  reduce 79
+	','  reduce 79
+
+	opt_asc_desc  goto 440
+
+
+state 428
+	opt_order_by_clause : ORDER BY ordering_spec_commalist .  (74)
+	ordering_spec_commalist : ordering_spec_commalist . ',' ordering_spec  (76)
+
+	','  shift 441
+	DECLARE  reduce 74
+	PROCEDURE  reduce 74
+
+
+state 429
+	ordering_spec_commalist : ordering_spec .  (75)
+
+	.  reduce 75
+
+
+state 430
+	ordering_spec : column_ref . opt_asc_desc  (78)
+	opt_asc_desc : .  (79)
+
+	ASC  shift 438
+	DESC  shift 439
+	DECLARE  reduce 79
+	PROCEDURE  reduce 79
+	','  reduce 79
+
+	opt_asc_desc  goto 442
+
+
+state 431
+	query_exp : query_exp UNION ALL query_term .  (135)
+
+	.  reduce 135
+
+
+state 432
+	table_constraint_def : FOREIGN KEY '(' column_commalist ')' REFERENCES table .  (31)
+	table_constraint_def : FOREIGN KEY '(' column_commalist ')' REFERENCES table . '(' column_commalist ')'  (32)
+
+	'('  shift 443
+	')'  reduce 31
+	','  reduce 31
+
+
+state 433
+	data_type : DECIMAL '(' INTNUM ',' INTNUM ')' .  (226)
+
+	.  reduce 226
+
+
+state 434
+	data_type : NUMERIC '(' INTNUM ',' INTNUM ')' .  (223)
+
+	.  reduce 223
+
+
+state 435
+	column_def_opt : NOT NULLX PRIMARY KEY .  (22)
+
+	.  reduce 22
+
+
+state 436
+	column_def_opt : CHECK '(' search_condition ')' .  (26)
+
+	.  reduce 26
+
+
+state 437
+	column_def_opt : REFERENCES table '(' column_commalist . ')'  (28)
+	column_commalist : column_commalist . ',' column  (35)
+
+	')'  shift 444
+	','  shift 196
+	.  error
+
+
+state 438
+	opt_asc_desc : ASC .  (80)
+
+	.  reduce 80
+
+
+state 439
+	opt_asc_desc : DESC .  (81)
+
+	.  reduce 81
+
+
+state 440
+	ordering_spec : INTNUM opt_asc_desc .  (77)
+
+	.  reduce 77
+
+
+state 441
+	ordering_spec_commalist : ordering_spec_commalist ',' . ordering_spec  (76)
+
+	NAME  shift 55
+	INTNUM  shift 427
+	.  error
+
+	ordering_spec  goto 445
+	column_ref  goto 430
+
+
+state 442
+	ordering_spec : column_ref opt_asc_desc .  (78)
+
+	.  reduce 78
+
+
+state 443
+	table_constraint_def : FOREIGN KEY '(' column_commalist ')' REFERENCES table '(' . column_commalist ')'  (32)
+
+	NAME  shift 114
+	.  error
+
+	column  goto 144
+	column_commalist  goto 446
+
+
+state 444
+	column_def_opt : REFERENCES table '(' column_commalist ')' .  (28)
+
+	.  reduce 28
+
+
+state 445
+	ordering_spec_commalist : ordering_spec_commalist ',' ordering_spec .  (76)
+
+	.  reduce 76
+
+
+state 446
+	table_constraint_def : FOREIGN KEY '(' column_commalist ')' REFERENCES table '(' column_commalist . ')'  (32)
+	column_commalist : column_commalist . ',' column  (35)
+
+	')'  shift 447
+	','  shift 196
+	.  error
+
+
+state 447
+	table_constraint_def : FOREIGN KEY '(' column_commalist ')' REFERENCES table '(' column_commalist ')' .  (32)
+
+	.  reduce 32
+
+
+107 terminals, 103 nonterminals
+244 grammar rules, 448 states

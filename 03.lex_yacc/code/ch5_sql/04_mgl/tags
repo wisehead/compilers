@@ -1,0 +1,60 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+SCREEN_SIZE	subr.c	43;"	d	file:
+act_menu	first.c	/^	int (*act_menu)();   \/* call appropriate function *\/$/;"	m	struct:item	file:
+act_str	first.c	/^	char   *act_str;     \/* execute string *\/$/;"	m	struct:item	file:
+act_str	subr.c	/^	char           *act_str;      \/* action operation *\/$/;"	m	struct:item	file:
+action	first.c	/^	int  action;$/;"	m	struct:item	file:
+action	mglyac.y	/^action: EXECUTE qstring$/;"	l
+action	subr.c	/^	int            action;        \/* action to take *\/$/;"	m	struct:item	file:
+add_line	subr.c	/^add_line(action, attrib)$/;"	f
+add_title	subr.c	/^add_title(line)$/;"	f
+attribute	first.c	/^	int  attribute;$/;"	m	struct:item	file:
+attribute	mglyac.y	/^attribute: \/* empty *\/     { $$ = VISIBLE; }$/;"	l
+attribute	subr.c	/^	int            attribute;     \/* visible\/invisible *\/$/;"	m	struct:item	file:
+casecmp	first.c	/^casecmp(char *p, char *q)$/;"	f
+cfree	subr.c	/^cfree(char *p)$/;"	f
+check_name	subr.c	/^check_name(name)$/;"	f
+cmd	first.c	/^	char *cmd;$/;"	m	struct:item	file:
+cmd	subr.c	/^	char           *cmd;          \/* command *\/$/;"	m	struct:item	file:
+command	mglyac.y	/^command: \/* empty *\/ { cmd_str = strdup(""); }$/;"	l
+current_line	subr.c	/^static int current_line;$/;"	v	file:
+current_screen	subr.c	/^static char current_screen[100]; \/* reasonable? *\/$/;"	v	file:
+desc	first.c	/^	char *desc;$/;"	m	struct:item	file:
+desc	subr.c	/^	char           *desc;         \/* item description *\/$/;"	m	struct:item	file:
+done_end_init	subr.c	/^static int done_end_init;$/;"	v	file:
+done_start_init	subr.c	/^static int done_start_init;$/;"	v	file:
+dump_data	subr.c	/^dump_data(array)$/;"	f
+end_file	subr.c	/^end_file()$/;"	f
+end_screen	subr.c	/^end_screen(char *name)$/;"	f
+id	mglyac.y	/^id: ID$/;"	l
+init	first.c	/^static int init;$/;"	v	file:
+item	first.c	/^struct item {$/;"	s	file:
+item	subr.c	/^struct item {$/;"	s	file:
+item_list	subr.c	/^} *item_list, *last_item;$/;"	v	typeref:struct:item
+last_item	subr.c	/^} *item_list, *last_item;$/;"	v	typeref:struct:item
+line	mglyac.y	/^line: ITEM qstring command ACTION action attribute$/;"	l
+lines	mglyac.y	/^lines: line$/;"	l
+main	first.c	/^main()$/;"	f
+menu_cleanup	first.c	/^menu_cleanup()$/;"	f
+menu_first	first.c	/^menu_first()$/;"	f
+menu_first_items	first.c	/^struct item menu_first_items[]={$/;"	v	typeref:struct:item
+menu_init	first.c	/^menu_init()$/;"	f
+menu_runtime	first.c	/^menu_runtime(items)$/;"	f
+menu_second	first.c	/^menu_second()$/;"	f
+menu_second_items	first.c	/^struct item menu_second_items[]={$/;"	v	typeref:struct:item
+next	subr.c	/^	struct item    *next;         \/* next member of list *\/$/;"	m	struct:item	typeref:struct:item::item	file:
+process_items	subr.c	/^process_items()$/;"	f
+qstring	mglyac.y	/^qstring: QSTRING { $$ = $1; }$/;"	l
+screen	mglyac.y	/^screen:   screen_name screen_contents screen_terminator$/;"	l
+screen_contents	mglyac.y	/^screen_contents: titles lines$/;"	l
+screen_name	mglyac.y	/^screen_name: SCREEN id { start_screen($2); }$/;"	l
+screen_terminator	mglyac.y	/^screen_terminator: END id { end_screen($2); }$/;"	l
+screens	mglyac.y	/^screens:  screen$/;"	l
+start_screen	subr.c	/^start_screen(char *name)  \/* name of screen to create *\/$/;"	f
+title	mglyac.y	/^title: TITLE qstring { add_title($2); }$/;"	l
+titles	mglyac.y	/^titles: \/* empty *\/$/;"	l
