@@ -1,0 +1,7 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory `/Users/wisehead/github/compilers/06.vscode/mac_debug'
+ 
+make: Leaving directory `/Users/wisehead/github/compilers/06.vscode/mac_debug'
+ 
+make: *** No targets specified and no makefile found.  Stop.
+
