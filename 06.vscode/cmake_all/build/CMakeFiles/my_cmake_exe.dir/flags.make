@@ -6,7 +6,7 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/Users/wisehead/github/compilers/06.vscode/cmake_all/include
 
-CXX_FLAGSx86_64 =  -Wall -g -arch x86_64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
+CXX_FLAGSarm64 =  -Wall -g -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk
 
-CXX_FLAGS =  -Wall -g -arch x86_64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
+CXX_FLAGS =  -Wall -g -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk
 
