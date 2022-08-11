@@ -1,0 +1,3 @@
+/home/chenhui/compilers/02.cmake/parallel101_course/01/14/build/CMakeFiles/rebuild_cache.dir
+/home/chenhui/compilers/02.cmake/parallel101_course/01/14/build/CMakeFiles/edit_cache.dir
+/home/chenhui/compilers/02.cmake/parallel101_course/01/14/build/CMakeFiles/a.out.dir
