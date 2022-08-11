@@ -1,0 +1,280 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 3.81
+# Copyright (C) 2006  Free Software Foundation, Inc.
+# This is free software; see the source for copying conditions.
+# There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
+
+# This program built for i386-apple-darwin11.3.0
+ 
+make: *** No rule to make target `all'.  Stop.
+
+
+# Make data base, printed on Thu Aug 11 14:27:55 2022
+
+# Variables
+
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# automatic
+?F = $(notdir $?)
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# environment
+ 
+CPPFLAGS = -I/Users/wisehead/Library/Java/JavaVirtualMachines/corretto-1.8.0_322/Contents/Home/include
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# automatic
+@F = $(notdir $@)
+# makefile
+CURDIR := /Users/wisehead/github/compilers/06.vscode/cmake_all
+# makefile
+SHELL = /bin/sh
+# environment
+VSCODE_NLS_CONFIG = {"locale":"zh-cn","availableLanguages":{"*":"zh-cn"},"_languagePackId":"bbca1a7059cee8a1b93da8947fee1c4f.zh-cn","_translationsConfigFile":"/Users/wisehead/Library/Application Support/Code/clp/bbca1a7059cee8a1b93da8947fee1c4f.zh-cn/tcf.json","_cacheRoot":"/Users/wisehead/Library/Application Support/Code/clp/bbca1a7059cee8a1b93da8947fee1c4f.zh-cn","_resolvedLanguagePackCoreLocation":"/Users/wisehead/Library/Application Support/Code/clp/bbca1a7059cee8a1b93da8947fee1c4f.zh-cn/3b889b090b5ad5793f524b5d1d39fda662b96a2a","_corruptedFile":"/Users/wisehead/Library/Application Support/Code/clp/bbca1a7059cee8a1b93da8947fee1c4f.zh-cn/corrupted.info","_languagePackSupport":true}
+# environment
+_ = /usr/bin/make
+# environment
+replace_by_your_username = wisehead
+# environment
+MAVEN_HOME = /usr/local/Cellar/maven/3.8.4
+# makefile
+MAKEFILE_LIST := 
+# environment
+CLIP = /Users/wisehead/Downloads/mx-wc
+# environment
+TOP = /Users/wisehead/icode/baidu/dba/mysql-8018-trunk
+# environment
+__CFBundleIdentifier = com.microsoft.VSCode
+# environment
+INFOPATH = /usr/local/share/info:
+# environment
+VSCODE_CWD = /
+# environment
+PATH = .:/Users/wisehead/Library/Java/JavaVirtualMachines/corretto-1.8.0_322/Contents/Home/bin:/usr/local/opt/mysql@5.7/bin:/Users/wisehead/Library/Python/2.7/bin:/usr/local/opt/binutils/bin:/usr/local/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Users/wisehead/.ft:/Users/wisehead/gopath/bin
+# environment
+GOROOT = /usr/local/Cellar/go/1.17.6/libexec
+# environment
+LSCOLORS = Gxfxcxdxbxegedabagacad
+# environment
+replace_by_your_pin_code = 0116
+# environment
+GOPATH = /Users/wisehead/gopath
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# default
+.FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
+# environment
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.gQlrUmzKDa/Listeners
+# environment
+CPLUS_INCLUDE_PATH = /Library/Developer/CommandLineTools/usr/include/c++/v1
+# automatic
+%F = $(notdir $%)
+# environment
+MTHD = /Users/wisehead/github/cpp_lib/multi_thread_concurency
+# environment
+SQLITE_EXEMPT_PATH_FROM_VNODE_GUARDS = /Users/wisehead/Library/WebKit/Databases
+# environment
+PWD = /Users/wisehead/github/compilers/06.vscode/cmake_all
+# environment
+HOMEBREW_CELLAR = /usr/local/Cellar
+# environment
+CPP11 = /Users/wisehead/github/cpp_lib/cpp11/cpp11_deepdive
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = undefined
+# environment
+MANPATH = /usr/local/share/man::
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
+HOME = /Users/wisehead
+# default
+MAKEFILEPATH = $(shell /usr/bin/xcode-select -print-path 2>/dev/null || echo /Developer)/Makefiles
+# environment
+VSCODE_CODE_CACHE_PATH = /Users/wisehead/Library/Application Support/Code/CachedData/3b889b090b5ad5793f524b5d1d39fda662b96a2a
+# environment
+LOGNAME = wisehead
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+ 
+# environment
+ZSH = /Users/wisehead/.oh-my-zsh
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+XPC_FLAGS = 0x0
+# default
+MAKE = $(MAKE_COMMAND)
+# default
+MAKECMDGOALS := all
+# environment
+SHLVL = 1
+# environment
+JAVA_HOME = /Users/wisehead/Library/Java/JavaVirtualMachines/corretto-1.8.0_322/Contents/Home
+# default
+MAKE_VERSION := 3.81
+# environment
+USER = wisehead
+# makefile
+.DEFAULT_GOAL := 
+# environment
+HOMEBREW_BOTTLE_DOMAIN = https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles
+# environment
+LESS = -R
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# default
+MAKE_COMMAND := /Library/Developer/CommandLineTools/usr/bin/make
+# default
+.VARIABLES := 
+# environment
+TMPDIR = /var/folders/7m/bzd1v3_s3zj9pdq1_b6jcx7w0000gp/T/
+# automatic
+*F = $(notdir $*)
+# environment
+VSCODE_IPC_HOOK = /Users/wisehead/Library/Application Support/Code/1.69.2-main.sock
+# environment
+MallocNanoZone = 0
+# makefile
+MAKEFLAGS = Rrqp
+# environment
+MFLAGS = -Rrqp
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# environment
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.7027541.7027547
+# environment
+HOMEBREW_PREFIX = /usr/local
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# automatic
++F = $(notdir $+)
+# environment
+HOMEBREW_REPOSITORY = /usr/local/Homebrew
+# environment
+__CF_USER_TEXT_ENCODING = 0x1F6:0x19:0x34
+# environment
+COMMAND_MODE = unix2003
+# default
+MAKEFILES := 
+# automatic
+<F = $(notdir $<)
+# environment
+replace_by_your_passwd = lanch5678;
+# environment
+EDITOR = subl
+# environment
+PAGER = less
+# environment
+LC_ALL = C
+# environment
+DOWNLOAD = /Users/wisehead/Downloads
+# automatic
+^F = $(notdir $^)
+# default
+SUFFIXES := 
+ 
+# default
+.INCLUDE_DIRS = /usr/local/include
+# environment
+MAKELEVEL := 0
+# environment
+LANG = C
+# environment
+FTWORK = /Users/wisehead/Downloads/ftwork
+# environment
+VSCODE_PID = 13951
+# environment
+DESKTOP = /Users/wisehead/Desktop
+# variable set hash-table stats:
+ 
+# Load=86/1024=8%, Rehash=0, Collisions=4/107=4%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# . (device 16777233, inode 7742285): 7 files, no impossibilities.
+
+# 7 files, no impossibilities in 1 directories.
+
+# Implicit Rules
+
+# No implicit rules.
+
+# Files
+
+# Not a target:
+all:
+#  Command-line target.
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has not been updated.
+ 
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+.SUFFIXES:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Makefile:
+#  A default, MAKEFILES, or -include/sinclude makefile.
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+makefile:
+#  A default, MAKEFILES, or -include/sinclude makefile.
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+ 
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+GNUmakefile:
+#  A default, MAKEFILES, or -include/sinclude makefile.
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# files hash-table stats:
+# Load=6/1024=1%, Rehash=0, Collisions=0/17=0%
+# VPATH Search Paths
+
+# No `vpath' search paths.
+
+# No general (`VPATH' variable) search path.
+
+# # of strings in strcache: 0
+# # of strcache buffers: 0
+# strcache size: total = 0 / max = 0 / min = 4096 / avg = 0
+# strcache free: total = 0 / max = 0 / min = 4096 / avg = 0
+
+# Finished Make data base on Thu Aug 11 14:27:55 2022
+
+ 

@@ -1,0 +1,1 @@
+/Library/Developer/CommandLineTools/usr/bin/c++  -Wall -g -arch x86_64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/my_cmake_exe.dir/main.cpp.o CMakeFiles/my_cmake_exe.dir/src/Gun.cpp.o CMakeFiles/my_cmake_exe.dir/src/Solider.cpp.o -o my_cmake_exe 

@@ -1,0 +1,3 @@
+/Users/wisehead/github/compilers/06.vscode/cmake_all/build/CMakeFiles/my_cmake_exe.dir
+/Users/wisehead/github/compilers/06.vscode/cmake_all/build/CMakeFiles/edit_cache.dir
+/Users/wisehead/github/compilers/06.vscode/cmake_all/build/CMakeFiles/rebuild_cache.dir
