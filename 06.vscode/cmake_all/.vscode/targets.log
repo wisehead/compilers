@@ -6,11 +6,8 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
- 
-make: *** No rule to make target `all'.  Stop.
 
-
-# Make data base, printed on Thu Aug 11 14:27:55 2022
+# Make data base, printed on Thu Aug 11 14:30:59 2022
 
 # Variables
 
@@ -21,7 +18,6 @@ make: *** No rule to make target `all'.  Stop.
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
- 
 CPPFLAGS = -I/Users/wisehead/Library/Java/JavaVirtualMachines/corretto-1.8.0_322/Contents/Home/include
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
@@ -32,7 +28,7 @@ CURDIR := /Users/wisehead/github/compilers/06.vscode/cmake_all
 # makefile
 SHELL = /bin/sh
 # environment
-VSCODE_NLS_CONFIG = {"locale":"zh-cn","availableLanguages":{"*":"zh-cn"},"_languagePackId":"bbca1a7059cee8a1b93da8947fee1c4f.zh-cn","_translationsConfigFile":"/Users/wisehead/Library/Application Support/Code/clp/bbca1a7059cee8a1b93da8947fee1c4f.zh-cn/tcf.json","_cacheRoot":"/Users/wisehead/Library/Application Support/Code/clp/bbca1a7059cee8a1b93da8947fee1c4f.zh-cn","_resolvedLanguagePackCoreLocation":"/Users/wisehead/Library/Application Support/Code/clp/bbca1a7059cee8a1b93da8947fee1c4f.zh-cn/3b889b090b5ad5793f524b5d1d39fda662b96a2a","_corruptedFile":"/Users/wisehead/Library/Application Support/Code/clp/bbca1a7059cee8a1b93da8947fee1c4f.zh-cn/corrupted.info","_languagePackSupport":true}
+VSCODE_NLS_CONFIG = {"locale":"zh-cn","availableLanguages":{"*":"zh-cn"},"_languagePackId":"1d735750dbb1b9066c7513078396ba0f.zh-cn","_translationsConfigFile":"/Users/wisehead/Library/Application Support/Code/clp/1d735750dbb1b9066c7513078396ba0f.zh-cn/tcf.json","_cacheRoot":"/Users/wisehead/Library/Application Support/Code/clp/1d735750dbb1b9066c7513078396ba0f.zh-cn","_resolvedLanguagePackCoreLocation":"/Users/wisehead/Library/Application Support/Code/clp/1d735750dbb1b9066c7513078396ba0f.zh-cn/da76f93349a72022ca4670c1b84860304616aaa2","_corruptedFile":"/Users/wisehead/Library/Application Support/Code/clp/1d735750dbb1b9066c7513078396ba0f.zh-cn/corrupted.info","_languagePackSupport":true}
 # environment
 _ = /usr/bin/make
 # environment
@@ -52,7 +48,7 @@ INFOPATH = /usr/local/share/info:
 # environment
 VSCODE_CWD = /
 # environment
-PATH = .:/Users/wisehead/Library/Java/JavaVirtualMachines/corretto-1.8.0_322/Contents/Home/bin:/usr/local/opt/mysql@5.7/bin:/Users/wisehead/Library/Python/2.7/bin:/usr/local/opt/binutils/bin:/usr/local/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Users/wisehead/.ft:/Users/wisehead/gopath/bin
+PATH = .:/opt/homebrew/bin:/Users/wisehead/Library/Java/JavaVirtualMachines/corretto-1.8.0_322/Contents/Home/bin:/usr/local/opt/mysql@5.7/bin:/Users/wisehead/Library/Python/2.7/bin:/usr/local/opt/binutils/bin:/usr/local/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Users/wisehead/.ft:/Users/wisehead/gopath/bin
 # environment
 GOROOT = /usr/local/Cellar/go/1.17.6/libexec
 # environment
@@ -68,13 +64,11 @@ ELECTRON_RUN_AS_NODE = 1
 # environment
 SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.gQlrUmzKDa/Listeners
 # environment
-CPLUS_INCLUDE_PATH = /Library/Developer/CommandLineTools/usr/include/c++/v1
+CPLUS_INCLUDE_PATH = /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/include
 # automatic
 %F = $(notdir $%)
 # environment
 MTHD = /Users/wisehead/github/cpp_lib/multi_thread_concurency
-# environment
-SQLITE_EXEMPT_PATH_FROM_VNODE_GUARDS = /Users/wisehead/Library/WebKit/Databases
 # environment
 PWD = /Users/wisehead/github/compilers/06.vscode/cmake_all
 # environment
@@ -92,12 +86,11 @@ HOME = /Users/wisehead
 # default
 MAKEFILEPATH = $(shell /usr/bin/xcode-select -print-path 2>/dev/null || echo /Developer)/Makefiles
 # environment
-VSCODE_CODE_CACHE_PATH = /Users/wisehead/Library/Application Support/Code/CachedData/3b889b090b5ad5793f524b5d1d39fda662b96a2a
+VSCODE_CODE_CACHE_PATH = /Users/wisehead/Library/Application Support/Code/CachedData/da76f93349a72022ca4670c1b84860304616aaa2
 # environment
 LOGNAME = wisehead
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
- 
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
 ZSH = /Users/wisehead/.oh-my-zsh
 # environment
@@ -135,7 +128,7 @@ TMPDIR = /var/folders/7m/bzd1v3_s3zj9pdq1_b6jcx7w0000gp/T/
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /Users/wisehead/Library/Application Support/Code/1.69.2-main.sock
+VSCODE_IPC_HOOK = /Users/wisehead/Library/Application Support/Code/1.70.0-main.sock
 # environment
 MallocNanoZone = 0
 # makefile
@@ -176,7 +169,8 @@ DOWNLOAD = /Users/wisehead/Downloads
 ^F = $(notdir $^)
 # default
 SUFFIXES := 
- 
+# environment
+SDKROOT = /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
 # default
 .INCLUDE_DIRS = /usr/local/include
 # environment
@@ -186,11 +180,10 @@ LANG = C
 # environment
 FTWORK = /Users/wisehead/Downloads/ftwork
 # environment
-VSCODE_PID = 13951
+VSCODE_PID = 17168
 # environment
 DESKTOP = /Users/wisehead/Desktop
 # variable set hash-table stats:
- 
 # Load=86/1024=8%, Rehash=0, Collisions=4/107=4%
 
 # Pattern-specific Variable Values
@@ -199,9 +192,9 @@ DESKTOP = /Users/wisehead/Desktop
 
 # Directories
 
-# . (device 16777233, inode 7742285): 7 files, no impossibilities.
+# . (device 16777233, inode 7742285): 8 files, no impossibilities.
 
-# 7 files, no impossibilities in 1 directories.
+# 8 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -215,7 +208,6 @@ all:
 #  Implicit rule search has been done.
 #  File does not exist.
 #  File has not been updated.
- 
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
@@ -248,7 +240,6 @@ makefile:
 # Not a target:
 .DEFAULT:
 #  Implicit rule search has not been done.
- 
 #  Modification time never checked.
 #  File has not been updated.
 
@@ -275,6 +266,8 @@ GNUmakefile:
 # strcache size: total = 0 / max = 0 / min = 4096 / avg = 0
 # strcache free: total = 0 / max = 0 / min = 4096 / avg = 0
 
-# Finished Make data base on Thu Aug 11 14:27:55 2022
+# Finished Make data base on Thu Aug 11 14:30:59 2022
 
  
+make: *** No rule to make target `all'.  Stop.
+
