@@ -73,43 +73,43 @@ CMakeFiles/my_cmake_exe.dir/main.cpp.o: CMakeFiles/my_cmake_exe.dir/flags.make
 CMakeFiles/my_cmake_exe.dir/main.cpp.o: /Users/wisehead/github/compilers/06.vscode/cmake_all/main.cpp
 CMakeFiles/my_cmake_exe.dir/main.cpp.o: CMakeFiles/my_cmake_exe.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/wisehead/github/compilers/06.vscode/cmake_all/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/my_cmake_exe.dir/main.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_cmake_exe.dir/main.cpp.o -MF CMakeFiles/my_cmake_exe.dir/main.cpp.o.d -o CMakeFiles/my_cmake_exe.dir/main.cpp.o -c /Users/wisehead/github/compilers/06.vscode/cmake_all/main.cpp
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_cmake_exe.dir/main.cpp.o -MF CMakeFiles/my_cmake_exe.dir/main.cpp.o.d -o CMakeFiles/my_cmake_exe.dir/main.cpp.o -c /Users/wisehead/github/compilers/06.vscode/cmake_all/main.cpp
 
 CMakeFiles/my_cmake_exe.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/my_cmake_exe.dir/main.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/wisehead/github/compilers/06.vscode/cmake_all/main.cpp > CMakeFiles/my_cmake_exe.dir/main.cpp.i
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/wisehead/github/compilers/06.vscode/cmake_all/main.cpp > CMakeFiles/my_cmake_exe.dir/main.cpp.i
 
 CMakeFiles/my_cmake_exe.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/my_cmake_exe.dir/main.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/wisehead/github/compilers/06.vscode/cmake_all/main.cpp -o CMakeFiles/my_cmake_exe.dir/main.cpp.s
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/wisehead/github/compilers/06.vscode/cmake_all/main.cpp -o CMakeFiles/my_cmake_exe.dir/main.cpp.s
 
 CMakeFiles/my_cmake_exe.dir/src/Gun.cpp.o: CMakeFiles/my_cmake_exe.dir/flags.make
 CMakeFiles/my_cmake_exe.dir/src/Gun.cpp.o: /Users/wisehead/github/compilers/06.vscode/cmake_all/src/Gun.cpp
 CMakeFiles/my_cmake_exe.dir/src/Gun.cpp.o: CMakeFiles/my_cmake_exe.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/wisehead/github/compilers/06.vscode/cmake_all/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/my_cmake_exe.dir/src/Gun.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_cmake_exe.dir/src/Gun.cpp.o -MF CMakeFiles/my_cmake_exe.dir/src/Gun.cpp.o.d -o CMakeFiles/my_cmake_exe.dir/src/Gun.cpp.o -c /Users/wisehead/github/compilers/06.vscode/cmake_all/src/Gun.cpp
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_cmake_exe.dir/src/Gun.cpp.o -MF CMakeFiles/my_cmake_exe.dir/src/Gun.cpp.o.d -o CMakeFiles/my_cmake_exe.dir/src/Gun.cpp.o -c /Users/wisehead/github/compilers/06.vscode/cmake_all/src/Gun.cpp
 
 CMakeFiles/my_cmake_exe.dir/src/Gun.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/my_cmake_exe.dir/src/Gun.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/wisehead/github/compilers/06.vscode/cmake_all/src/Gun.cpp > CMakeFiles/my_cmake_exe.dir/src/Gun.cpp.i
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/wisehead/github/compilers/06.vscode/cmake_all/src/Gun.cpp > CMakeFiles/my_cmake_exe.dir/src/Gun.cpp.i
 
 CMakeFiles/my_cmake_exe.dir/src/Gun.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/my_cmake_exe.dir/src/Gun.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/wisehead/github/compilers/06.vscode/cmake_all/src/Gun.cpp -o CMakeFiles/my_cmake_exe.dir/src/Gun.cpp.s
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/wisehead/github/compilers/06.vscode/cmake_all/src/Gun.cpp -o CMakeFiles/my_cmake_exe.dir/src/Gun.cpp.s
 
 CMakeFiles/my_cmake_exe.dir/src/Solider.cpp.o: CMakeFiles/my_cmake_exe.dir/flags.make
 CMakeFiles/my_cmake_exe.dir/src/Solider.cpp.o: /Users/wisehead/github/compilers/06.vscode/cmake_all/src/Solider.cpp
 CMakeFiles/my_cmake_exe.dir/src/Solider.cpp.o: CMakeFiles/my_cmake_exe.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/wisehead/github/compilers/06.vscode/cmake_all/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/my_cmake_exe.dir/src/Solider.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_cmake_exe.dir/src/Solider.cpp.o -MF CMakeFiles/my_cmake_exe.dir/src/Solider.cpp.o.d -o CMakeFiles/my_cmake_exe.dir/src/Solider.cpp.o -c /Users/wisehead/github/compilers/06.vscode/cmake_all/src/Solider.cpp
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_cmake_exe.dir/src/Solider.cpp.o -MF CMakeFiles/my_cmake_exe.dir/src/Solider.cpp.o.d -o CMakeFiles/my_cmake_exe.dir/src/Solider.cpp.o -c /Users/wisehead/github/compilers/06.vscode/cmake_all/src/Solider.cpp
 
 CMakeFiles/my_cmake_exe.dir/src/Solider.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/my_cmake_exe.dir/src/Solider.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/wisehead/github/compilers/06.vscode/cmake_all/src/Solider.cpp > CMakeFiles/my_cmake_exe.dir/src/Solider.cpp.i
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/wisehead/github/compilers/06.vscode/cmake_all/src/Solider.cpp > CMakeFiles/my_cmake_exe.dir/src/Solider.cpp.i
 
 CMakeFiles/my_cmake_exe.dir/src/Solider.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/my_cmake_exe.dir/src/Solider.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/wisehead/github/compilers/06.vscode/cmake_all/src/Solider.cpp -o CMakeFiles/my_cmake_exe.dir/src/Solider.cpp.s
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/wisehead/github/compilers/06.vscode/cmake_all/src/Solider.cpp -o CMakeFiles/my_cmake_exe.dir/src/Solider.cpp.s
 
 # Object files for target my_cmake_exe
 my_cmake_exe_OBJECTS = \

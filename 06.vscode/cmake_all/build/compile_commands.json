@@ -1,0 +1,17 @@
+[
+{
+  "directory": "/Users/wisehead/github/compilers/06.vscode/cmake_all/build",
+  "command": "/usr/bin/clang++  -I/Users/wisehead/github/compilers/06.vscode/cmake_all/include  -Wall -g -g -arch x86_64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -o CMakeFiles/my_cmake_exe.dir/main.cpp.o -c /Users/wisehead/github/compilers/06.vscode/cmake_all/main.cpp",
+  "file": "/Users/wisehead/github/compilers/06.vscode/cmake_all/main.cpp"
+},
+{
+  "directory": "/Users/wisehead/github/compilers/06.vscode/cmake_all/build",
+  "command": "/usr/bin/clang++  -I/Users/wisehead/github/compilers/06.vscode/cmake_all/include  -Wall -g -g -arch x86_64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -o CMakeFiles/my_cmake_exe.dir/src/Gun.cpp.o -c /Users/wisehead/github/compilers/06.vscode/cmake_all/src/Gun.cpp",
+  "file": "/Users/wisehead/github/compilers/06.vscode/cmake_all/src/Gun.cpp"
+},
+{
+  "directory": "/Users/wisehead/github/compilers/06.vscode/cmake_all/build",
+  "command": "/usr/bin/clang++  -I/Users/wisehead/github/compilers/06.vscode/cmake_all/include  -Wall -g -g -arch x86_64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -o CMakeFiles/my_cmake_exe.dir/src/Solider.cpp.o -c /Users/wisehead/github/compilers/06.vscode/cmake_all/src/Solider.cpp",
+  "file": "/Users/wisehead/github/compilers/06.vscode/cmake_all/src/Solider.cpp"
+}
+]
