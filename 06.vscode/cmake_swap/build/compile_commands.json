@@ -1,0 +1,12 @@
+[
+{
+  "directory": "/Users/wisehead/github/compilers/06.vscode/cmake_swap/build",
+  "command": "/usr/bin/clang++  -I/Users/wisehead/github/compilers/06.vscode/cmake_swap/include -g -arch x86_64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -o CMakeFiles/main_cmake.dir/main.cpp.o -c /Users/wisehead/github/compilers/06.vscode/cmake_swap/main.cpp",
+  "file": "/Users/wisehead/github/compilers/06.vscode/cmake_swap/main.cpp"
+},
+{
+  "directory": "/Users/wisehead/github/compilers/06.vscode/cmake_swap/build",
+  "command": "/usr/bin/clang++  -I/Users/wisehead/github/compilers/06.vscode/cmake_swap/include -g -arch x86_64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -o CMakeFiles/main_cmake.dir/src/swap.cpp.o -c /Users/wisehead/github/compilers/06.vscode/cmake_swap/src/swap.cpp",
+  "file": "/Users/wisehead/github/compilers/06.vscode/cmake_swap/src/swap.cpp"
+}
+]

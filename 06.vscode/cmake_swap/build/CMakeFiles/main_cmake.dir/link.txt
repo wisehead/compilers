@@ -1,1 +1,1 @@
-/Library/Developer/CommandLineTools/usr/bin/c++  -arch x86_64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/main_cmake.dir/main.cpp.o CMakeFiles/main_cmake.dir/src/swap.cpp.o -o main_cmake 
+/usr/bin/clang++ -g -arch x86_64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/main_cmake.dir/main.cpp.o CMakeFiles/main_cmake.dir/src/swap.cpp.o -o main_cmake 

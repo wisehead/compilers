@@ -73,29 +73,29 @@ CMakeFiles/main_cmake.dir/main.cpp.o: CMakeFiles/main_cmake.dir/flags.make
 CMakeFiles/main_cmake.dir/main.cpp.o: /Users/wisehead/github/compilers/06.vscode/cmake_swap/main.cpp
 CMakeFiles/main_cmake.dir/main.cpp.o: CMakeFiles/main_cmake.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/wisehead/github/compilers/06.vscode/cmake_swap/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/main_cmake.dir/main.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main_cmake.dir/main.cpp.o -MF CMakeFiles/main_cmake.dir/main.cpp.o.d -o CMakeFiles/main_cmake.dir/main.cpp.o -c /Users/wisehead/github/compilers/06.vscode/cmake_swap/main.cpp
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main_cmake.dir/main.cpp.o -MF CMakeFiles/main_cmake.dir/main.cpp.o.d -o CMakeFiles/main_cmake.dir/main.cpp.o -c /Users/wisehead/github/compilers/06.vscode/cmake_swap/main.cpp
 
 CMakeFiles/main_cmake.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main_cmake.dir/main.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/wisehead/github/compilers/06.vscode/cmake_swap/main.cpp > CMakeFiles/main_cmake.dir/main.cpp.i
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/wisehead/github/compilers/06.vscode/cmake_swap/main.cpp > CMakeFiles/main_cmake.dir/main.cpp.i
 
 CMakeFiles/main_cmake.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main_cmake.dir/main.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/wisehead/github/compilers/06.vscode/cmake_swap/main.cpp -o CMakeFiles/main_cmake.dir/main.cpp.s
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/wisehead/github/compilers/06.vscode/cmake_swap/main.cpp -o CMakeFiles/main_cmake.dir/main.cpp.s
 
 CMakeFiles/main_cmake.dir/src/swap.cpp.o: CMakeFiles/main_cmake.dir/flags.make
 CMakeFiles/main_cmake.dir/src/swap.cpp.o: /Users/wisehead/github/compilers/06.vscode/cmake_swap/src/swap.cpp
 CMakeFiles/main_cmake.dir/src/swap.cpp.o: CMakeFiles/main_cmake.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/wisehead/github/compilers/06.vscode/cmake_swap/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/main_cmake.dir/src/swap.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main_cmake.dir/src/swap.cpp.o -MF CMakeFiles/main_cmake.dir/src/swap.cpp.o.d -o CMakeFiles/main_cmake.dir/src/swap.cpp.o -c /Users/wisehead/github/compilers/06.vscode/cmake_swap/src/swap.cpp
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main_cmake.dir/src/swap.cpp.o -MF CMakeFiles/main_cmake.dir/src/swap.cpp.o.d -o CMakeFiles/main_cmake.dir/src/swap.cpp.o -c /Users/wisehead/github/compilers/06.vscode/cmake_swap/src/swap.cpp
 
 CMakeFiles/main_cmake.dir/src/swap.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main_cmake.dir/src/swap.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/wisehead/github/compilers/06.vscode/cmake_swap/src/swap.cpp > CMakeFiles/main_cmake.dir/src/swap.cpp.i
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/wisehead/github/compilers/06.vscode/cmake_swap/src/swap.cpp > CMakeFiles/main_cmake.dir/src/swap.cpp.i
 
 CMakeFiles/main_cmake.dir/src/swap.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main_cmake.dir/src/swap.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/wisehead/github/compilers/06.vscode/cmake_swap/src/swap.cpp -o CMakeFiles/main_cmake.dir/src/swap.cpp.s
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/wisehead/github/compilers/06.vscode/cmake_swap/src/swap.cpp -o CMakeFiles/main_cmake.dir/src/swap.cpp.s
 
 # Object files for target main_cmake
 main_cmake_OBJECTS = \
