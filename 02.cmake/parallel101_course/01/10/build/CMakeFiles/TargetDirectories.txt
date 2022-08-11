@@ -1,0 +1,6 @@
+/home/chenhui/compilers/02.cmake/parallel101_course/01/10/build/CMakeFiles/rebuild_cache.dir
+/home/chenhui/compilers/02.cmake/parallel101_course/01/10/build/CMakeFiles/edit_cache.dir
+/home/chenhui/compilers/02.cmake/parallel101_course/01/10/build/CMakeFiles/a.out.dir
+/home/chenhui/compilers/02.cmake/parallel101_course/01/10/build/hellolib/CMakeFiles/rebuild_cache.dir
+/home/chenhui/compilers/02.cmake/parallel101_course/01/10/build/hellolib/CMakeFiles/edit_cache.dir
+/home/chenhui/compilers/02.cmake/parallel101_course/01/10/build/hellolib/CMakeFiles/hellolib.dir

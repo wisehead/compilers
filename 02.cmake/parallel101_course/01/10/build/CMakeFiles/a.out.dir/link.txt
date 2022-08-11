@@ -1,0 +1,1 @@
+/bin/c++     CMakeFiles/a.out.dir/main.cpp.o  -o a.out  hellolib/libhellolib.a 

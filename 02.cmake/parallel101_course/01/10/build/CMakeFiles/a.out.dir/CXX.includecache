@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/chenhui/compilers/02.cmake/parallel101_course/01/10/hellolib/hello.h
+
+/home/chenhui/compilers/02.cmake/parallel101_course/01/10/main.cpp
+cstdio
+-
+hellolib/hello.h
+/home/chenhui/compilers/02.cmake/parallel101_course/01/10/hellolib/hello.h
+
