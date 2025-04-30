@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "*.c": "c",
+        "chrono": "cpp",
+        "limits": "cpp",
+        "algorithm": "cpp"
+    }
+}
